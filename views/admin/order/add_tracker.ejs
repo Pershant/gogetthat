@@ -1,0 +1,77 @@
+<%- include('../partials/header'); %>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1 id="animated_box">
+          Add tracker Detail
+        </h1>
+      </div>
+
+      <div class="section-body animate__animated  animate__backInUp">
+
+        <div class="row">
+          <div class="col-8 offset-2">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  Add tracker Detail
+                </h4>
+              </div>
+
+              <div class="card-body">
+                <form id="" class="form_advanced_validation" action="/admin/order/add_tracker/<%=order_detail.id%>"
+                  method="POST" autocomplete="off" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Tracking Id</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-cube"></i>
+                        </div>
+                      </div>
+                      <input type="text" class="form-control" name="order_tracking_id"
+                        value="<%= order_detail && order_detail.order_tracking_id %>" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Url</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-cube"></i>
+                        </div>
+                      </div>
+                      <input type="url" class=" form-control" name="order_tracking_url"
+                        value="<%= order_detail && order_detail.order_tracking_url; %>" required>
+                    </div>
+                  </div>
+
+
+                  <% if (order_detail) { %>
+                    <input type="hidden" class="form-control" name="id" value="<%= order_detail && order_detail.id; %>"
+                      required>
+                    <% } %>
+                      <input type="hidden" class="form-control" name="redirectUrl" value="/order%>" required>
+
+                      <div class="form-group row mb-4">
+                        <div class="col-sm-12 col-md-7 offset-4">
+                          <button type="submit" class="btn btn-primary">
+                            <%= order_detail ? 'Update' : 'Submit' ; %>
+                          </button>
+                        </div>
+                      </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+  <%- include('../partials/footer'); %>

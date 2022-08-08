@@ -1,0 +1,14 @@
+
+
+tr th:first-child:after {
+    display: none !important;
+}
+
+
+tr th:first-child:before {
+    display: none !important;
+}
+
+div#DataTables_Table_0_processing {
+    display: none !important;
+}

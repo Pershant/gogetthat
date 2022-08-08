@@ -1,0 +1,27 @@
+<form class="updateSettings" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <div class="card" id="settings-card">
+        <div class="card-header">
+            <h4>Product Tax</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group">
+                <label>Product Tax</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="product_tax"
+                        value="<%= settings['product_tax']; %>" required>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer bg-whitesmoke text-md-right">
+            <input type="hidden" name="moduleName" value="product_tax" />
+            <button type="submit" class="btn btn-primary" id="save-btn">Save Changes</button>
+        </div>
+    </div>
+</form>

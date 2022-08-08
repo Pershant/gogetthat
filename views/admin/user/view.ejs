@@ -1,0 +1,97 @@
+<%- include('../partials/header'); %>
+
+
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body animate__animated  animate__backInUp">
+
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="card">
+            <div class="card-header">
+              <h4><%= currentSubModule %></h4>
+            </div>
+            <div class="card-body">
+              <ul class="nav nav-pills" id="userViewTabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active show" id="basicDetail-tab" data-toggle="tab" href="#basicDetail" role="tab"
+                    aria-controls="basicDetail" aria-selected="true">Basic Detail</a>
+                </li>
+
+                <!-- <% 
+                  if (user.role == 1) {
+                %>
+                <li class="nav-item">
+                  <a class="nav-link" id="deliveryAddresses-tab" data-toggle="tab" href="#deliveryAddresses" role="tab"
+                    aria-controls="deliveryAddresses" aria-selected="true">Delivery Addresses</a>
+                </li>
+                <%
+                  }
+                %> -->
+              </ul>
+              <br />
+
+              <div class="tab-content no-padding" id="userViewTabsContent">
+                <div class="tab-pane fade active show animate__animated   " id="basicDetail" role="tabpanel"
+                  aria-labelledby="basicDetail-tab">
+                  <%- include('./basicDetail') %>
+                </div>
+
+                <% 
+                  if (user.role == 1) {
+                %>
+                <div class="tab-pane fade animate__animated   " id="deliveryAddresses" role="tabpanel"
+                  aria-labelledby="deliveryAddresses-tab">
+                  <%- include('./deliveryAddresses') %>
+                </div>
+                <%
+                  }
+                %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+  $(document).ready(function () {
+
+
+
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+
+    /*
+    |--------------------------------------------------------------------
+    |   Tab Script
+    |--------------------------------------------------------------------
+    */
+
+    $(document.body).on('click', '#userViewTabs > li > a', function (e) {
+      var id = $(e.target).attr("href").substr(1);
+      window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#userViewTabs a[href="' + hash + '"]').tab('show');
+
+    // $('.changeVendorApprovalStatus').select2('disable');
+    // $('.changeVendorApprovalStatus').select2("enable", false)
+  });
+</script>

@@ -1,0 +1,196 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <section class="store_locater">
+                  <h3>Cart</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page">Cart
+                              </li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="chat_page">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <form action="#">
+                          <div class="table-content table-responsive cart-table-content">
+                            <table id="fuckThisList">
+                              <thead>
+                                <tr>
+                                  <th>Product Image</th>
+                                  <th>Product Name</th>
+                                  <th> Price</th>
+                                  <th>Quantity</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody >
+                                <%getCart.forEach((cart,i)=>{%>
+                                  <tr>
+                                    <td class="product-thumbnail">
+                                      <a href="#"><img src="<%=cart.product.productImage%>" alt=""></a>
+                                    </td>
+                                    <td class="product-name">
+                                      <div class="cart_items">
+                                        <h4>
+                                          <%=cart.product.name%>
+                                        </h4>
+                                        <p>
+                                          <%=cart.product.description.substring(0,40)%>
+                                        </p>
+                                        <p><b> color:<%=cart.color%> </b></p>
+
+                                        <!-- <for(let spec of cart.specifications){ console.log(Object.keys(spec))>
+                                        <p><b> <Object.keys(spec)%>: <Object.values(spec)> </b></p>
+                                        <} > -->
+
+                                      </div>
+                                    </td>
+                                    <td class="product-price-cart">
+                                      <span class="amount" id = "productAmount_<%-cart.product.id%>">
+                                        <%= cart.product.total_price%>
+                                      </span>
+                             
+                                    </td>
+                                    <td class="product-quantity pro-details-quality">
+                                      <div class="cart-plus-minus">
+                                        <div class="dec qtybutton <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>" cart_id="<%=cart.id%>" type="2" productId = "<%-cart.product.id%>" price = "<%-cart.product.retailPrice%>"  id ="cartPlus_<%-cart.product.id%>_<%-i%>" amountId = "productAmount_<%-cart.product.id%>" >-
+                                        </div>
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                          value="<%=cart.product.qty%>">
+
+                                        <div class="inc qtybutton  <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>"  " cart_id="<%=cart.id%>" type="1" productId = "<%-cart.product.id%>" price = "<%-cart.product.retailPrice%>" id ="cartPluss_<%-cart.product.id%>_<%-i%>" amountId = "productAmount_<%-cart.product.id%>">+
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td class="product-remove ">
+                                      <a id="del_cart" piid="<%=cart.id%>">Remove</a>
+                                    </td>
+                                  </tr>
+                                  <%})%>
+                              </tbody>
+                            </table>
+                          </div>
+
+                        </form>
+
+                      </div>
+                      <div class="col-lg-4 col-md-6 ml-auto mt-4">
+                        <div class="cart_totals ">
+                          <h2>Cart totals</h2>
+                          <table class="shop_table shop_table_responsive" cellspacing="0">
+                            <tbody>
+                              <tr class="cart-subtotal">
+                                <th>Subtotal</th>
+                                <td data-title="Subtotal"><span class="woocommerce-Price-amount amount"><span
+                                      class="woocommerce-Price-currencySymbol" id="cart_subtotal">
+                                      <%=getCart.sum%>
+                                    </span></span>
+                                </td>
+                              </tr>
+                              <tr class="shipping">
+                                <th>Shipping</th>
+                                <td data-title="Shipping" id="cart_shipping">
+                                  $<%=getCart.shipping%>
+                                </td>
+                              </tr>
+                              <tr class="shipping">
+                                <th>Tax</th>
+                                <td data-title="Shipping">
+                                  <span class="woocommerce-Price-amount amount"><span
+                                      class="woocommerce-Price-currencySymbol" id = "binood">
+                                    <%=getCart.length == 0 ? '0' : getCart.tax%> %
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr class="order-total">
+                                <th>Total</th>
+                                <td data-title="Total"><strong><span class="woocommerce-Price-amount amount"><span
+                                        class="woocommerce-Price-currencySymbol" id="cart_total">$<%=getCart.total%>
+                                      </span></span></strong>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+
+                          <div class="wc-proceed-to-checkout mt-3">
+                            <button onclick = "redirectFunction()" id="checkout" <%-getCart.length == 0 ? 'disabled' :'' %> class="log_in_btn w-100 text-center">
+                              Proceed to Checkout</button>
+                          </div>
+
+
+<!--                           
+                          <%if(getCart.length>0){%>
+                          <div class="wc-proceed-to-checkout mt-3">
+                            <a href="/checkout" class="log_in_btn w-100 text-center">
+                              Proceed to Checkout</a>
+                          </div>
+                          <%}else{%>
+                         
+                          <%}%> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="featured_title text-center">
+                          <h4 class="d-block">Related Products </h4>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <%get_product.forEach((product)=>{%>
+
+                        <div class="col-md-3">
+                          <div class="featured_pro">
+                            <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                            %>"> <img src="<%=product.productImage%>"></a>
+                            <div class="featured_pro2">
+                              <h3>
+                                <%=product.name%>
+                              </h3>
+                              <h3>
+                                <%=product.retailPrice%>
+                              </h3>
+                              <!-- <a id="add_to_cart" pid="<%=product.id%>" style="cursor:pointer" class="cart_b"> Add To
+                                Cart</a> -->
+                                <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                %>"  class="cart_b">View Product</a>
+                            </div>
+                          </div>
+                        </div>
+                        <%})%>
+
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>

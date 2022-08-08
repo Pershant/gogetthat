@@ -1,0 +1,161 @@
+<%- include('../partials/header'); %>
+
+<% console.log(deliveryAddress, '=======>deliveryAddress'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1 id="animated_box"><%= currentModule; %></h1>
+        </div>
+
+        <div class="section-body animate__animated  animate__backInUp">
+
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><%= currentSubModule %></h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form id="deliveryAddressAddEditForm" class="form_advanced_validation"
+                                action="/admin/user/addUpdateUserDeliveryAddress" method="POST" autocomplete="off"
+                                enctype="multipart/form-data">
+                                <div class="form-group">
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="name"
+                                                    value="<%= deliveryAddress && deliveryAddress.name; %>" required
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Complete Address</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-globe"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="completeAddress"
+                                                    value="<%= deliveryAddress && deliveryAddress.completeAddress; %>"
+                                                    required <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-globe"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="city"
+                                                    value="<%= deliveryAddress && deliveryAddress.city; %>" required
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-globe"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="state"
+                                                    value="<%= deliveryAddress && deliveryAddress.state; %>" required
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-globe"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="country"
+                                                    value="<%= deliveryAddress && deliveryAddress.country; %>" required
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-12 col-md-7 offset-4">
+                                            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+                                            <%
+                                                if (type == 'view') {
+                                            %>
+                                            <a href="/admin/user/editDeliveryAddress/<%= userId; %>/<%= deliveryAddress && deliveryAddress.id %>"
+                                                class="btn btn-warning">Edit</a>
+                                            <%
+                }
+            %>
+                                            <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+                                            <%
+                                                if (type != 'view') {
+                                            %>
+
+                                            <%
+                                                if (type == 'edit') {
+                                            %>
+                                            <input type="hidden" class="form-control" name="id"
+                                                value="<%= deliveryAddress && deliveryAddress.id %>">
+                                            <%
+                                                }
+                                            %>
+                                            <input type="hidden" class="form-control" name="userId"
+                                                value="<%= userId; %>">
+                                            <button type="submit"
+                                                class="btn btn-primary"><%= type == 'add' ? 'Add' : 'Update'; %></button>
+                                            <%
+                                                }
+                                            %>
+                                        </div>
+                                    </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+    $(document).ready(function () {
+
+
+
+    });
+</script>

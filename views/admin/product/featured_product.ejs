@@ -1,0 +1,82 @@
+<%- include('../partials/header'); %>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1 id="animated_box">
+          Assign Badges
+        </h1>
+      </div>
+
+      <div class="section-body animate__animated  animate__backInUp">
+
+        <div class="row">
+          <div class="col-8 offset-2">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  <%= currentSubModule %>
+                </h4>
+              </div>
+              <div class="card-body">
+                <form id="userAddEditForm" class="form_advanced_validation" action="/admin/product/asign" method="POST"
+                  autocomplete="off" enctype="multipart/form-data">
+
+
+
+                  <div class="form-group">
+                    <label>Select Products</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-user-tag"></i>
+                        </div>
+                      </div>
+                      <select name="parentId" class="form-control select2" required multiple>
+                        <!-- <option value="">Select Parent Category</option> -->
+                        <% if (products.length> 0) {
+                          products.forEach(product => {
+                          %>
+                          <option value="<%= product.id; %>">
+                            <%= product.name; %>
+                          </option>
+                          <% }); }%>
+                      </select>
+                    </div>
+                  </div>
+                  <br><br>
+                  <input type="hidden" class="form-control" name="redirectUrl" value="" required>
+
+                  <div class="form-group row mb-4">
+                    <div class="col-sm-12 col-md-7 offset-4">
+                      <button type="submit" class="btn btn-primary">
+                        submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+
+  <%- include('../partials/footer'); %>
+    <script>
+      $(document).ready(function () {
+        $("#parentCategory").on("change", function () {
+          var tt = $('option:selected', this).attr('data-select2-id');
+          if (tt == 16) {
+            $("#showHide").show();
+          } else {
+            $("#showHide").hide();
+          }
+
+        });
+      });
+    </script>

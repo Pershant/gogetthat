@@ -1,0 +1,491 @@
+<%
+
+%>
+
+
+<%- include('../partials/header'); %>
+
+<%
+const hasEditPermission = !adminData.staffLogin || adminData.staffLogin && adminData.staffLogin.hasOwnProperty('vendorStaffDetail') && adminData.staffLogin.vendorStaffDetail.hasOwnProperty('permissions') && adminData.staffLogin.vendorStaffDetail.permissions.hasOwnProperty('manageShop') && adminData.staffLogin.vendorStaffDetail.permissions['manageShop'].length > 0 && adminData.staffLogin.vendorStaffDetail.permissions['manageShop'].includes('edit');
+
+%>
+<%= console.log(hasEditPermission, '==================>order'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1 id="animated_box"><%= currentModule; %></h1>
+        </div>
+
+        <div class="section-body animate__animated  animate__backInUp">
+
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><%= currentSubModule %></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills" id="vendorViewTabs" role="tablist">
+                                <li class="nav-item">
+                                  <a class="nav-link active show" id="basicDetail-tab" data-toggle="tab" href="#basicDetail" role="tab"
+                                    aria-controls="basicDetail" aria-selected="true">Basic Detail</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" id="homeDelivery-tab" data-toggle="tab" href="#homeDelivery" role="tab"
+                                    aria-controls="homeDelivery" aria-selected="true">Home Delivery</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" id="deliveryOptions-tab" data-toggle="tab" href="#deliveryOptions" role="tab"
+                                    aria-controls="deliveryOptions" aria-selected="true">Delivery Options</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" id="deliveriesPerDay-tab" data-toggle="tab" href="#deliveriesPerDay" role="tab"
+                                    aria-controls="deliveriesPerDay" aria-selected="true">Deliveries Per Day</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" id="deliveryCharges-tab" data-toggle="tab" href="#deliveryCharges" role="tab"
+                                    aria-controls="deliveryCharges" aria-selected="true">Deliveries Charges</a>
+                                </li>
+                              </ul>
+
+                              <br/>
+
+
+                              <div class="tab-content no-padding" id="vendorViewTabsContent">
+                                <div class="tab-pane fade active show animate__animated   " id="basicDetail" role="tabpanel"
+                                  aria-labelledby="basicDetail-tab">
+                              
+                            <%
+                                if (hasEditPermission) {
+                            %>
+                            <form id="userAddEditForm" class="form_advanced_validation"
+                                action="/sellerAdmin/user/updateUser" method="POST" autocomplete="off"
+                                enctype="multipart/form-data">
+                            <%
+                                }
+                            %>
+                            
+                                <div class="form-group">
+                                    <label>Business Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="shopName"
+                                            value="<%= adminData.vendorDetail.shopName; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Shop Category</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-list"></i>
+                                            </div>
+                                        </div>
+
+                                        <select id="productCategorySelect" name="shopCategoryIds" class="form-control select2" required multiple>
+                                            
+                                            <% 
+                                            
+                                            vendorShopCategories = adminData.shopCategories.map(shopCategory => shopCategory.shopCategoryId);
+                                            
+                                            shopCategories.forEach(category => { %>
+                                            <option value="<%= category.id; %>"
+                                              <%= vendorShopCategories.includes(category.id) ? 'selected' : ''; %>>
+                                              <%= category.name; %>
+                                            </option>
+                                            <% }) %>
+                                          </select>
+                                        
+                                        <!-- <input type="text" class="form-control" name="shopCategory"
+                                            value="<%= adminData.vendorDetail.shopCategory; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> > -->
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>ABN</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="abn"
+                                            value="<%= adminData.vendorDetail.abn; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Building Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="buildingNumber"
+                                            value="<%= adminData.vendorDetail.buildingNumber; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Street Number</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="streetNumber"
+                                            value="<%= adminData.vendorDetail.streetNumber; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>City/Suburb</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="city"
+                                            value="<%= adminData.vendorDetail.city; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="state"
+                                            value="<%= adminData.vendorDetail.state; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label>Country</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="country" value="<%= adminData.vendorDetail.country; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required>
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <label>Postcode</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="postalCode"
+                                            value="<%= adminData.vendorDetail.postalCode; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Shop Open Time</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="shopOpenTime"
+                                            value="<%= adminData.vendorDetail.shopOpenTime; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Shop Close Time</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="shopCloseTime"
+                                            value="<%= adminData.vendorDetail.shopCloseTime; %>"
+                                            <%= type && type == 'view' ? 'disabled' : ''; %> required <%= !hasEditPermission ? 'disabled' : ''; %> >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Shop Logo</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-image"></i>
+                                            </div>
+                                        </div>
+                                        <div id="image-preview2" class="image-preview"
+                                            style="background-image: url('<%= adminData.vendorDetail.shopLogo; %>'); background-size: cover; background-position: center center;">
+                                            <%
+                                            if (hasEditPermission && type && type != 'view') {
+                                            %>
+                                            <label for="image-upload" id="image-label">Choose File</label>
+                                            <input type="file" name="shopLogo" id="image-upload2" />
+                                            <%
+                                            }
+                                            %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <% if (type!='view' ) { %>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <div class="form-group">
+                                          <label> Banner Images</label>
+                                          <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <div class="input-group-text">
+                                                <i class="fas fa-image"></i>
+                                              </div>
+                                            </div>
+              
+                                            <div class="col-sm-6 col-md-9">
+                                              <!-- <div id="image-preview" class="image-preview"
+                                                style="background-image: url('<%= adminData ? adminData.image : ``; %>'); background-size: cover; background-position: center center;"> -->
+                                              <% if (type!='view' ) { %>
+                                                <!-- <label for="image-upload" id="image-label">Choose File</label> -->
+                                                <input class="form-control multiple_image_upload" type="file" name="vendorBannerImages"
+                                                <%=type=='add' ? 'required' : '' ; %> multiple />
+                                                <% } %>
+                                                  <!-- </div> -->
+                                            </div>
+                                          </div>
+              
+                                          <br />
+                                          <div class="gallery">
+              
+                                          </div>
+              
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <% } %>
+
+                                    
+                                
+                                    <% if (adminData && adminData.hasOwnProperty('vendorBannerImages') && adminData.vendorBannerImages.length > 0) {
+                                      %>
+                                      <b><label> Uploaded Banner Images</label></b>
+                                      <% } %>
+                                        <div class="row">
+                                          <% if (adminData && adminData.hasOwnProperty('vendorBannerImages') && adminData.vendorBannerImages.length > 0) {
+                                              adminData.vendorBannerImages.map(vendorBannerImage => {
+              
+                                            %>
+                                            <div class="col-4 show_image">
+                                              <img src="<%= vendorBannerImage.image; %>" class="image-preview mb-4" />
+                                              <input class="btn btn-warning pop_image_button" type="button" value="Preview" />
+                                              <input class="delete_button btn btn-danger delete_btn" model_id="<%= vendorBannerImage.id; %>" model="vendorBannerImages" model_title="Banner Image" type="button" value="Delete" />
+                                            </div>
+                                            <% }); } %>
+                                        </div>
+                                <!-- 
+                                <div class="form-group">
+                                    <label>Geo Location</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-globe"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="geoLocation"
+                                            value="<%= adminData.vendorDetail.geoLocation; %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Shop Address</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="summernote-page"
+                                            name="shopAddress"><%= adminData.vendorDetail.shopAddress; %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Shop Description</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="summernote-page"
+                                            name="shopDescription"><%= adminData.vendorDetail.shopDescription; %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Payment Policy</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="summernote-page"
+                                            name="paymentPolicy"><%= adminData.vendorDetail.paymentPolicy; %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Delivery Policy</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="summernote-page"
+                                            name="deliveryPolicy"><%= adminData.vendorDetail.deliveryPolicy; %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Seller Information</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-store"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="summernote-page"
+                                            name="sellerInformation"><%= adminData.vendorDetail.sellerInformation; %></textarea>
+                                    </div>
+                                </div> -->
+
+                            <%
+                                if (hasEditPermission) {
+                            %>
+                                    <%
+                                        if (adminData.staffLogin) {
+                                    %>
+                                        <input type="hidden" class="form-control" name="isStaffLogin"
+                                            value="1" required>
+                                    <%
+                                        }
+                                    %>
+                                <input type="hidden" class="form-control" name="id"
+                                    value="<%= adminData.id %>" required>
+                                <input type="hidden" class="form-control" name="redirectUrl"
+                                    value="/sellerAdmin/manageShop" required>
+                                    
+                                <div class="form-group row mb-4">
+                                    <div class="col-sm-12 col-md-7 offset-4">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <%
+                                }
+                            %>
+
+                                </div>
+
+                                <div class="tab-pane fade animate__animated   " id="homeDelivery" role="tabpanel"
+                                aria-labelledby="homeDelivery-tab">
+                                <%- include('./homeDelivery') %>
+                                </div>
+
+                                <div class="tab-pane fade animate__animated   " id="deliveryOptions" role="tabpanel"
+                                aria-labelledby="deliveryOptions-tab">
+                                <%- include('./deliveryOptions') %>
+                                </div>
+
+                                <div class="tab-pane fade animate__animated   " id="deliveriesPerDay" role="tabpanel"
+                                aria-labelledby="deliveriesPerDay-tab">
+                                <%- include('./deliveriesPerDay') %>
+                                </div>
+
+                                <div class="tab-pane fade animate__animated   " id="deliveryCharges" role="tabpanel"
+                                aria-labelledby="deliveryCharges-tab">
+                                <%- include('./deliveryCharges') %>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+    if (jQuery().summernote) {
+        $(".summernote-page").summernote({
+            dialogsInBody: true,
+            minHeight: 250,
+            focus: true,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['bold', 'underline', 'clear', 'strikethrough']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['color', ['color']],
+                ['table', ['table']],
+                ['view', [
+                    // 'fullscreen', 
+                    'codeview', 'help']]
+            ]
+        });
+    }
+
+
+    $(document).ready(function () {
+
+    /*
+    |--------------------------------------------------------------------
+    |   Tab Script
+    |--------------------------------------------------------------------
+    */
+
+    $(document.body).on('click', '#vendorViewTabs > li > a', function (e) {
+      var id = $(e.target).attr("href").substr(1);
+      window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#vendorViewTabs a[href="' + hash + '"]').tab('show');
+
+  });
+</script>

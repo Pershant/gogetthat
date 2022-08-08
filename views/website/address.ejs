@@ -1,0 +1,323 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+
+                <div class="modal fade log_in_models" id="add_billing" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" id="billing_address_model">
+                        Add Billing Address
+                        <button type="button" class="close billing_address_btn" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="log_in_pop border-0">
+                          <form id="add_billing_address_form">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>First Name</label>
+                                  <input type="text" name="first_name" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Last Name</label>
+                                  <input type="text" name="last_name" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 1</label>
+                                  <input type="text" name="address_line_1" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 2</label>
+                                  <input type="text" name="address_line_2" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>City</label>
+                                  <input type="text" name="city" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>State </label>
+                                  <input type="text" name="state" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Country </label>
+                                  <input type="text" name="country" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Zip Code </label>
+                                  <input type="text" name="zip_code" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-12 ">
+                                <a href="javascript:void(0);" class="log_in_btn float-right"
+                                  id="add_billing_address_btn"> ADD</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal fade log_in_models" id="add_billing2" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        Add Shipping Address
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="log_in_pop border-0">
+                          <form id="add_shiping_address_form">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>First Name</label>
+                                  <input type="text" name="first_name" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Last Name</label>
+                                  <input type="text" name="last_name" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 1</label>
+                                  <input type="text" name="address_line_1" class="form-control  form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 2</label>
+                                  <input type="text" name="address_line_2" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>City</label>
+                                  <input type="text" name="city" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>State </label>
+                                  <input type="text" name="state" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Country </label>
+                                  <input type="text" name="country" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Zip Code </label>
+                                  <input type="text" name="zip_code" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-12 ">
+                                <a href="javascript:void(0);" id="add_shiping_address_btn"
+                                  class="log_in_btn float-right"> ADD</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <section class="store_locater">
+                  <h3>saved Address</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Saved Address</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="store_adrs">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="store_adrs2">
+                          <h2>Billing Addresses <a href data-toggle="modal" data-target="#add_billing"
+                              class="log_in_btn"> Add Billing
+                              Address</a></h2>
+                        </div>
+                        <div class="row">
+                          <% find_address.forEach((address)=>{
+                            if(address.type==1) {
+                            %>
+
+                            <div class="col-md-6">
+                              <div class="store_adrs3">
+                                <h2>
+                                  <%=address.name%>
+                                    <%=address.last_name%>
+                                      <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio1" name="customRadio"
+                                          class="custom-control-input" checked="">
+                                        <label class="custom-control-label" for="customRadio1">Primary</label>
+                                      </div>
+                                </h2>
+                                <h4>
+                                  <%=session.user.phone%>
+                                </h4>
+                                <p>
+                                  <%=address.address_line_1%>
+                                    <%=address.address_line_2%>
+                                      <%=address.city%>
+                                        <%=address.state%>
+                                          <%=address.country%>
+                                </p>
+                                <p>
+                                  <%=address.zip_code%> <span>
+                                      <a href data-toggle="modal" data-target="#add_billing"> <img src="website/images/edit2.png"> </a>
+                                      <a class="del_address" address_id="<%=address.id%>" style="cursor: pointer;"> <img
+                                          src="website/images/edit.png"> </a>
+                                    </span>
+                                </p>
+                              </div>
+                            </div>
+                            <% } })%>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="store_adrs2 right_Space">
+                          <h2>Shipping Addresses <a href="" data-toggle="modal" data-target="#add_billing2"
+                              class="log_in_btn"> Add
+                              Shipping Address</a></h2>
+                        </div>
+                        <div class="row">
+                          <% find_address.forEach((address)=>{
+                            if(address.type==2) {
+                            %>
+
+                            <div class="col-md-6">
+                              <div class="store_adrs3">
+                                <h2>
+                                  <%=address.name%>
+                                    <%=address.last_name%>
+                                      <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio1" name="customRadio"
+                                          class="custom-control-input" checked="">
+                                        <label class="custom-control-label" for="customRadio1">Primary</label>
+                                      </div>
+                                </h2>
+                                <h4>
+                                  <%=session.user.phone%>
+                                </h4>
+                                <p>
+                                  <%=address.address_line_1%>
+                                    <%=address.address_line_2%>
+                                      <%=address.city%>
+                                        <%=address.state%>
+                                          <%=address.country%>
+                                </p>
+                                <p>
+                                  <%=address.zip_code%> <span>
+                                      <a href="" data-toggle="modal" data-target="#add_billing2"> <img src="website/images/edit2.png"> </a>
+                                      <a class="del_address" style="cursor: pointer;" address_id="<%=address.id%>"> <img
+                                          src="website/images/edit.png"> </a>
+                                    </span>
+                                </p>
+                              </div>
+                            </div>
+                            <% } })%>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </section>
+                <section class="Delivery gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+
+                <%- include('./footer.ejs'); -%>

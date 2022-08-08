@@ -1,0 +1,65 @@
+<%- include('../partials/header'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4> Chat Listing</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-md datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Sender Name</th>
+                                                <th>Sender Email</th>
+                                                <th>Last Message</th>                                         
+                                                <th style="text-align:center">Action</th>
+                                            </tr>
+                                        </thead>
+                                         <tbody>
+                                            <% for(let i in response) { %>
+                                             <tr>
+                                                <td><%=parseInt(i)+1%></td>
+                                                <td><%=response[i].userByname%></td>
+                                                <td><%=response[i].mail%></td>
+                                                <td><%=response[i].lastMsg%></td>
+                                                                                             
+                                                <td class="text-center">
+                                                  <a href="/admin/showchat?id=<%=response[i].id%>&userid=<%=response[i].senderId%>&user2id=<%=response[i].receiverId%>" class="btn btn-outline-info" >View/Send message</a>
+
+
+                                                    
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                         </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      
+                        </section>
+                      </div>
+                      
+                      
+                      <%- include('../partials/footer'); %>
+                      
+                      <script>
+                        $(document).ready(function () {
+                      
+                        });
+                      </script>

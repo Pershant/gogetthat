@@ -1,0 +1,346 @@
+<%- include('../partials/header'); %>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <head>
+    <style>
+      tr th:first-child:after {
+    display: none !important;
+}
+
+
+tr th:first-child:before {
+    display: none !important;
+
+  
+}
+
+div#DataTables_Table_0_processing {
+    display: none !important;
+}
+    </style>
+  </head>
+  <script>
+  
+    $(document).ready(function () {
+      $(".realPrice").click(function () {
+        console.log("===============>");
+        // alert("HEllo");
+        var name = prompt("Enter Admin Price");
+        var elmId = $(this).attr("newId");
+        // var name = prompt("Enter Admin Price");
+        // console.log(name);
+        // var elmId = $(this).attr("newId");
+        // console.log(elmId, '---------------fdfsd');
+
+
+        console.log('----------------------------asdasdsa')
+        data = {
+          'retailPrice': name,
+          'id': elmId
+        }
+        console.log(data)
+        $.ajax({
+          method: 'POST',
+          url: '/admin/product/priceUpdate',
+          data: data,
+          success: function (result) {
+            console.log(result);
+            location.reload();
+          }
+        });
+
+
+      });
+
+    });
+
+
+  // }
+
+
+  </script>
+  <style>
+    td:nth-child(4) {
+      word-break: break-all;
+      min-width: 240px;
+    }
+  </style>
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1 id="animated_box">
+          <%= currentModule; %>
+        </h1>
+      </div>
+
+      <div class="section-body">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  <%= currentSubModule %>
+                </h4>
+              </div>
+              <button class="btn btn-outline-danger delmultilaw" id="delmultilaw">Change Price</button><br><br>
+              <button class="btn btn-outline-success deleteAll" id="deleteAll" dataType='1'>Delete Data
+              </button>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped table-md datatable">
+                    <thead>
+                      <tr>
+                        <% if (headerColumns.length> 0) {
+                          headerColumns.forEach((column, index) => {
+                          %>
+                          <th>
+                            <%- column; %>
+                          </th>
+                          <% }); %>
+
+                            <% } %>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (data.length> 0) {
+                        data.forEach(row => {
+                        %>
+                        <tr>
+                          <% if (row.length> 0) {
+                            row.forEach(column => {
+                            %>
+                            <td>
+                              <%- column; %>
+                            </td>
+                            <% }); } %>
+                        </tr>
+                        <% }); } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  </section>
+  </div>
+
+
+  <%- include('../partials/footer'); %>
+
+    <script>
+      $(document).ready(function () {
+
+        /*
+        |--------------------------------------------------------------------
+        |   Tab Hashing upon refresh restore state
+        |--------------------------------------------------------------------
+        */
+
+        $(document.body).on('click', '#productTabs > li > a', function (e) {
+          var id = $(e.target).attr("href").substr(1);
+          window.location.hash = id;
+        });
+
+       
+
+        // on load of the page: switch to the currently selected tab
+        var hash = window.location.hash;
+        $('#productTabs a[href="' + hash + '"]').tab('show');
+
+      });
+
+      var valuee = [];
+      $("#delmultilaw").bind('click', function (e) {
+        // alert("hello");
+        e.preventDefault();
+        $.each($(".dcheckboxitem:checked"), function () {
+          valuee.push($(this).val());
+        });
+        console.log(valuee, "valuee")
+        if (valuee == '') {
+          /*  alert("hello"); */
+          new swal("Oops", "No Select Row", "error");
+          return false;
+        }
+
+        new swal({
+          text: 'Please Enter Percentage.',
+          //input: 'number'
+          //content: "input"
+          content: {
+            element: 'input',
+            attributes: {
+              defaultValue: 0,
+              type: "number",
+              maxlength: 99
+            }
+          }
+
+        })
+          .then((changePrice) => {
+            var pricePerctange = changePrice
+            var ajaxurl = '/admin/product/changePriceMultiple'
+
+            $.ajax({
+              url: ajaxurl,
+              type: "post",
+              data: {
+                'productIds': JSON.stringify(valuee),
+                //'productIds':valuee,
+                'pricePerctange': pricePerctange
+              }
+              //  context: document.body
+            }).done(function (response) {
+              //  / ocnsole.log()
+              if (response == 1) {
+                new swal("Price has been successfully updated ", {
+                  icon: "success",
+                });
+                setTimeout(() => location.reload(), 1500);
+
+              }
+              // else if (response.affectedRows <= "0") {
+              //   swal("Oops", "Try Again Later", "error");
+              // }
+            });
+          });
+
+      });
+
+
+
+
+      
+      document.getElementById('select_all').addEventListener('click',(e)=>{
+
+          let props =   document.getElementById('select_all').checked ?true:false
+          document.querySelectorAll('.dcheckboxitem').forEach((val)=>{
+            val.checked = props
+          })
+
+})
+
+var idss =[];
+
+$("#deleteAll").bind('click',function (e) {
+      e.preventDefault();
+      $.each($(".dcheckboxitem:checked"), function () {
+        idss.push($(this).val());
+        });
+        var proceed = confirm("Are you sure you want to proceed?");
+        if(proceed)
+        {
+                  
+                $.ajax({
+            method: 'POST',
+            url: '/admin/product/bulkDelete',
+            data: {
+              'Id':JSON.stringify(idss),
+            },
+            success: function (result) {
+              console.log(result,'---------');
+             // if(result)
+              new swal("Data Has Been delted Successfully ", {
+                icon: "success",
+              })
+            location.reload();
+          }
+          });
+
+
+
+            if( document.getElementById('deleteAll').getAttribute('dataType')==1){
+            document.getElementById('deleteAll').setAttribute('dataType', 2);
+
+            }else{
+            document.getElementById('deleteAll').setAttribute('dataType', 1);
+            }
+ }
+ else
+ {
+   alert("no data is deleted");
+ }
+       
+
+});
+
+function onlyUnique(value, index, self) {
+return self.indexOf(value) === index;
+}
+
+
+
+
+
+
+
+
+
+    //   $("#deleteAll").click(function () {
+      
+    //           var id = $(this).attr('deleteId');
+    //           console.log(id,"==========>,,,,,,,,,,,,,,,,,");
+    //           var idss = []
+    //           document.querySelectorAll('.dcheckboxitem').forEach(val => {
+
+    //           let type = document.getElementById('deleteAll').getAttribute('dataType');
+
+    //           if (type && type == 1) {
+    //             val.checked = true
+    //             var checkboxes = document.getElementsByName('dcheckboxitem');
+    //             console.log(checkboxes,'----checkboxes----');
+                
+
+              
+    //                   $("input:checkbox[name=dcheckboxitem]:checked").each(function () {
+    //                   idss.push(parseInt($(this).val()));
+    //               });
+
+
+    //           } else {
+    //             val.checked = false;
+    //           }
+    //           });
+
+    //           idss = idss.filter(onlyUnique);
+    //               console.log(idss, "idssss");
+    //             // }
+    //             data={
+    //              'Id':idss
+    //            },
+    //            $.ajax({
+    //            method: 'POST',
+    //            url: '/admin/product/bulkDelete',
+    //            data: {
+    //             'Id':JSON.stringify(idss),
+    //           },
+    //            success: function (result) {
+    //              console.log(result,'---------');
+    //             new swal("Data Has Been delted Successfully ", {
+    //               icon: "success",
+    //             })
+    //            location.reload();
+    //         }
+    //     });
+
+    //           if( document.getElementById('deleteAll').getAttribute('dataType')==1){
+    //           document.getElementById('deleteAll').setAttribute('dataType', 2);
+
+    //           }else{
+    //           document.getElementById('deleteAll').setAttribute('dataType', 1);
+    //           }
+    // });
+
+    // function onlyUnique(value, index, self) {
+    //   return self.indexOf(value) === index;
+    // }
+
+    </script>

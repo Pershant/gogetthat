@@ -1,0 +1,36 @@
+<form id="userAddEditForm" class="form_advanced_validation" action="/admin/user/updateUser" method="POST"
+    autocomplete="off" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label>What are the maximum number of deliveries you can make per day?</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fa fa-list-ol"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="deliveriesPerDay" value="<%= user.vendorDetail.deliveriesPerDay; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <input type="hidden" class="form-control" name="redirectUrl" value="/admin/vendor/view/<%= user.id; %>#deliveriesPerDay"
+        required>
+    <div class="form-group row mb-4">
+        <div class="col-sm-12 col-md-7 offset-4">
+            <input type="hidden" class="form-control" name="id" value="<%= user.id %>">
+            <%
+                if (type && type != 'view') {
+            %>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <%
+                } else if (type && type == 'view') {
+            %>
+            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+            <a href="/admin/vendor/edit/<%= user.id %>#deliveriesPerDay" class="btn btn-warning">Edit</a>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</form>

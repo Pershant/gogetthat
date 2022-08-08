@@ -1,0 +1,109 @@
+<div class="card">
+    <div class="card-body">
+        <ul class="nav nav-pills" id="myTab3" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active show" id="home-tab3" data-toggle="tab" href="#home3" role="tab"
+                    aria-controls="home" aria-selected="true">My Account</a>
+            </li>
+            
+        </ul>
+        <div class="tab-content" id="myTabContent2">
+            <div class="tab-pane fade active show" id="home3" role="tabpanel" aria-labelledby="home-tab3">
+
+
+
+
+
+
+                <form class="profile_setting_from" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">Name</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="text" class="form-control" name="name"
+                                        value="<%= !adminData.staffLogin ? adminData.vendorDetail.name : adminData.staffLogin.vendorStaffDetail.name; %>">
+                                </div>
+                            </div>
+
+                           
+
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">Email</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="email" class="form-control" name="email"
+                                        value="<%= !adminData.staffLogin ? adminData.email : adminData.staffLogin.email; %>"
+                                        disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">Phone</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="text" class="form-control" name="phone"
+                                        value="<%= !adminData.staffLogin ? adminData.vendorDetail.phone : adminData.staffLogin.vendorStaffDetail.phone; %>">
+                                </div>
+                            </div>
+
+
+                            <%
+                                if (!adminData.staffLogin) {
+                            %>
+                            <div class="form-group row align-items-center">
+                                <label for="site-title"
+                                    class="form-control-label col-sm-3 text-md-right">Country</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="text" class="form-control" name="country"
+                                        value="<%= admin.vendorDetail.country; %>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">State</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="text" class="form-control" name="state"
+                                        value="<%= admin.vendorDetail.state; %>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">City</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="text" class="form-control" name="city"
+                                        value="<%= admin.vendorDetail.city; %>">
+                                </div>
+                            </div>
+
+                            <%
+                                }
+                            %>
+
+                            <div class="form-group row align-items-center">
+                                <label for="site-title" class="form-control-label col-sm-3 text-md-right">Image</label>
+                                <div class="col-sm-6 col-md-9">
+                                    <div id="image-preview" class="image-preview"
+                                        style="background-image: url('<%= !adminData.staffLogin ? adminData.vendorDetail.image : adminData.staffLogin.vendorStaffDetail.image; %>'); background-size: cover; background-position: center center;">
+                                        <label for="image-upload" id="image-label">Choose File</label>
+                                        <input type="file" name="image" id="image-upload" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" class="form-control" name="redirectUrl" value="/sellerAdmin/setting"
+                                required>
+
+                        </div>
+                        <div class="card-footer bg-whitesmoke text-md-right">
+                            <input type="hidden" name="id" value="<%= !adminData.staffLogin ? adminData.id : adminData.staffLogin.id; %>" />
+                            <input type="hidden" name="role" value="<%= !adminData.staffLogin ? adminData.role : adminData.staffLogin.role; %>" />
+                            <button type="submit" class="btn btn-primary" id="save-btn">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        
+        </div>
+    </div>
+</div>

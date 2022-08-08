@@ -1,0 +1,95 @@
+<%- include('../partials/header'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body ">
+
+      <div id="output-status"></div>
+      <div class="row">
+        <div class="col-md-4 animate__animated   ">
+          <div class="card">
+            
+            <div class="card-body">
+              <ul class="nav nav-pills flex-column" id="mySettingTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="true">Profile</a><br>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="globalDeliveryChargeForSeller-tab" data-toggle="tab"
+                    href="#globalDeliveryChargeForSeller" role="tab" aria-controls="globalDeliveryChargeForSeller"
+                    aria-selected="false">Global Delivery Charge For Seller</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="productTax-tab" data-toggle="tab"
+                    href="#productTax" role="tab" aria-controls="productTax"
+                    aria-selected="false">Product Tax</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8 ">
+          <div class="tab-content no-padding" id="myTabContent">
+            <div class="tab-pane fade active show animate__animated   " id="profile" role="tabpanel"
+              aria-labelledby="profile-tab">
+              <%- include('./profile') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="referralSystem" role="tabpanel"
+              aria-labelledby="referralSystem-tab">
+              <%- include('./referralSystem') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="promoCode" role="tabpanel"
+              aria-labelledby="promoCode-tab">
+              <%- include('./promoCode') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="tax" role="tabpanel" aria-labelledby="tax-tab">
+              <%- include('./tax') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="notificationEmail" role="tabpanel"
+              aria-labelledby="notif -->
+              <!-- icationEmail-tab">
+              <%- include('./notificationEmail') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="globalDeliveryChargeForSeller" role="tabpanel"
+              aria-labelledby="globalDeliveryChargeForSeller-tab">
+              <%- include('./globalDeliveryChargeForSeller') %>
+            </div>
+            <div class="tab-pane fade animate__animated   " id="productTax" role="tabpanel"
+            aria-labelledby="productTax-tab">
+            <%- include('./product_tax') %>
+          </div>
+            <div class="tab-pane fade animate__animated   " id="globalDeliveryChargeForDeliveryStaff" role="tabpanel"
+              aria-labelledby="globalDeliveryChargeForDeliveryStaff-tab">
+              <%- include('./globalDeliveryChargeForDeliveryStaff') %>
+            </div>
+
+            <div class="tab-pane fade animate__animated   " id="siteCommission" role="tabpanel"
+              aria-labelledby="siteCommission-tab">
+              <%- include('./siteCommission') %>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>

@@ -1,0 +1,84 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <section class="store_locater">
+                  <h3>Comparison</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Comparison</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="comperi_sion">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="owl-carousel owl-theme main_owl" id="main_owl3">
+                        <%for(let product of get_order){%>
+                        <div class="item">
+                          <div class="col-md-12">
+                            <div class="featured_pro">
+                              <a href="/product_detail?key=<%=Buffer.from(`${product.product.id}`, 'binary').toString('base64')
+                              %>"><img src="<%=product.productImage%>"> </a>
+                              <a id="del_compare" style="cursor: pointer" piid="<%=product.id%>" class="cross_img"> <img src="website/images/cross.png"></a>
+                              <div class="featured_pro2">
+                                <h3><%=product.product.name%></h3>
+                                <h3>$<%=product.product.retailPrice%></h3>
+                                <div class="Rat_ings">
+                                  <h4>Rating & Review</h4>
+                                  <p>
+                                  </p>
+                                  <h6>
+                                    <%for (let i=0;i<product.avg_rating;i++){ %>
+                                      <i class="fa fa-star yellow" aria-hidden="true"></i>
+                                      <%}%>
+                                        (<%=product.avg_rating%>)
+                                    <b> (<%=product.total_reviews%>) </b>
+                                  </h6>
+                                </div>
+                                <div class="product_color">
+                                  <span>Color: </span>
+                                  <div class="product_colorS">
+                                    <ul>
+                                      <%product.product.colors.forEach((color)=>{ %>
+                                        <li class="green1 " id="<%=color.color%>"><a
+                                            style="background-color:<%=color.color%>"></a>
+                                        </li>
+                                        <%})%>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="Rat_ings3">
+                                  <p> <%=product.product.description%></p>
+                                </div>
+                                <!-- <a id="add_to_cart" pid="<%=product.id%>" style="cursor:pointer"class="cart_b"> Add To Cart</a> -->
+                                <a  href="/product_detail?key=<%=Buffer.from(`${product.product.id}`, 'binary').toString('base64')
+                                %>"  class="cart_b">View Product</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <%}%>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <%- include('./footer.ejs'); -%>

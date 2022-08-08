@@ -1,0 +1,79 @@
+<%- include('../partials/header'); %>
+
+<!-- Main Content -->
+<style>
+ 
+  </style>
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box">Order Details</h1>
+    </div>
+
+    <div class="section-body">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Order Details</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-md datatable" id="">
+                  <thead>
+                    <tr>
+                      <th class="text-center">
+                        #
+                      </th>
+                      <th>Order No.</th>
+                      <th>Product</th> 
+                      <!-- <th>Product Image</th>  -->
+                      <th>Product Description</th>           
+                      <th>Quantity</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+          
+                      <%
+                      if(response.orderItems && response.orderItems.length > 0){
+    
+                      for( var i in response.orderItems){%>
+                      <tr>
+                        <td><%=parseInt(i)+1%></td>
+                       
+                    
+
+                        <td><%=orderNo%></td>
+                  
+                        <td><%=response.orderItems[i].product.name%></td>
+                        <!-- <td><img src="<%=response.orderItems[i].product.image%>" alt="product image" width="60" height="60">
+                        </td> -->
+                        <td><%=response.orderItems[i].product.description%></td>
+                       
+                        <td><%=response.orderItems[i].qty%></td>
+                        <td><%=response.orderItems[i].product.totalPrice%></td>
+                      
+                      </tr>
+    
+                      <% } } %>
+    
+            
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+  
+</script>

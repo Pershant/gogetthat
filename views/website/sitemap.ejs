@@ -1,0 +1,114 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <section class="store_locater">
+                  <h3>Sitemap</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="home">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Sitemap</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="Nearby_Spot site_maps">
+
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="footer_site">
+                          <h2>Home</h2>
+                          <!-- <p><a href="get_profile">My Account </a></p> -->
+                          <p><a href="blog">Blog</a></p>
+                          <p><a href="store_locator">Store Locator </a></p>
+                          <p><a href="shipping_and_return">Free Shipping % Return</a></p>
+                          <p><a href="loyality_program">Loyality Program </a></p>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="footer_site">
+                          <h2>Footer </h2>
+                          <p><a href="about">About Us </a></p>
+                          <p><a href="contact_us">Contact Us </a></p>
+                          <p><a href="faq"> FAQ </a></p>
+                          <p><a href="return"> Returns & Exchanges </a></p>
+                          <p><a href="sitemap"> Sitemap </a></p>
+                          <p><a href="term"> Terms & Conditions</a></p>
+                          <p><a href="privacy"> Privacy Policy</a></p>
+                          <p><a href="shipping_info"> Shipping Information </a></p>
+                        </div>
+                      </div>
+                    
+                    </div>
+                    <div class="row mt-5 text-center">
+                      <div class="col-md-12">
+                        <div class="footer_social">
+                   
+                        </div>
+                        <div class="footer_social_p">
+                          <p> <a id="messages.html"><img
+                                src="/website/images/chat1.png">
+                            </a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="Delivery mt-5">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci.
+                            Phasellus efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada
+                            at
+                            metus nec aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus. Sed sed ante erat. Sed vitae odio ac purus dapibus ornare. Nam vitae sapien
+                            ut
+                            nisl tempus faucibus sit amet at massa. Proin viverra, ligula quis egestas bibendum, sem
+                            neque
+                            consequat orci, in sodales leo nisi vel felis. Sed accumsan odio mattis sollicitudin dictum.
+                            Donec suscipit feugiat tortor, a viverra orci. Phasellus efficitur hendrerit mi, sit amet
+                            tincidunt arcu auctor fermentum. Etiam malesuada at metus nec aliquet. Orci varius natoque
+                            penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sed ante erat. Sed
+                            vitae
+                            odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at massa.
+                            Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis.
+                            Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada
+                            at
+                            metus nec aliquet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus. Sed sed ante erat. Sed vitae odio ac purus dapibus ornare. Nam vitae sapien
+                            ut
+                            nisl tempus faucibus sit amet at massa. Proin viverra, ligula quis egestas bibendum, sem
+                            neque
+                            consequat orci, in sodales leo nisi vel felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>

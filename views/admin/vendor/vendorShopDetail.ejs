@@ -1,0 +1,266 @@
+<form id="userAddEditForm" class="form_advanced_validation" action="/admin/user/updateUser" method="POST"
+    autocomplete="off" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label>Business Name</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="shopName" value="<%= user.vendorDetail.shopName; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="shopCategory" value="<%= user.vendorDetail.shopCategory; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>ABN</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="abn" value="<%= user.vendorDetail.abn; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Building Number</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="buildingNumber"
+                value="<%= user.vendorDetail.buildingNumber; %>" <%= type && type == 'view' ? 'disabled' : ''; %>
+                required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Street Number</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="streetNumber" value="<%= user.vendorDetail.streetNumber; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>City/Suburb</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="city" value="<%= user.vendorDetail.city; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>State</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="state" value="<%= user.vendorDetail.state; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <!-- <div class="form-group">
+        <label>Country</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="country" value="<%= user.vendorDetail.country; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div> -->
+
+    <div class="form-group">
+        <label>Postcode</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="postalCode" value="<%= user.vendorDetail.postalCode; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Shop Open Time</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="shopOpenTime" value="<%= user.vendorDetail.shopOpenTime; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Shop Close Time</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="shopCloseTime" value="<%= user.vendorDetail.shopCloseTime; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div>
+    <!-- <div class="form-group">
+        <label>Geo Location</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-globe"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="geoLocation" value="<%= user.vendorDetail.geoLocation; %>"
+                <%= type && type == 'view' ? 'disabled' : ''; %> required>
+        </div>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label>Shop Address</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-store"></i>
+                </div>
+            </div>
+            <textarea class="summernote-page" name="shopAddress"
+                <%= type && type == 'view' ? 'disabled' : ''; %>><%= user.vendorDetail.shopAddress; %></textarea>
+        </div>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label>Shop Description</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-store"></i>
+                </div>
+            </div>
+            <textarea class="summernote-page" name="shopDescription"
+                <%= type && type == 'view' ? 'disabled' : ''; %>><%= user.vendorDetail.shopDescription; %></textarea>
+        </div>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label>Payment Policy</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-store"></i>
+                </div>
+            </div>
+            <textarea class="summernote-page" name="paymentPolicy"
+                <%= type && type == 'view' ? 'disabled' : ''; %>><%= user.vendorDetail.paymentPolicy; %></textarea>
+        </div>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label>Delivery Policy</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-store"></i>
+                </div>
+            </div>
+            <textarea class="summernote-page" name="deliveryPolicy"
+                <%= type && type == 'view' ? 'disabled' : ''; %>><%= user.vendorDetail.deliveryPolicy; %></textarea>
+        </div>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <label>Seller Information</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-store"></i>
+                </div>
+            </div>
+            <textarea class="summernote-page" name="sellerInformation"
+                <%= type && type == 'view' ? 'disabled' : ''; %>><%= user.vendorDetail.sellerInformation; %></textarea>
+        </div>
+    </div> -->
+
+    <div class="form-group">
+        <label>Shop Logo</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div id="image-preview2" class="image-preview"
+                style="background-image: url('<%= user.vendorDetail.shopLogo; %>'); background-size: cover; background-position: center center;">
+                <%
+                if (type && type != 'view') {
+                %>
+                <label for="image-upload" id="image-label">Choose File</label>
+                <input type="file" name="shopLogo" id="image-upload2" />
+                <%
+                }
+                %>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" class="form-control" name="redirectUrl" value="/admin/vendor/view/<%= user.id; %>#shopDetail"
+        required>
+    <div class="form-group row mb-4">
+        <div class="col-sm-12 col-md-7 offset-4">
+            <input type="hidden" class="form-control" name="id" value="<%= user.id %>">
+            <%
+                if (type && type != 'view') {
+            %>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <%
+                } else if (type && type == 'view') {
+            %>
+            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+            <a href="/admin/vendor/edit/<%= user.id %>#shopDetail" class="btn btn-warning">Edit</a>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</form>

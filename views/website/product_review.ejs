@@ -1,0 +1,200 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <section class="store_locater">
+                  <h3>customer Review</h3>
+                </section>
+
+
+
+                <section class="map mt-5 mb-5">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="review_stars">
+                          <img src="<%=productDetail.productImage%>">
+                          <div class="custo_re">
+                            <h2 class="heading">Product Name</h2>
+                            <h4>
+                              <%for (let i=0;i<productDetail.avg_rating;i++){%>
+                              <i class="fa fa-star yellow" aria-hidden="true"></i>
+                              <%}%>
+                              
+                              <%=productDetail.avg_rating%> out of 5
+                            </h4>
+                            <p>
+                              <%=productDetail.total_rating%> global ratings
+                            </p>
+                            <div class="row_list" id = "roleList"> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="review_lists1">
+                          <h2>Top reviews <a
+                              href="/add_review?key=<%=Buffer.from(`${productDetail.id}`,'binary').toString('base64')%>"
+                              class="log_in_btn">Add
+                              Reviews</a></h2>
+
+                          <%if(findReview.length> 0) {
+                            for (let review of findReview){%>
+                            <div class="review_lists">
+                              <h3> <img src="<%=review.userImage%>">
+                                <%=review.userName%>
+                              </h3>
+                              <h6>
+                                <%for (let i=0;i<review.rating;i++){%>
+                                <i class="fa fa-star yellow" aria-hidden="true"></i>
+                                <%}%>
+                                <b> Good </b>
+                              </h6>
+                              <span>
+                                <%=review.userName%>
+                              </span>
+                              <p>
+                                <%=review.review%>
+                              </p>
+                            </div>
+                            <% } } else { %>
+                              <h1 style="color:black ;">No review found</h1>
+                              <%} %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="Delivery">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit
+                            feugiat tortor, a viverra orci. Phasellus efficitur hendrerit
+                            mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at
+                            metus nec aliquet. Orci varius natoque penatibus et magnis dis
+                            parturient montes, nascetur ridiculus mus. Sed sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl
+                            tempus faucibus sit amet at massa. Proin viverra, ligula quis
+                            egestas bibendum, sem neque consequat orci, in sodales leo nisi
+                            vel felis. Sed accumsan odio mattis sollicitudin dictum. Donec
+                            suscipit feugiat tortor, a viverra orci. Phasellus efficitur
+                            hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam
+                            malesuada at metus nec aliquet. Orci varius natoque penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Sed sed
+                            ante erat. Sed vitae odio ac purus dapibus ornare. Nam vitae
+                            sapien ut nisl tempus faucibus sit amet at massa. Proin viverra,
+                            ligula quis egestas bibendum, sem neque consequat orci, in
+                            sodales leo nisi vel felis. Sed accumsan odio mattis
+                            sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus efficitur hendrerit mi, sit amet tincidunt arcu
+                            auctor fermentum. Etiam malesuada at metus nec aliquet. Orci
+                            varius natoque penatibus et magnis dis parturient montes,
+                            nascetur ridiculus mus. Sed sed ante erat. Sed vitae odio ac
+                            purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus
+                            sit amet at massa. Proin viverra, ligula quis egestas bibendum,
+                            sem neque consequat orci, in sodales leo nisi vel felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <%- include('./footer.ejs'); -%>
+
+                <script>
+                  let styleBox = {
+                    5:'100%',
+                    4:'80%',
+                    3:'60%',
+                    2:'40%',
+                    1:'20%',
+                    0:'0%'
+                  }
+                  let id = document.getElementById('roleList');
+
+                  id.innerHTML = ` <div class="wid_100">
+                                <div class="side">
+                                  <div>5 star</div>
+                                </div>
+                                <div class="middle">
+                                  <div class="bar-container">
+                                    <div class="bar-5" style ="width:${styleBox[<%-productDetail.avg_rating5 >= 5 ? 5 : productDetail.avg_rating5%>]}"></div>
+                                  </div>
+                                </div>
+                                <div class="side right">
+                                  <div>
+                                    <%=productDetail.avg_rating5%>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="wid_100">
+                                <div class="side">
+                                  <div>4 star</div>
+                                </div>
+                                <div class="middle">
+                                  <div class="bar-container">
+                                    <div class="bar-4"  style ="width:${styleBox[<%-productDetail.avg_rating4 >=4 ? 4: productDetail.avg_rating4%>]}"></div>
+                                  </div>
+                                </div>
+                                <div class="side right">
+                                  <div>
+                                    <%=productDetail.avg_rating4%>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div class="wid_100">
+                                <div class="side">
+                                  <div>3 star</div>
+                                </div>
+                                <div class="middle">
+                                  <div class="bar-container">
+                                    <div class="bar-3"   style ="width:${styleBox[<%-productDetail.avg_rating3 >= 3 ? 3 : productDetail.avg_rating3%>]}"></div>
+                                  </div>
+                                </div>
+                                <div class="side right">
+                                  <div>
+                                    <%=productDetail.avg_rating3%>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="wid_100">
+                                <div class="side">
+                                  <div>2 star</div>
+                                </div>
+                                <div class="middle">
+                                  <div class="bar-container">
+                                    <div class="bar-2" style ="width:${styleBox[<%-productDetail.avg_rating2>= 2 ? 2 : productDetail.avg_rating2%>]}"></div>
+                                  </div>
+                                </div>
+                                <div class="side right">
+                                  <div>
+                                    <%=productDetail.avg_rating2%>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="wid_100">
+                                <div class="side">
+                                  <div>1 star</div>
+                                </div>
+                                <div class="middle">
+                                  <div class="bar-container">
+                                    <div class="bar-1"  style ="width:${styleBox[<%-productDetail.avg_rating1 >= 1 ? 1 : productDetail.avg_rating1%>]}"></div>
+                                  </div>
+                                </div>
+                                <div class="side right">
+                                  <div>
+                                    <%=productDetail.avg_rating1%>
+                                  </div>
+                                </div>
+                              </div>`
+                </script>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>
+    <%= appName; %> | Login
+  </title>
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+  <!-- Favicon-->
+  <link rel="icon" href="<%= appFavUrl %>" type="image/x-icon">
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="/node_modules_url/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="/node_modules_url/izitoast/dist/css/iziToast.min.css">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/custom.css">
+
+  <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+  <script>
+    function validateForm() {
+
+      //collect form data in JavaScript variables  
+      var pw1 = document.getElementById("pswd1").value;
+      var pw2 = document.getElementById("pswd2").value;
+      // var name1 = document.getElementById("fname").value;  
+      // var name2 = document.getElementById("lname").value;  
+
+      //check empty first name field  
+      //   if(name1 == "") {  
+      //     document.getElementById("blankMsg").innerHTML = "**Fill the first name";  
+      //     return false;  
+      //   }  
+
+      //   //character data validation  
+      //   if(!isNaN(name1)){  
+      //     document.getElementById("blankMsg").innerHTML = "**Only characters are allowed";  
+      //     return false;  
+      //   }  
+
+      //  //character data validation  
+      //   if(!isNaN(name2)){  
+      //     document.getElementById("charMsg").innerHTML = "**Only characters are allowed";  
+      //     return false;  
+      //   }   
+
+      //check empty password field  
+      if (pw1 == "") {
+        document.getElementById("message1").innerHTML = "**Fill the password please!";
+        return false;
+      }
+
+      //check empty confirm password field  
+      if (pw2 == "") {
+        document.getElementById("message2").innerHTML = "**Enter the password please!";
+        return false;
+      }
+
+      //minimum password length validation  
+      if (pw1.length < 8) {
+        document.getElementById("message1").innerHTML = "**Password length must be atleast 8 characters";
+        return false;
+      }
+
+      //maximum length of password validation  
+      if (pw1.length > 15) {
+        document.getElementById("message1").innerHTML = "**Password length must not exceed 15 characters";
+        return false;
+      }
+
+      if (pw1 != pw2) {
+        document.getElementById("message2").innerHTML = "**Passwords are not same";
+        return false;
+      } else {
+        // alert ("Your password created successfully");  
+      }
+    }
+  </script>
+
+
+  <style>
+    #validEmail {
+      margin-top: 4px;
+      margin-left: 9px;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+    }
+
+    .text {
+      font-family: Arial, Tahoma, Helvetica;
+    }
+  </style>
+</head>
+<style>
+  .section>*:first-child {
+    margin-top: 0px !important;
+  }
+  label {
+    float: left;
+    display: contents;
+  }
+</style>
+
+<body>
+  <div id="overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="app">
+    <section class="section">
+      <div class="col-lg-12 col-12 min-vh-100 background-walk-y" data-background="">
+
+        <br />
+        <br />
+        <br />
+        <div class="container" style="z-index: 1 !important;">
+          <div class="row">
+            <div
+              class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4 mt-5">
+              <div class="login-brand">
+                <img id="brand_logo_login" src="<%= appLogoUrl %>" alt="logo" width="250" class="shadow-light"
+                  style="background-color: rgba(255,255,255,0.4);">
+              </div>
+
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4>
+                    <%= appName; %> SignUp
+                  </h4>
+                </div>
+
+
+
+
+                <div class="card-body">
+                  <form method="POST" id="signupForm" action="/sellerAdmin/sellerSignup" enctype="multipart/form-data"
+                    class="">
+
+
+                    <div class="form-group">
+                      <input id="role" type="hidden" value="3" class="form-control" name="role" tabindex="1" readon
+                        autofocus>
+
+                    </div>
+
+                    <div class="form-group">
+                      <label for="Name">Enter Your Name</label>
+                      <input id="name" type="text" class="form-control" name="name" tabindex="1" placeholder="Enter your name" autofocus>
+
+                    </div>
+                    <!-- <div class="form-group">
+                      <label >Address</label>
+                    <input type="text" placeholder="Enter address" class="form-control pac-target-input"
+                      id="userPincode" types="inputTag" autocomplete="off">
+                    </div> -->
+                   
+
+
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input id="email" type="email" class="form-control" placeholder="Enter your email" name="email" tabindex="1"
+                        pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" autofocus>
+
+                    </div>
+                    
+                    <div class="form-group">
+                      <div class="d-block">
+                        <label for="password" class="control-label">Password</label>
+
+                      </div>
+                      <input id="password" type="password" class="form-control" name="password" placeholder="Enter password"tabindex="1">
+
+                    </div>
+
+                    <div class="form-group">
+                      <div class="d-block">
+                        <label for="cPassword" class="control-label">Confirm Password</label>
+
+                      </div>
+                      <input id="confirmPassword" placeholder="Re-Enter your password" type="password" name="confirmPassword" class="form-control"
+                        tabindex="1">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="company">Business/Company/Entity Name</label>
+                      <input id="company" type="text" class="form-control" placeholder="Enter Business-Company-Entity name" name="company" tabindex="1" autofocus>
+
+                    </div>
+
+                    <div class="form-group">
+                      <label for="buisnessNumber">Business Number</label>
+                      <input id="businessNumber" type="number" class="form-control" placeholder="Enter Business Number"name="businessNumber" tabindex="1"
+                        autofocus>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                      <label for="buisnessContactNumber">Business Contact Number</label>
+                      <input id="buisnessContactNumber" type="number" class="form-control" name="businessCNumber"
+                        tabindex="1" placeholder="Enter Business contact number"autofocus>
+
+                    </div>
+
+                    <div class="form-group">
+                      <label for="BuisnessAddress">Buisness Address</label>
+                      <input id="buisnessAddress" type="text" class="form-control" placeholder="Enter Business Address"name="buisnessAddress" tabindex="1"
+                        autofocus>
+
+                    </div>
+
+                    <div class="form-group">
+                      <label for="verificationId">Verification id(Australian license or passport)</label>
+                      <input id="verificationId" type="text" placeholder="Enter your verification Number"class="form-control" name="verificationId" tabindex="1"
+                        autofocus>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                      <div class="d-block">
+                        <label for="file" class="control-label">Image</label>
+
+                      </div>
+                      <input id="file" type="file" class="form-control" name="image" tabindex="2">
+
+                    </div>
+                    <input type="hidden" class="form-control" id="lat" name="lat" required>
+                    <input type="hidden" class="form-control" id="long" name="long" required>
+
+                    <div class="form-group">
+                      <button type="submit" value="Submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div class="simple-footer">
+                Copyright &copy; <%= copyrightYear; %>
+                  <div class="bullet"></div> <a href="<%= companyUrl; %>">
+                    <%= companyName; %>
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- General JS Scripts -->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="/assets/js/stisla.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnQmDJAM-LO-nJ3cuKind1eSc3sZxjC88&callback=initialize&libraries=places" async></script>
+
+  <!-- JS Libraies -->
+
+
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+
+  <script src="/node_modules_url/jquery.pwstrength/jquery.pwstrength.min.js"></script>
+  <script src="/node_modules_url/select2/dist/js/select2.full.min.js"></script>
+  <script src="/node_modules_url/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/node_modules_url/selectric/public/jquery.selectric.min.js"></script>
+  <script src="/node_modules_url/jquery_upload_preview/assets/js/jquery.uploadPreview.min.js"></script>
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+  <!-- Template JS File -->
+  <script src="/assets/js/scripts.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+  <!-- Page Specific JS File -->
+</body>
+
+</html>
+
+<script>
+  const htmlDecode = (input) => {
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
+
+  console.log('customJS==================================================>here');
+
+  let flashMessage = JSON.parse(htmlDecode("<%= JSON.stringify(flashMessage) %>"));
+  console.log(flashMessage, '==================================>flashMessage');
+
+  if (Array.isArray(flashMessage) && flashMessage.length > 0 && typeof flashMessage[0] == 'object' && !Array.isArray(flashMessage[0])) {
+    flashMessage = flashMessage[0];
+
+    iziToast[flashMessage.color]({
+      title: flashMessage.message,
+      // message: '',
+      position: 'topRight'
+    });
+  } else if (Array.isArray(flashMessage) && flashMessage.length > 0 && typeof flashMessage[0] == 'string') {
+    flashMessage = flashMessage[0];
+
+    iziToast.info({
+      title: flashMessage,
+      // message: '',
+      position: 'topRight'
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+function initialize() {
+
+  var input = document.getElementById('userPincode');
+  var options = {}
+  var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+  autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+    console.log(place.geometry['location'].lat())
+    console.log(place.geometry['location'].lng())
+
+    $('#lat').val(place.geometry['location'].lat());
+    $('#long').val(place.geometry['location'].lng());
+
+    let postcode;
+    for (let i = 0; i < place.address_components.length; i++) {
+      let types = place.address_components[i].types;
+      for (let type of types) {
+        if (type === "postal_code") {
+          postcode = place.address_components[i].long_name;
+        }
+      }
+   }
+   postcode = place.formatted_address;
+    // if (!postcode) {
+    //   postcode = place.formatted_address;
+    // }
+    $('#userPincode').val(postcode);
+  });
+}
+</script>

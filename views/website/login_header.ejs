@@ -1,0 +1,54 @@
+<div class="sub_header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="up_navbar">
+          <div class="clock_right langu_ages">
+            <div class="dropdown">
+              <button class=" dropdown-toggle drop_btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+
+                <div id="google_translate_element"></div>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="up_navbar1">
+          <div class="clock_right">
+            <a href="get_profile">My Wishlist </a>
+          </div>
+          <div class="clock_right">
+            <a href="store_locator"> Store Locator </a>
+          </div>
+          <div class="clock_right">
+            <a href="blog"> Blog </a>
+          </div>
+          <div class="clock_right langu_ages profile_login">
+            <div class="dropdown">
+              <button class=" dropdown-toggle drop_btn" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <%if(session.user.image){%>
+                <img src="<%=session.user.image%>"> 
+                <%}else {%>
+                <img src="website/images/download.png">
+                <%}%> 
+                MY ACCOUNT
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="get_profile">My Account </a>
+                <a class="dropdown-item" href="order_history">Order history </a>
+                <a class="dropdown-item" href="saved_order">Saved order </a>
+                <a class="dropdown-item" href="address">Saved Address </a>
+                <a class="dropdown-item" href="faq">Faq’s </a>
+                <a class="dropdown-item" href="log_out">Log Out </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

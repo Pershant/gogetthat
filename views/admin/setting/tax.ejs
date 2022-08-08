@@ -1,0 +1,64 @@
+<div class="card" id="settings-card">
+    <div class="card-header">
+        <h4>Tax Setting</h4>
+    </div>
+    <div class="card-body">
+        <ul class="nav nav-pills" id="myTab3" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active show" id="home-tab3" data-toggle="tab" href="#tax_category_management"
+                    role="tab" aria-controls="tax_category_management" aria-selected="true">Tax Category Management</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#tax_percentage" role="tab"
+                    aria-controls="tax_percentage" aria-selected="false">Tax Percentage</a>
+            </li> -->
+
+            <button onclick="location.href = '/admin/taxCategory/add';" class="btn btn-outline-primary" style="margin-left: auto !important;" >Add</button>
+        </ul>
+
+        <div class="tab-content" id="myTabContent2">
+            <div class="tab-pane fade active show" id="tax_category_management" role="tabpanel"
+                aria-labelledby="tax_category_management">
+                <%- include('./taxCategory/listing') %>
+            </div>
+            <!-- <div class="tab-pane fade " id="tax_percentage" role="tabpanel" aria-labelledby="tax_percentage">
+                <form class="updateSettings" method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Tax Category</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="tax_category"
+                                value="<%= settings['tax_category']; %>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tax Percentage</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" name="tax_percentage"
+                                value="<%= settings['tax_percentage']; %>" required>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-whitesmoke text-md-right">
+                        <input type="hidden" name="moduleName" value="Tax Setting" />
+                        <button type="submit" class="btn btn-primary" id="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </div> -->
+
+        </div>
+
+
+
+    </div>
+</div>

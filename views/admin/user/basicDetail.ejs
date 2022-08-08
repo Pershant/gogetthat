@@ -1,0 +1,141 @@
+<%
+
+  console.log(user, '=============>user'); 
+
+  const roleBasedField = {
+    1: {
+      name: user.userDetail && user.userDetail.name,
+      phone: user.userDetail && user.userDetail.phone,
+      image: user.image && user.image,
+    },
+    2: {
+      name: user.driverDetail && user.driverDetail.name,      
+      phone: user.driverDetail && user.driverDetail.phone,
+      image: user.driverDetail && user.driverDetail.image,
+    },
+    3: {
+      name: user.vendorDetail && user.vendorDetail.name,      
+    }
+  };
+
+%>
+
+<form id="userAddEditForm" class="form_advanced_validation" action="/admin/user/addUpdateUser" method="POST"
+    autocomplete="off" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Role</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user-tag"></i>
+                </div>
+            </div>
+            <select id="input_role" name="role" class="form-control select2" required <%= type=='view' ? 'disabled' : ''; %>>
+                <option value="">Select Role</option>
+                <option value="1" <%= user.role == 1 ? 'selected' : ''; %>>User</option>
+                <!-- <option value="2" <%= user.role == 2 ? 'selected' : ''; %>>Driver</option> -->
+                <!-- <option value="3" <%= user.role == 3 ? 'selected' : ''; %>>Vendor</option> -->
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <input type="text" class="form-control" name="name" value="<%= roleBasedField[user.role].name; %>" required
+                <%= type=='view' ? 'disabled' : ''; %>>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Phone</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-phone"></i>
+                </div>
+            </div>
+            <input id="input_phone" type="text" class="form-control" name="phone" value="<%= roleBasedField[user.role].phone; %>"
+                required <%= type=='view' ? 'disabled' : ''; %>>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+            <input id="input_email" type="email" class="form-control" name="email" value="<%= user.email %>" required
+                <%= type=='view' ? 'disabled' : ''; %>>
+        </div>
+    </div>
+
+    <%
+        if (type == 'edit') {
+    %>
+    <div class="form-group">
+        <label>Password</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+            <input type="password" class="form-control pwstrength" name="password" <%= user.hasOwnProperty('id') ? '' : 'required'; %>>
+        </div>
+        <!-- <div id="pwindicator" class="pwindicator">
+            <div class="bar"></div>
+            <div class="label"></div>
+        </div> -->
+    </div>
+    <%
+        }
+    %>
+
+    <div class="form-group row align-items-center">
+        <label for="site-title" class="form-control-label col-sm-3 text-md-right">Image</label>
+        <div class="col-sm-6 col-md-9">
+            <div id="image-preview" class="image-preview"
+                style="background-image: url('<%= roleBasedField[user.role].image; %>'); background-size: cover; background-position: center center;">
+                <%
+                    if (type != 'view') {
+                %>
+                <label for="image-upload" id="image-label">Choose File</label>
+                <input type="file" name="image" id="image-upload" />
+                <%
+                    }
+                %>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <div class="col-sm-12 col-md-7 offset-4">
+            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+            <%
+                if (type == 'view') {
+            %>
+            <a href="/admin/user/edit/<%= user.id %>" class="btn btn-warning">Edit</a>
+            <%
+                }
+            %>
+            <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+            <input id="input_id" type="hidden" class="form-control" name="id" value="<%= user.id %>">
+            <%
+                if (type != 'view') {
+            %>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</form>

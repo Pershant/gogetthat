@@ -1,0 +1,336 @@
+<%- include('../partials/header'); %>
+
+<%
+
+  console.log(user, '=============>user'); 
+
+  const roleBasedField = {
+    1: {
+      name: user.userDetail && user.userDetail.name,
+      phone: user.userDetail && user.userDetail.phone,
+    },
+    2: {
+      name: user.driverDetail && user.driverDetail.name,      
+      phone: user.driverDetail && user.driverDetail.phone,      
+    },
+    3: {
+      name: user.vendorDetail && user.vendorDetail.name,      
+      phone: user.vendorDetail && user.vendorDetail.phone,      
+    }
+  };
+
+  const roleBasedColumnDetail = {
+    1: {
+        image: `<img alt="image" src="${user.userDetail ? user.userDetail.image : ''}" class="rounded-circle" width="50" data-toggle="tooltip" title="${user.userDetail ? user.userDetail.name : ''}">`,
+        user: `Name: ${user.userDetail ? user.userDetail.name : ''}<br/>
+               Email: ${user.email ? user.email : ''}`,
+        role: '<div class="badge badge-info">User</div>',
+        modelTitle: 'User',
+        editButtonUrl: '/admin/user/edit',
+        viewButonUrl: '/admin/user/view',
+    },
+    2: {
+        image: `<img alt="image" src="${user.driverDetail ? user.driverDetail.image : ''}" class="rounded-circle" width="50" data-toggle="tooltip" title="${user.driverDetail ? user.driverDetail.name : ''}">`,
+        user: `Name: ${user.driverDetail ? user.driverDetail.name : ''}<br/>
+               Email: ${user.email}`,
+        role: '<div class="badge badge-danger">Driver</div>',
+        modelTitle: 'Driver',
+        editButtonUrl: '/admin/user/edit',
+        viewButonUrl: '/admin/user/view',
+    },
+    3: {
+        image: `<img alt="image" src="${user.vendorDetail ? user.vendorDetail.image : ''}" class="rounded-circle" width="50" data-toggle="tooltip" title="${user.vendorDetail ? user.vendorDetail.name : ''}">`,
+        user: `Name: ${user.vendorDetail ? user.vendorDetail.name : ''}<br/>
+               Email: ${user.email}`,
+        role: '<div class="badge badge-dark">Vendor</div>',
+        modelTitle: 'Vendor',
+        editButtonUrl: '/admin/vendor/edit',
+        viewButonUrl: '/admin/vendor/view',
+    }
+  }
+  
+%>
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body animate__animated  animate__backInUp">
+
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="card">
+            <div class="card-header">
+              <h4><%= currentSubModule %></h4>
+            </div>
+            <div class="card-body">
+
+              <ul class="nav nav-pills" id="vendorViewTabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active show" id="basicDetail-tab" data-toggle="tab" href="#basicDetail" role="tab"
+                    aria-controls="basicDetail" aria-selected="true">Basic Detail</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="shopDetail-tab" data-toggle="tab" href="#shopDetail" role="tab"
+                    aria-controls="shopDetail" aria-selected="true">Shop Detail</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="homeDelivery-tab" data-toggle="tab" href="#homeDelivery" role="tab"
+                    aria-controls="homeDelivery" aria-selected="true">Home Delivery</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="deliveryOptions-tab" data-toggle="tab" href="#deliveryOptions" role="tab"
+                    aria-controls="deliveryOptions" aria-selected="true">Delivery Options</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="deliveriesPerDay-tab" data-toggle="tab" href="#deliveriesPerDay" role="tab"
+                    aria-controls="deliveriesPerDay" aria-selected="true">Deliveries Per Day</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="deliveryCharges-tab" data-toggle="tab" href="#deliveryCharges" role="tab"
+                    aria-controls="deliveryCharges" aria-selected="true">Deliveries Charges</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="staffManagement-tab" data-toggle="tab" href="#staffManagement" role="tab"
+                    aria-controls="staffManagement" aria-selected="true">Staff Management</a>
+                </li>
+              </ul>
+              <br />
+              <div class="tab-content no-padding" id="vendorViewTabsContent">
+                <div class="tab-pane fade active show animate__animated   " id="basicDetail" role="tabpanel"
+                  aria-labelledby="basicDetail-tab">
+                  <form id="userAddEditForm" class="form_advanced_validation" action="/admin/user/addUpdateUser"
+                    method="POST" autocomplete="off" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label>Role</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-user-tag"></i>
+                          </div>
+                        </div>
+                        <select id="input_role" name="role" class="form-control select2" required>
+                          <!-- <option value="">Select Role</option> -->
+                          <!-- <option value="1" <%= user.role == 1 ? 'selected' : ''; %>>User</option>
+                      <option value="2" <%= user.role == 2 ? 'selected' : ''; %>>Driver</option> -->
+                          <option value="3" <%= user.role == 3 ? 'selected' : ''; %>>Vendor</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-user"></i>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" name="name"
+                          value="<%= roleBasedField[user.role].name; %>" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Username</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-user"></i>
+                          </div>
+                        </div>
+                        <input id="input_username" type="text" class="form-control" name="username"
+                          value="<%= user.username; %>" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Mobile</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-user"></i>
+                          </div>
+                        </div>
+                        <input id="input_phone" minlength="10" type="text" class="form-control" name="phone"
+                          value="<%= roleBasedField[user.role].phone; %>" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Email</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-envelope"></i>
+                          </div>
+                        </div>
+                        <input id="input_email" type="email" class="form-control" name="email" value="<%= user.email %>"
+                          required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Password</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-lock"></i>
+                          </div>
+                        </div>
+                        <input type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                          name="password" autocomplete="new-password"
+                          <%= user.hasOwnProperty('id') ? '' : 'required'; %>>
+                      </div>
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Approval Status</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="fas fa-check"></i>
+                          </div>
+                        </div>
+
+                        <select class="form-control changeVendorApprovalStatus" model="vendorDetail"
+                          model_title="<%=roleBasedColumnDetail[user.role]['modelTitle']%>" model_id="<%=user.id%>"
+                          model_detail_id="<%=user.vendorDetail.id%>" field="approvalStatus"
+                          current_value="<%=user.vendorDetail.approvalStatus%>"
+                          style="background: <%=approvalStatusObj[user.vendorDetail.approvalStatus].backgroundCssColor%>; color: #fff; font-weight: 600;">
+                          <%
+                      for (let status in approvalStatusObj) {
+                          // console.log(approvalStatusObj, '=================-=================>approvalStatusObj');
+                      %>
+                          <option value="<%=status%>" <%=status == user.vendorDetail.approvalStatus ? 'selected' : ''%>
+                            style="background: <%=approvalStatusObj[status].backgroundCssColor%>; color: #fff; font-weight: 600;">
+                            <%=approvalStatusObj[status].value%></option>
+                          <%
+                      }
+                      %>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row align-items-center">
+                      <label for="site-title" class="form-control-label col-sm-3 text-md-right">Image</label>
+                      <div class="col-sm-6 col-md-9">
+                        <div id="image-preview" class="image-preview"
+                          style="background-image: url('<%= user.vendorDetail.image; %>'); background-size: cover; background-position: center center;">
+                          <label for="image-upload" id="image-label">Choose File</label>
+                          <input type="file" name="image" id="image-upload" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                      <div class="col-sm-12 col-md-7 offset-4">
+                        <input id="input_id" type="hidden" class="form-control" name="id" value="<%= user.id %>">
+                        <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="shopDetail" role="tabpanel"
+                  aria-labelledby="shopDetail-tab">
+                  <%- include('./vendorShopDetail') %>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="homeDelivery" role="tabpanel"
+                  aria-labelledby="homeDelivery-tab">
+                  <%- include('./homeDelivery') %>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="deliveryOptions" role="tabpanel"
+                  aria-labelledby="deliveryOptions-tab">
+                  <%- include('./deliveryOptions') %>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="deliveriesPerDay" role="tabpanel"
+                  aria-labelledby="deliveriesPerDay-tab">
+                  <%- include('./deliveriesPerDay') %>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="deliveryCharges" role="tabpanel"
+                  aria-labelledby="deliveryCharges-tab">
+                  <%- include('./deliveryCharges') %>
+                </div>
+
+                <div class="tab-pane fade animate__animated   " id="staffManagement" role="tabpanel"
+                  aria-labelledby="staffManagement-tab">
+                  <%- include('./staffManagement') %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+  $(document).ready(function () {
+
+
+
+  });
+</script>
+
+
+<script>
+  if (jQuery().summernote) {
+    $(".summernote-page").summernote({
+      dialogsInBody: true,
+      minHeight: 250,
+      focus: true,
+      toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['bold', 'underline', 'clear', 'strikethrough']],
+        ['fontname', ['fontname']],
+        ['fontsize', ['fontsize']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['color', ['color']],
+        ['table', ['table']],
+        ['view', [
+          // 'fullscreen', 
+          'codeview', 'help']]
+      ]
+    });
+  }
+</script>
+
+
+<script>
+  $(document).ready(function () {
+
+    /*
+    |--------------------------------------------------------------------
+    |   Tab Script
+    |--------------------------------------------------------------------
+    */
+
+    $(document.body).on('click', '#vendorViewTabs > li > a', function (e) {
+      var id = $(e.target).attr("href").substr(1);
+      window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#vendorViewTabs a[href="' + hash + '"]').tab('show');
+
+  });
+</script>

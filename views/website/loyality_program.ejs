@@ -1,0 +1,91 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+
+
+
+
+                <section class="store_locater">
+                  <h3>
+                    <%-get_loyality_info.title%>
+                  </h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="home">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Loyality Program</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="contact_page">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="about_us">
+                          <%-get_loyality_info.content%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="Delivery mt-5">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet. Orci
+                            varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sed
+                            ante erat. Sed
+                            vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed accumsan
+                            odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci. Phasellus
+                            efficitur
+                            hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus nec
+                            aliquet. Orci varius
+                            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sed ante
+                            erat. Sed vitae odio
+                            ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at massa. Proin
+                            viverra, ligula
+                            quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel felis. Sed accumsan
+                            odio mattis
+                            sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci. Phasellus efficitur
+                            hendrerit mi, sit
+                            amet tincidunt arcu auctor fermentum. Etiam malesuada at metus nec aliquet. Orci varius
+                            natoque penatibus et
+                            magnis dis parturient montes, nascetur ridiculus mus. Sed sed ante erat. Sed vitae odio ac
+                            purus dapibus
+                            ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at massa. Proin viverra, ligula
+                            quis egestas
+                            bibendum, sem neque consequat orci, in sodales leo nisi vel felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>

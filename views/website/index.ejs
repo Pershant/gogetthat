@@ -1,0 +1,239 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+
+                <section class="banner_top">
+                  <div class="container-fluid p-0">
+                    <div class="row m-0">
+                      <div class="col-md-8 p-0">
+                        <div class="home_page">
+                          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                              <%for(let banner in get_banner){%>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="banner" class="active"></li>
+                                <%}%>
+                            </ol>
+                            <div class="carousel-inner">
+                              <%for(let banner in get_banner){%>
+                                <div class="carousel-item <%= (banner == 0)?'active':'' %>">
+                                  <img src="<%=get_banner[banner].image%>" class="banner_img">
+                                  <a href="<%=get_banner[banner].link%>" class="bnr_btn">Shop Now</a>
+                                </div>
+                                <%}%>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
+                              data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
+                              data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </button>
+                          </div>
+
+                        </div>
+
+                      </div>
+                      <div class="col-md-4">
+                        <div class="head_up">
+                          <%get_blog.forEach((blog)=>{%>
+
+                            <div class="head_1">
+                              <img class="blog_img" style="max-width: none" src="<%=blog.image%>">
+                              <div class="head_2">
+                                <h3>
+                                  <%=blog.name%>
+                                </h3>
+                                <p>
+                                  <%=blog.description.substring(0,175)%>...
+                                </p>
+                              </div>
+                            </div>
+                            <%})%>
+                              <div class="viewall text-right">
+                                <a href="blog" class="view_btn">View ALl</a>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="top_btn gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="up_btns">
+                          <a href="shipping_and_return">Free Shipping & Returns</a>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="up_btns">
+                          <a href="loyality_program" style="background:#1d337c;">Loyalty Program</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="top_arrive">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="owl-carousel owl-theme main_owl" id="main_owl1">
+
+                        <%for(let i=0;i<get_category.length;i++){%>
+                          <div class="col-md-12">
+                            <div class="top_arrive_1">
+                              <a href="/category_product?key=<%=Buffer.from(`${get_category[i].id}`,'binary').toString('base64')%>"><img src="<%=get_category[i].image%>"> </a>
+                            </div>
+                            <div class="top_arrive_2">
+                              <h4>
+                                <%=get_category[i].discount%>% off
+                              </h4>
+                              <h3>
+                                <%=get_category[i].name%>
+                              </h3>
+                              <p>
+                                <%=get_category[i].description.substring(0,80)%>
+                              </p>
+                            </div>
+                          </div>
+                          <%}%>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </section>
+
+                <section class="best_arrive gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="featured_title">
+                          <h4>Featured Products </h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="owl-carousel owl-theme main_owl" id="main_owl">
+                        <%get_product.forEach((product)=>{%>
+                          <%if(product.is_featured==1){%>
+                            <div class="item">
+                              <div class="col-md-12">
+                                <div class="featured_pro">
+
+                                  <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                  %>"><img src="<%=product.productImage%>" class="featured_pro_img"> </a>
+                                  <div class="featured_pro2">
+                                    <a href="/product_detail?key=<%=Buffer.from(`${product.id}`,'binary').toString('base64')
+                                    %>">
+                                      <h3>
+                                        <%=product.name%>
+                                      </h3>
+                                      <h3>$<%=product.retailPrice%>.00</h3>
+                                    </a>
+                                    <!-- <a href="/Cart?key=<%=Buffer.from(`${product.id}`,'binary').toString('base64')
+                                    %>" class="cart_b"> Add To Cart</a> -->
+                                    <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                    %>"  class="cart_b">View Product</a>
+                                    <!-- <button type="button" id="add_to_cart" style="cursor: pointer;" pid="<%=product.id%>"
+                                      class="cartBtn" <%- product.alreadyInCart && 'disabled' %>><%- product.alreadyInCart==1 ? 'Added to cart': 'Add to cart' %> </button> -->
+                                    <!-- <button productId = '<%-product.id%>' onclick="addToCart(this)" class ="cart_b">Add To Cart</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <%}%>
+                              <%})%>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="featured_title">
+                          <h4>Recommended for you </h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="owl-carousel owl-theme main_owl" id="main_owl2">
+                        <%get_product.forEach((product)=>{%>
+                          <%if(product.is_featured==0){%>
+
+                          <div class="item">
+                            <div class="col-md-12">
+                              <div class="featured_pro">
+                                <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                              %>"><img src="<%=product.productImage%>" class="featured_pro_img"> </a>
+                                <div class="featured_pro2">
+                                  <a href="/product_detail?key=<%=Buffer.from(`${product.id}`,'binary').toString('base64')
+                                %>">
+                                    <h3>
+                                      <%=product.name%>
+                                    </h3>
+                                    <h3>$<%=product.retailPrice%>.00</h3>
+                                  </a>
+                                  <!-- <a id="add_to_cart" pid="<%=product.id%>" class="cart_b"> Add To Cart</a> -->
+                                  <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                      %>"  class="cart_b">View Product</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <%}%>
+                          <%})%>
+                      </div>
+                    </div>
+                </section>
+                <section class="Delivery gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading Title </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <%- include('./footer.ejs'); -%>

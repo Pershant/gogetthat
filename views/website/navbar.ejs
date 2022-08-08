@@ -1,0 +1,29 @@
+<header class="--fixed-top" id="navbar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="slider_list">
+          <div class="owl-carousel owl-theme" id="main_slider">
+            <div class="item">
+              <a class="active"
+                href="/brand">
+                brand
+              </a>
+            </div>
+            <%get_nav_category.forEach((category)=>{%>
+              <div class="item">
+                <a class="active"
+                  href="/category_product?key=<%=Buffer.from(`${category.id}`,'binary').toString('base64')%>"
+                  >
+                  <%=category.name%>
+                </a>
+              </div>
+              <%})%>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,39 @@
+<form id="adminDataAddEditForm" class="form_advanced_validation" action="/sellerAdmin/user/updateUser" method="POST"
+    autocomplete="off" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <div class="control-label">Will you be offering home delivery?</div>
+        <div class="custom-switches-stacked mt-2">
+            <label class="custom-switch">
+                <input type="radio" name="homeDelivery" value="0" class="custom-switch-input" <%= adminData.vendorDetail.homeDelivery == 0 ? 'checked' : ''; %> <%= type && type == 'view' ? 'disabled' : ''; %>>
+                <span class="custom-switch-indicator"></span>
+                <span class="custom-switch-description">No</span>
+            </label>
+            <label class="custom-switch">
+                <input type="radio" name="homeDelivery" value="1" class="custom-switch-input" <%= adminData.vendorDetail.homeDelivery == 1 ? 'checked' : ''; %> <%= type && type == 'view' ? 'disabled' : ''; %>>
+                <span class="custom-switch-indicator"></span>
+                <span class="custom-switch-description">Yes</span>
+            </label>
+        </div>
+    </div>
+
+    <input type="hidden" class="form-control" name="redirectUrl" value="/sellerAdmin/manageShop#homeDelivery"
+        required>
+    <div class="form-group row mb-4">
+        <div class="col-sm-12 col-md-7 offset-4">
+            <input type="hidden" class="form-control" name="id" value="<%= adminData.id %>">
+            <%
+                if (type && type != 'view') {
+            %>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <%
+                } else if (type && type == 'view') {
+            %>
+            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+            <a href="/admin/vendor/edit/<%= adminData.id %>#homeDelivery" class="btn btn-warning">Edit</a>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</form>

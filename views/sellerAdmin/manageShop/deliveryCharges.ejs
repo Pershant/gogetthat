@@ -1,0 +1,104 @@
+<%
+function jsUcfirst(string) 
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const days = {
+    sun: 'Sunday',
+    mon: 'Monday',
+    tue: 'Tuesday',
+    wed: 'Wednesday',
+    thu: 'Thursday',
+    fri: 'Friday',
+    sat: 'Saturday',
+}
+
+%>
+
+<form id="adminDataAddEditForm" class="form_advanced_validation" action="/sellerAdmin/user/updateVendorDeliveryCharges"
+    method="POST" autocomplete="off" enctype="multipart/form-data">
+
+
+    <%  
+        if (adminData.hasOwnProperty('vendorDeliveryCharges') && adminData.vendorDeliveryCharges.length > 0) {
+            adminData.vendorDeliveryCharges.forEach(deliveryCharge => {
+    %>
+
+    <div class="delivery_option_days_container">
+        <b><%= `${deliveryCharge.minDistance}-${deliveryCharge.maxDistance} km` %></b>
+        <input type="hidden" name="id<%= deliveryCharge.minDistance; %>" value="<%= deliveryCharge.id; %>" />
+        <div class="col-md-12 float_left delivery_option_days">
+            <!-- <div class="col-md-2 float_left">
+                <div class="form-group">
+                    <label class="delivery_times">Delivery Times:</label>
+                </div>
+            </div> -->
+            <div class="col-md-3 float_left">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" name="price<%= deliveryCharge.minDistance; %>"
+                            value="<%= deliveryCharge.price; %>" <%= type && type == 'view' ? 'disabled' : ''; %>>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 float_left">
+                <div class="form-group">
+                    <div class="control-label">No Delivery</div>
+                    <label class="custom-switch mt-2">
+                        <input name="noDelivery<%= deliveryCharge.minDistance; %>" type="checkbox"
+                            class="custom-switch-input" <%= deliveryCharge.noDelivery == 1 ? 'checked' : ''; %>
+                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                        <span class="custom-switch-indicator"></span>
+                        <!-- <span class="custom-switch-description">description text</span> -->
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 float_left">
+                <div class="form-group">
+                    <div class="control-label">Free Delivery</div>
+                    <label class="custom-switch mt-2">
+                        <input name="freeDelivery<%= deliveryCharge.minDistance; %>" type="checkbox"
+                            class="custom-switch-input" <%= deliveryCharge.freeDelivery == 1 ? 'checked' : ''; %>
+                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                        <span class="custom-switch-indicator"></span>
+                        <!-- <span class="custom-switch-description">description text</span> -->
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-3 float_left">
+            </div>
+        </div>
+    </div>
+
+    <%            
+            });
+        }
+    %>
+
+    <input type="hidden" class="form-control" name="redirectUrl"
+        value="/sellerAdmin/manageShop#deliveryCharges" required>
+    <div class="form-group row mb-4">
+        <div class="col-sm-12 col-md-7 offset-4">
+            <input type="hidden" class="form-control" name="vendorId" value="<%= adminData.id %>">
+            <%
+                if (type && type != 'view') {
+            %>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <%
+                } else if (type && type == 'view') {
+            %>
+            <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+            <a href="/admin/vendor/edit/<%= adminData.id %>#deliveryCharges" class="btn btn-warning">Edit</a>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</form>

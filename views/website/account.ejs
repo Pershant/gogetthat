@@ -1,0 +1,229 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+
+
+
+
+                <section class="profile">
+                  <img src="website/images/profile.png">
+                </section>
+
+                <section class="Delivery_tabs">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="prfoiles_section">
+                          <img src="<%=get_user.image%>" id="blah">
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="prfoiles_section2">
+                          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Update Profile</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                                aria-controls="contact" aria-selected="false">Update Password</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#Wishlist" role="tab"
+                                aria-controls="contact" aria-selected="false">My Wishlist</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                              <div class="profile_Date">
+                                <h2>My Profile</h2>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div>
+                                      <h5>Name</h5>
+                                      <h3>
+                                        <%=get_user.name%>
+                                      </h3>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div>
+                                      <h5>Phone Number</h5>
+                                      <h3>
+                                        <%=get_user.phone%>
+                                      </h3>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div>
+                                      <h5>Email</h5>
+                                      <h3>
+                                        <%=get_user.email%>
+                                      </h3>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                              <div class="profile_Date">
+                                <h2>Update Profile</h2>
+                                <form enctype="multipart/form-data" id="update_profile_form">
+                                  <div class="row">
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+
+                                        <h5>Change Photo</h5>
+                                        <input class="form-control file_set" name="image" accept="image/png, image/jpeg" type="file"
+                                          placeholder="<%=get_user.email%>" id="imgInp">
+                                        <span class="back_shade"><img src="website/images/cam.png"></span>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+                                        <h5>Name</h5>
+                                        <input class="form-control" name="name" type="text" placeholder="Enter Name"
+                                          value="<%=get_user.name%>">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2 number_Data">
+                                        <h5>Phone Number</h5>
+
+                                        <select name="country_code" class="code_top">
+                                          <% for(country in countryCodesList){ %>
+
+                                            <option data-countryCode="DZ" value="<%= countryCodesList[country] %>">
+                                              <%= countryCodesList[country] %> <%= country %>
+                                            </option>
+
+                                            <% } %>
+                                        </select>
+                                        <input class="form-control" name="phone"  minlength="10"type="text" placeholder="Enter Phone"
+                                          value="<%=get_user.phone%>">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+                                        <h5>Email</h5>
+                                        <input class="form-control" name="email" type="email" placeholder="Enter Email"
+                                          value="<%=get_user.email%>">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <div class="profile_Date2">
+                                        <a href="javascript:void(0);" id="update_profile_btn" class="Up_date">Update</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+
+
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                              <form id="update_password_form">
+                                <div class="profile_Date">
+                                  <h2>Update Password</h2>
+                                  <div class="row">
+
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+                                        <h5>Old Password</h5>
+                                        <input class="form-control" name="old_password" type="password"
+                                          placeholder=" Enter Old Password">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+                                        <h5>New Password</h5>
+                                        <input class="form-control" id="update_newPassword" name="new_password"
+                                          type="password" placeholder=" New Password">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="profile_Date2">
+                                        <h5>Confirm Password</h5>
+                                        <input class="form-control" name="confirm_password" type="password"
+                                          placeholder="Confirm Password">
+                                      </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <div class="profile_Date2">
+                                        <a href="javascript:void(0);" id="update_password_btn"
+                                          class="Up_date">Update</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="tab-pane fade" id="Wishlist" role="tabpanel" aria-labelledby="contact-tab">
+                              <div class="profile_Date">
+                                <h2>My Wishlist</h2>
+                                <div class="row">
+                                  <%if(get_wishlist.length>0){%>
+                                    <div class="owl-carousel owl-theme main_owl" id="main_owl5">
+                                      <%}%>
+                                        <%for(let item of get_wishlist){%>
+                                          <div class="item">
+                                            <div class="col-md-12">
+                                              <div class="featured_pro">
+                                                <a href="/product_detail?key=<%=Buffer.from(`${item.product.id}`, 'binary').toString('base64')
+                                            %>"><img src="<%=item.product.productImage%>"> </a>
+                                                <a id="del_wish" wish_id="<%=item.id%>" class="cross_img"> <img
+                                                    src="website/images/cross.png"></a>
+                                                <div class="featured_pro2">
+                                                  <h3>
+                                                    <%=item.product.name%>
+                                                  </h3>
+                                                  <h3>$<%=item.product.retailPrice%>.00</h3>
+                                                  <a id="add_to_cart" pid="<%=item.product.id%>" class="cart_b"> Add To
+                                                    Cart</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <%}%>
+
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>
+
+
+                  <script>
+                    function readURL(input) {
+                      if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                          $('#blah').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                      }
+                    }
+                    $("#imgInp").change(function () {
+                      readURL(this);
+                    });
+                  </script>

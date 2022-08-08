@@ -1,0 +1,349 @@
+/**
+ *
+ * You can write your CSS code here, DO NOT touch the default JavaScript file
+ * because it will make it harder for you to update.
+ * 
+ */
+
+/*# sourceMappingURL=custom.css.map */
+
+/*
+|------------------------------------------------------------------------------------------------
+|  Pre Loader Spinner
+|------------------------------------------------------------------------------------------------
+|
+*/
+.error {
+    color: red !important;
+}
+
+.spinner{
+    width: 80px;
+    height: 80px;
+    
+    border: 2px solid #f3f3f3;
+    border-top:3px solid #f25a41;
+    border-radius: 100%;
+    
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+    
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from{
+        transform: rotate(0deg);
+    }to{
+        transform: rotate(360deg);
+    }
+}
+
+#overlay{
+  height:100%;
+  width:100%;
+  /* background:rgba(0, 0, 0, 1); */
+  background:rgba(255, 255, 255, 1);
+  position:fixed;
+  left:0;
+  top:0;
+    z-index: 999;
+ }
+
+
+/* Background Color Classes */
+
+.bg-blue {
+    background-color: #007bff!important;
+}
+
+.bg-indigo {
+    background-color: #6610f2!important;
+}
+
+.bg-purple {
+    background-color: #6f42c1!important;
+}
+
+.bg-pink {
+    background-color: #e83e8c!important;
+}
+
+.bg-red {
+    background-color: #dc3545!important;
+}
+
+.bg-orange {
+    background-color: #fd7e14!important;
+}
+
+.bg-yellow {
+    background-color: #ffc107!important;
+}
+
+.bg-green {
+    background-color: #28a745!important;
+}
+
+.bg-teal {
+    background-color: #20c997!important;
+}
+
+.bg-cyan {
+    background-color: #17a2b8!important;
+}
+
+.bg-gray {
+    background-color: #6c757d!important;
+}
+
+.bg-gray-dark {
+    background-color: #343a40!important;
+}
+
+
+
+
+/* Text Color Classes */
+
+.text-blue {
+    color: #007bff!important;
+}
+
+.text-indigo {
+    color: #6610f2!important;
+}
+
+.text-purple {
+    color: #6f42c1!important;
+}
+
+.text-pink {
+    color: #e83e8c!important;
+}
+
+.text-red {
+    color: #dc3545!important;
+}
+
+.text-orange {
+    color: #fd7e14!important;
+}
+
+.text-yellow {
+    color: #ffc107!important;
+}
+
+.text-green {
+    color: #28a745!important;
+}
+
+.text-teal {
+    color: #20c997!important;
+}
+
+.text-cyan {
+    color: #17a2b8!important;
+}
+
+.text-gray {
+    color: #6c757d!important;
+}
+
+.text-gray-dark {
+    color: #343a40!important;
+}
+
+img#brand_logo_login {
+    padding: 20px;
+}
+
+/* img#brand_logo_dashboard {
+    padding: 11px;
+    margin-bottom: 105px;
+} */
+
+img#brand_logo_dashboard {
+    padding: 11px;
+    margin-bottom: 105px;
+    border-right: 2px solid #fff;
+}
+
+/* Define an animation behavior */
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+}
+/* This is the class name given by the Font Awesome component when icon contains 'spinner' */
+.fa-spinner {
+/* Apply 'spinner' keyframes looping once every second (1s)  */
+animation: spinner 1s linear infinite;
+}
+
+
+#animated_box {
+    /* width: 70px; */
+    height: 47px;
+    background: #6777ef;
+    color: #ffffff;
+    position: relative;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    animation: animated_box 2s 1;
+    -moz-animation: animated_box 2s 1;
+    -webkit-animation: animated_box 2s 1;
+    -o-animation: animated_box 2s 1;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+@keyframes animated_box {
+    /* 0% {
+        transform: rotate(0deg);
+        left: 0px;
+    }
+    25% {
+        transform: rotate(20deg);
+        left: 0px;
+    } */
+    0% {
+        transform: rotate(0deg);
+        left: 90%;
+    }
+    /* 25% {
+        transform: rotate(0deg);
+        left: 90%;
+    } */
+    50% {
+        /* transform: rotate(0deg);
+        left: 90%; */
+        background: #1ec7e6;
+    }
+    100% {
+        transform: rotate(-360deg);
+        left: 0px;
+    }
+}
+
+/* 
+.main-content {
+    padding-left: 315px !important;
+}
+
+.navbar {
+    left: 290px !important;
+}
+
+.main-sidebar {
+    width: 290px !important;
+} */
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li a {
+    font-size: 12px !important;
+}
+
+.image-preview label, #callback-preview label {
+    margin-bottom: 25px;
+}
+
+.select2 {
+    width: calc(100% - 48px) !important;
+}
+
+.select2_tags-container--disabled, .select2-container--disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+select:disabled {
+    cursor: default;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+.select2_tags-container--disabled .select2-selection__arrow b, .select2-container--disabled .select2-selection__arrow b{
+    display: none;
+}
+
+.datatable_list_image {
+    max-width: 100%!important;
+    max-height: 150px!important;
+    position: relative;
+}
+
+
+.main-sidebar .sidebar-brand > a > img {
+    margin-bottom: 135px !important;
+}
+
+.excel_export_btn {
+    float: right !important; 
+    margin-bottom: 10px;
+}
+
+.float_left {
+    float: left !important;
+}
+
+.delivery_times {
+    margin-top: 40px !important;
+    font-size: 12px !important;
+}
+
+.col-md-12.float_left.delivery_option_days .col-md-4 label {
+    margin-top: 18px !important;
+}
+
+
+.checks_box_permissions .custom-switch {
+    padding-left: 0px !important;
+}
+
+
+.checks_box_permissions td {
+    width: 25%;
+    text-align: center;
+  }
+  td.checks_box_permissions {
+    padding: 0px !important;
+  }
+  td.checks_box_permissions table {
+      width: 100% !important;
+  }
+
+.bootstrap-timepicker-widget table td input {
+    width: 40px !important;
+}
+
+
+
+
+div.show_image {
+    position: relative;
+    float:left;
+    /* margin:5px; */
+}
+div.show_image:hover img{
+    opacity:0.5;
+}
+div.show_image:hover input {
+    display: block;
+}
+div.show_image input {
+    position:absolute;
+    display:none;
+}
+div.show_image input.delete_button {
+    top: 3%;
+    right: 13%;
+}
+div.show_image input.pop_image_button {
+    top: 3%;
+    left: 13%;
+}

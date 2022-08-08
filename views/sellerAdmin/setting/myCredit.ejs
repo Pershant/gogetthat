@@ -1,0 +1,83 @@
+<form
+  action="/sellerAdmin/setting/myCredit"
+  id="withdrawRequest"
+  method="POST"
+  autocomplete="off"
+  enctype="multipart/form-data"
+>
+  <div class="card" id="settings-card">
+    <div class="card-header">
+      <h4>My Credit</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 offset-3 col-md-6 col-lg-6">
+          <div class="pricing pricing-highlight">
+            <div class="pricing-title">My Credit</div>
+            <div class="form-group">
+              <div class="pricing-padding">
+                <div class="pricing-price">
+                  <label>Wallet Amount</label>
+                  <div>
+                    <input
+                      type="number"
+                      name="wAmount"
+                      value="<%=rootWallet.walletAmount%>"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Enter Amount for Withdraw</label>
+              <div><input type="number" name="amount" required min="1" /></div>
+            </div>
+            <div class="form-group">
+              <select
+                id="selectBank"
+                name="BankId"
+                class="form-control"
+                aria-label="Default select example"
+                required
+              >
+                Select bank <% rootBank.forEach(bank => { %>
+                <option value="<%= bank.id; %>"><%= bank.bankName; %></option>
+                <% }) %>
+              </select>
+            </div>
+            <br />
+            <br />
+            <button
+              class="btn"
+              type="submit"
+              class="requestWithdrawl"
+              onclick="myFunction()"
+            >
+              Request Withdrawal <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  $(document).ready(function () {
+    $(".requestWithdrawl").click(function () {
+      alert("here1");
+      console.log("===============>");
+      $.ajax({
+        method: "POST",
+        url: "/selleradmin/wallet/checkBank",
+        data: data,
+        success: function (result) {
+          console.log(result);
+        },
+      });
+    });
+  });
+
+  // }
+</script>

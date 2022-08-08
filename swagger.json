@@ -1,0 +1,727 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"description": "Swagger Doc For Ongo app",
+		"version": "1.0.0",
+		"title": "Swagger Ongo app",
+		"termsOfService": "http://swagger.io/terms/",
+		"contact": {
+			"email": "apiteam@swagger.io"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"paths": {
+		"/category_list": {
+			"get": {
+				"tags": [
+					"Category"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "Get category list",
+				"description": "category_list",
+				"operationId": "category_list",
+				"responses": {}
+			}
+		},
+		"/productListUser": {
+			"post": {
+				"tags": [
+					"product"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "Get product List User",
+				"description": "productListUser",
+				"operationId": "productListUser",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ProductListing"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/ProductListing"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/product_detail": {
+			"post": {
+				"tags": [
+					"product"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "Get product_detail",
+				"description": "product_detail",
+				"operationId": "product_detail",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/product_detail"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/product_detail"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/salesDetails": {
+			"post": {
+				"tags": [
+					"salesDetails"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "Get salesDetails",
+				"description": "salesDetails",
+				"operationId": "salesDetails",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/salesDetails"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/salesDetails"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/graphDetail": {
+			"post": {
+				"tags": [
+					"graphDetail"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "graphDetail",
+				"description": "graphDetail",
+				"operationId": "graphDetail",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/graphDetail"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/graphDetail"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/productFav": {
+			"post": {
+				"tags": [
+					"product"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "product Fav",
+				"description": "productFav",
+				"operationId": "productFav",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/productFav"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/productFav"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/addCard": {
+			"post": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "product Fav",
+				"description": "productFav",
+				"operationId": "productFav",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/addCard"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/addCard"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/allCards": {
+			"get": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "users all Cards",
+				"description": "allCards",
+				"operationId": "allCards",
+				"responses": {}
+			}
+		},
+		"/updateCard": {
+			"put": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "update Card",
+				"description": "updateCard",
+				"operationId": "updateCard",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/updateCard"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/updateCard"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/deleteCard": {
+			"delete": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "deleteCard Card",
+				"description": "deleteCard",
+				"operationId": "deleteCard",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/deleteCard"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/deleteCard"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/setDefaultCard": {
+			"put": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "setDefaultCard Card",
+				"description": "setDefaultCard",
+				"operationId": "setDefaultCard",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultCard"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultCard"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/setDefaultCard": {
+			"put": {
+				"tags": [
+					"card"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "setDefaultCard Card",
+				"description": "setDefaultCard",
+				"operationId": "setDefaultCard",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultCard"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultCard"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/userAddressListing": {
+			"get": {
+				"tags": [
+					"user address"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "userAddressListing Card",
+				"description": "userAddressListing",
+				"operationId": "userAddressListing",
+				"responses": {}
+			}
+		},
+		"/addUserAddress": {
+			"post": {
+				"tags": [
+					"user address"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "userAddressListing Card",
+				"description": "addUserAddress",
+				"operationId": "addUserAddress",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/addUserAddress"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/addUserAddress"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/login": {
+			"post": {
+				"tags": [
+					"login"
+				],
+				"security": [
+					{
+						"securityKey": []
+					}
+				],
+				"summary": "login",
+				"description": "login",
+				"operationId": "login",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/login"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/login"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/updateUserAddress": {
+			"put": {
+				"tags": [
+					"user address"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "userAddressListing Card",
+				"description": "updateUserAddress",
+				"operationId": "updateUserAddress",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/updateUserAddress"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/updateUserAddress"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/deleteUserAddress": {
+			"delete": {
+				"tags": [
+					"user address"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "userAddressListing Card",
+				"description": "deleteUserAddress",
+				"operationId": "deleteUserAddress",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/deleteUserAddress"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/deleteUserAddress"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		},
+		"/setDefaultUserAddress": {
+			"put": {
+				"tags": [
+					"user address"
+				],
+				"security": [
+					{
+						"Bearer": []
+					}
+				],
+				"summary": "userAddressListing Card",
+				"description": "deleteUserAddress",
+				"operationId": "setDefaultUserAddress",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultUserAddress"
+							}
+						},
+						"application/xml": {
+							"schema": {
+								"$ref": "#/components/schemas/setDefaultUserAddress"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {}
+			}
+		}
+	},
+	"externalDocs": {
+		"description": "Find out more about Swagger",
+		"url": "http://swagger.io"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8300/api"
+		},
+		{
+			"url": "http://54.252.10.181:8300/api"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"Bearer": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header"
+			},
+			"securityKey": {
+				"type": "apiKey",
+				"name": "securityKey",
+				"in": "header"
+			}
+		},
+		"schemas": {
+			"setDefaultUserAddress": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"deleteUserAddress": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"updateUserAddress": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number"
+					},
+					"longitude": {
+						"type": "number"
+					},
+					"name": {
+						"type": "string"
+					},
+					"countryCode": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				}
+			},
+			"setDefaultCard": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"deleteCard": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"updateCard": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"cardType": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"cardNumber": {
+						"type": "string"
+					},
+					"month": {
+						"type": "string"
+					},
+					"year": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"addCard": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"cardType": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"cardNumber": {
+						"type": "string"
+					},
+					"month": {
+						"type": "string"
+					},
+					"year": {
+						"type": "string"
+					}
+				}
+			},
+			"login": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				}
+			},
+			"graphDetail": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"fromDate": {
+						"type": "string"
+					},
+					"toDate": {
+						"type": "string"
+					}
+				}
+			},
+			"ProductListing": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"categoryId": {
+						"type": "number"
+					}
+				}
+			},
+			"productFav": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"product_detail": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"salesDetails": {
+				"type": "object",
+				"required": [],
+				"properties": {
+					"year": {
+						"type": "number"
+					}
+				}
+			}
+		}
+	}
+}

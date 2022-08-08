@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Go Get That</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="icon" href="/website/images/favi.png" type="image/png" sizes="16x16">
+  <link href="/website/css/bootstrap.css" rel="stylesheet" />
+  <link href="/website/css/owl.theme.default.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/54ab3be641.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/website/icofont/icofont.min.css">
+  <link href="/website/css/owl.carousel.css" rel="stylesheet">
+  <link href="/website/css/reset.css" rel="stylesheet">
+  <link href="/website/css/aos.css" rel="stylesheet">
+  <link href="/website/css/custom.css" rel="stylesheet">
+  <link href="/website/css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="/website/css/my_style.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
+  <style>
+    button.compare_top {
+      background: #ff9034;
+      border-radius: 20px;
+      position: fixed;
+      left: 9px;
+      bottom: 15px;
+      z-index: 33;
+      border: 1px solid #000;
+      padding: 10px 10px;
+    }
+
+    .compare_top span {
+      background: white;
+      border-radius: 50%;
+      font-size: 12px;
+      padding: 3px 4px;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <%if (session.user) { %>
+    <a href="comparison"><button class="compare_top"> Compare <span id="compareCounter">
+          <%=session.user.compare_count%>
+        </span></button>
+    </a>
+    <% } else{%>
+      <button class="compare_top"> Compare <span>
+          0
+        </span></button>
+      <%} %>
+        <div id="loader">
+          <img src="/website/images/loader.gif" class="loader_img">
+        </div>
+        <div class="modal fade log_in_models" id="login_model" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                Login
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <div class="log_in_logo">
+                      <img src="/website/images/login.png">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="log_in_pop">
+                      <form id="login_form">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="text" name="email" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" name="password" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group text-right">
+                          <label class="forgot_p for_got_button"> <a href data-toggle="modal" id="forgot_button"
+                              data-target=""> Forgot
+                              Password?
+                            </a> </label>
+                        </div>
+
+                        <a href data-toggle="modal" data-target="#otp" class="log_in_btn log_in" id="login_btn">
+                          Login</a>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-md-12">
+                    <div class="dont_have">
+                      <label> Don’t have an account? <a href="javascript:void(0);" data-toggle="" data-target=""
+                          class="label_red register_button"> Register </a> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade log_in_models" id="forgot_model" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                Forgot Password
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row align-items-center">
+
+                  <div class="col-md-12">
+                    <div class="log_in_pop border-0">
+                      <form id="forgot_password_form">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="text" name="forgot_email" class="form-control form-control-sm">
+                        </div>
+                        <a href="javascript:void(0);" class="log_in_btn" id="for_got_button"> Send</a>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade log_in_models" id="signup_model" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                Register
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <div class="log_in_logo">
+                      <img src="/website/images/login.png">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="log_in_pop">
+                      <form id="sign_up_form">
+                        <div class="form-group">
+                          <label>Name</label>
+                          <input type="text" name="name" placeholder="Enter Name" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="email" name="email" placeholder="Enter Email" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group phone_number">
+                          <label>Phone Number</label>
+                          <select name="country_code">
+
+                            <% for(country in countryCodesList){ %> 
+                              
+                              <option data-countryCode="DZ" value="<%= countryCodesList[country] %>"> <%= countryCodesList[country] %> <%= country %> </option>
+
+                            <% } %>
+                          </select>
+                          <input type="number" name="phone" minlength="10" placeholder="Enter Phone"class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" id="sign_up_password" name="password"placeholder="Enter Password"
+                            class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group">
+                          <label> Confirm Password</label>
+                          <input type="password" name="confirm_password" placeholder="Re-enter Password" class="form-control form-control-sm">
+                        </div>
+
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#otp" class="log_in_btn sign_up"
+                          id="signup_btn"> Register</a>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-md-12">
+                    <div class="dont_have">
+                      <label> Already have an account <a href="javascript:void(0);" data-toggle="" data-target=""
+                          class="label_red singin_button"> Sign In </a> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

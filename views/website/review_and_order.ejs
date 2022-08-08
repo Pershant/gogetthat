@@ -1,0 +1,405 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+                <section class="store_locater">
+                  <h3>Review your order</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page"> Cart
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page">
+                                Checkout </li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="modal fade log_in_models" id="add_billing" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        Add Billing Address
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="log_in_pop border-0">
+                          <form action="">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>First Name</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Last Name</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 1</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 2</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>City</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>State </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Country </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Zip Code </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-12 ">
+                                <a href="" class="log_in_btn float-right"> ADD</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="modal fade log_in_models" id="add_billing2" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        Add Shippin Address
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="log_in_pop border-0">
+                          <form action="">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>First Name</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Last Name</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 1</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Address Line 2</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>City</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>State </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Country </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Zip Code </label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-12 ">
+                                <a href="" class="log_in_btn float-right"> ADD</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal fade log_in_models" id="add_billing3" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        Payment Method
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="log_in_pop border-0">
+                          <form action="">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Card Number</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Card Holder Name</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>CVV</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label>Expiry</label>
+                                  <input type="text" class="form-control form-control-sm">
+                                </div>
+                              </div>
+
+                              <div class="col-md-12 ">
+                                <a href="" class="log_in_btn float-right"> ADD</a>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <section class="review_raitings ">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="re_views">
+                          <h3>Review & Place Order</h3>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+
+                        <div class="re_views2">
+                          <h3>Billing Address</h3>
+                          <div class="re_views_text">
+                            <div class="store_adrs_list">
+                              <h2>
+                                <%=get_billing_address.name%>
+                                  <%=get_billing_address.last_name%>
+                              </h2>
+                              <h4>
+                                <%=session.user.phone%>
+                              </h4>
+                              <p>
+                                <%=get_billing_address.address_line_1%>
+                                  <%=get_billing_address.address_line_2%>
+                                    <%=get_billing_address.city%>
+                                      <%=get_billing_address.state%>
+                                        <%=get_billing_address.country%>
+                              </p>
+                              <p>
+                                <%=get_billing_address.zip_code%>
+                              </p>
+                            </div>
+                          </div>
+                          <h3>Shipping Address</h3>
+                          <div class="re_views_text">
+                            <div class="store_adrs_list">
+                              <h2>
+                                <%=get_shiping_address.name%>
+                                  <%=get_shiping_address.last_name%>
+                              </h2>
+                              <h4>
+                                <%=session.user.phone%>
+                              </h4>
+                              <p>
+                                <%=get_shiping_address.address_line_1%>
+                                  <%=get_shiping_address.address_line_2%>
+                                    <%=get_shiping_address.city%>
+                                      <%=get_shiping_address.state%>
+                                        <%=get_shiping_address.country%>
+                              </p>
+                              <p>
+                                <%=get_shiping_address.zip_code%>
+                              </p>
+                            </div>
+                          </div>
+                          <h3>Payment</h3>
+                          <div class="re_views_text">
+                            <div class="store_adrs_list">
+                              <h2><%=getCard.name%> </h2>
+                              <h4><%=getCard.cardNumber%></h4>
+                              <p>Expiry: <%=getCard.month%> <%=getCard.year%>  </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="order_sum_top">
+                          <div class="order_sum">
+                            <h3>Order Summary</h3>
+                          </div>
+                          <%for(let cart of getCart){%>
+                            <div class="order_sum1">
+                              <img id="Checkout_img" src="<%=cart.product.productImage%>">
+                              <div class="order_sum2">
+                                <h2>
+                                  <%=cart.product.name%>
+                                </h2>
+                                <h4>
+                                  <%=cart.product.description.substring(0,40)%>
+                                </h4>
+                                <p>color:<%=cart.color%></p>
+                                <h4>
+                                  <%=cart.product.description.substring(0,40)%>
+                                  <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
+                                    <p> <%=Object.keys(spec)%>: <%=Object.values(spec)%> </p>
+                                    <%} %>
+                                </h4>
+                              </div>
+                              <div class="order_sum3">
+                                <h2>
+                                  Qty:<%=cart.qty%>
+                                </h2>
+                                <h5>Price $<%=cart.product.retailPrice%>
+                                </h5>
+                                <span>
+                                  <a id="del_cart" piid="<%=cart.id%>"> <img src="website/images/edit.png"> </a>
+                                </span>
+                              </div>
+                            </div>
+                            <%}%>
+                              <div class="order_sum4">
+                                <p> Subtotal <span> $<%=getCart.sum%></span></p>
+                                <p> Discount <span> $0.00</span></p>
+                                <p> Shipping <span> $<%=getCart.shipping%></span></p>
+                                <p> Tax <span> %<%=getCart.tax%></span></p>
+                                <h3> Order Total <span> $<%=getCart.total%></span></h3>
+                              </div>
+                        </div>
+                        <a href data-toggle="modal" data-target="#place_order" class="log_in_btn"> Place order</a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <div class="modal fade place_order" id="place_order" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                      <div class="modal-body">
+                        <div class="row align-items-center">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <div class="col-md-12">
+                            <div class="confirm2">
+                              <h3>Order Confirmation</h3>
+                              <p> Are your sure want to<br>place this order?</p>
+                              <p>
+                                <a href class="log_in_btn2" id="confirm_order" cart="<%=getCart%>"
+                                  billing_address="<%=get_billing_address.id%>"
+                                  shiping_address="<%=get_shiping_address.id%>"
+                                  card_id="<%=getCard.id%>" data-toggle="modal" data-target="#confirm_order"> Yes</a>
+                                <a href class="log_in_btn3"> No</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal fade place_order" id="confirm_order" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                      <div class="modal-body">
+                        <div class="row align-items-center">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <div class="col-md-12">
+                            <div class="confirm2">
+                              <h3>Confirmation</h3>
+                              <p> Your order has been <br>successfully placed.</p>
+                              <p>
+                                <a href="index.html" class="log_in_btn2"> Home</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%- include('./footer.ejs'); -%>

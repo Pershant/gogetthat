@@ -1,0 +1,114 @@
+<%- include('../partials/header'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4><%= currentSubModule %></h4>
+            </div>
+            <div class="card-body">
+              <ul class="nav nav-pills" id="myTab3" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active show" id="home-tab3" data-toggle="tab" href="#instructions" role="tab"
+                    aria-controls="home" aria-selected="true">Instructions</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#export" role="tab"
+                    aria-controls="profile" aria-selected="false">Export</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#import" role="tab"
+                    aria-controls="profile" aria-selected="false">Import</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#upload_bulk_media" role="tab"
+                    aria-controls="profile" aria-selected="false">Upload Bulk Media</a>
+                </li>
+              </ul>
+
+              <div class="tab-content" id="myTabContent2">
+                <div class="tab-pane fade active show" id="instructions" role="tabpanel" aria-labelledby="home-tab3">
+                  <br />
+                  <h3>Import Export instructions</h3>
+                  <br />
+                  <b>Import/Export process</b><br/>
+                  As a practice it is always recommended to export the CSV first make changes to it and then import it
+                  back into the system. This practice will insure accuracy of the CSV file and minimize any errors
+                  during import.
+                  <br />
+                  <br />
+                  <b>Images/Media Files</b><br/>
+                  Any type of image/media can only be imported into the system from the Upload Bulk Media tab and you
+                  have to just add the complete name of the file in the csv under the media column which you are going
+                  to import as a bulk media.
+
+                  <!-- Any type of images/media can only be imported into the system if the file is located at a public URL.
+                  For example the file should be hosted either on a server which is accessible publicly or on online
+                  tools such as Dropbox/Google Drive etc. Please note that images saved on devices and desktops cannot
+                  be imported through the CSV.
+                  Once the media CSV is imported in to the system, a cron job is executed by the system to import and
+                  save the images on the server. This cron job is an automated script that the system runs after a set
+                  interval on its own and no intervention is required from the users end. The media/images imported into
+                  the system will not display immediately. -->
+                  <br />
+                  <!-- <b>Deleting Items</b>
+                  <br/>
+                  Within Ongo when an item is deleted, the system does not actually delete the item from the database
+                  rather it just hides the item from display. With the import functionality a user can restore a
+                  previously deleted item by changing the value of the deleted column from 'Yes' to 'No'.
+                  <br/>
+                  <b>Import Log File</b>
+                  <br/>
+                  Ongo will generate a CSV log file for every import action where it will log the column and row for
+                  the errors encountered during the import. If the import was successful then no log file will be
+                  generated. System will only allow importing the CSV if no errors are encountered.
+                  CSV
+                  To avoid errors it is absolutely recommended to not alter columns or its names/header in the CSV. Also
+                  to import bulk entries it is absolutely recommended to keep maximum entries to a count of 20,000 per
+                  sheets. It is absolutely recommended to make multiple sheets for data above 20,000.
+                  Import Export Ongo settings
+                  Only turn on/off settings from settings console if you are familiar with boolean concepts and
+                  understand how Id's will work in a CSV. Also turning on settings from the import export settings tab
+                  may alter or add columns to CSV. These columns are -->
+                </div>
+                <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="home-tab3">
+                  Export CSV:
+                  <br />
+                  <button class="btn btn-outline-primary excel_export_product_admin">Export</button>
+                </div>
+                <div class="tab-pane fade" id="import" role="tabpanel" aria-labelledby="home-tab3">
+                  Click on the button below to import the CSV file: <br />
+                  <button class="btn btn-outline-primary importProductExcel">Import</button>
+                </div>
+                <div class="tab-pane fade" id="upload_bulk_media" role="tabpanel" aria-labelledby="home-tab3">
+                  Click on the button below to bulk import product images: <br />
+                  <button class="btn btn-outline-primary importProductImages">Bulk Import Product Images</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+  $(document).ready(function () {
+
+
+  });
+</script>

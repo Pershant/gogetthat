@@ -1,0 +1,72 @@
+<div class="sub_header_2">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-md-2">
+        <div class="logo1">
+          <a class="navbar-brand" href="home"><img src="/website/images/logo.png"></a>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <form action="search_product" class="serac_tab">
+          <img src="/website/images/srch.png">
+          <input type="text" id="search" value='<%=search%>'   name="search"placeholder="Search for products">
+          <button type="submit" id="search_product">Search</button>
+        </form>
+
+      </div>
+      <div class="col-md-3">
+        <div class="serac_tab">
+          <h3>CALL 1300 000 2222</h3>
+        </div>
+
+      </div>
+      <div class="col-md-2 ">
+        <div class="cart_tab">
+          <%if (session.user) { %>
+            <a href="/get_cart?key=<%=Buffer.from(`${session.user.id}`, 'binary').toString('base64')
+            %>"> <img src="/website/images/cart1.png">
+              <span id="cartCounter">
+                <%=session.user.cart_count%>
+              </span>
+              <% } else{%>
+                <a id="cart_withOutLOgin"> <img src="/website/images/cart1.png">
+                <span id="cartCounter">0</span>
+
+                <%} %>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById('cart_withOutLOgin').addEventListener('click',()=>{
+    let storage = localStorage.getItem('cart')
+  
+    
+    if(storage){
+      storage = JSON.parse(storage);
+      // console.log(storage)
+      // return
+      let getProductIds =storage.map((val) => {
+        let x = {[val.pid]:val.qty}
+        return x
+      })
+
+      stringId = JSON.stringify(getProductIds)
+      getCart =  window.btoa(stringId);
+      window.location = `getCart?Ids=${getCart}`
+    //  
+    //   $.ajax({
+    //   type: 'post',
+    //   url: '/getCart',
+    //   data: {storage:JSON.stringify(storage)},
+    //   success: (response) => {
+        
+    //   }
+    // });
+
+    }
+  })
+</script>

@@ -1,0 +1,290 @@
+<%- include('../partials/header'); %>
+
+<% console.log(staffMember, '=======>staffMember'); %>
+
+<!-- Main Content -->
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1 id="animated_box"><%= currentModule; %></h1>
+        </div>
+
+        <div class="section-body animate__animated  animate__backInUp">
+
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><%= currentSubModule %></h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form id="vendorStaffAddEditForm" class="form_advanced_validation"
+                                action="/sellerAdmin/user/updateUser" method="POST" autocomplete="off"
+                                enctype="multipart/form-data">
+                                <div class="form-group">
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Role</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-user-tag"></i>
+                                                    </div>
+                                                </div>
+                                                <select name="role" class="form-control select2" required
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                                    <option value="">Select Role</option>
+                                                    <option value="4"
+                                                        <%= staffMember && staffMember.role == 4 ? 'selected' : ''; %>>
+                                                        Employee</option>
+                                                    <option value="5"
+                                                        <%= staffMember && staffMember.role == 5 ? 'selected' : ''; %>>
+                                                        Manager</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" name="name" required
+                                                    value="<%= staffMember && staffMember.vendorStaffDetail && staffMember.vendorStaffDetail.name; %>"
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="email" class="form-control" name="email" required
+                                                    value="<%= staffMember && staffMember.email; %>"
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <%
+                                        if (type != 'view') {
+                                    %>
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-lock"></i>
+                                                    </div>
+                                                </div>
+                                                <input type="password" class="form-control pwstrength"
+                                                    data-indicator="pwindicator" name="password"
+                                                    autocomplete="new-password" <%= type=='add' ? 'required' : ''; %>
+                                                    <%= type=='view' ? 'disabled' : ''; %>>
+                                            </div>
+                                            <div id="pwindicator" class="pwindicator">
+                                                <div class="bar"></div>
+                                                <div class="label"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+
+                                    <div class="col-sm-12 col-md-7 offset-2">
+                                        <div class="form-group row align-items-center">
+                                            <label for="site-title"
+                                                class="form-control-label col-sm-3 text-md-right">Image</label>
+                                            <div class="col-sm-6 col-md-9">
+                                                <div id="image-preview" class="image-preview"
+                                                    style="background-image: url('<%= type != 'add' ? staffMember && staffMember.vendorStaffDetail.image : '/uploads/default/avatar-1.png'; %>'); background-size: cover; background-position: center center;">
+                                                    <%
+                                                        if (type != 'view') {
+                                                    %>
+                                                    <label for="image-upload" id="image-label">Choose File</label>
+                                                    <input type="file" name="image" id="image-upload" />
+                                                    <%
+                                                        }
+                                                    %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped table-hover">
+                                                <tr>
+                                                    <th>Modules</th>
+                                                    <th>Features</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="checks_box_permissions">
+                                                        <table>
+                                                            <tr>
+                                                                <td>View</td>
+                                                                <td>Add</td>
+                                                                <td>Edit</td>
+                                                                <td>Delete</td>
+                                                            </tr>
+
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                <%  
+                                                    const moduleListing = modules.sellerAdmin;
+                                                    // let admin = {};
+
+                                                    console.log(staffMember, '=====================>staffMember');
+
+                                                    for (let i in moduleListing) {
+                                                        const module = moduleListing[i];
+                                                        if (module.hasOwnProperty('permissions') && Array.isArray(module.permissions) && module.permissions.length) {
+                                                %>
+                                                <tr>
+                                                    <td><%= module['title']; %></td>
+                                                    <td class="checks_box_permissions">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <% if (Array.isArray(module.permissions) && module.permissions.includes('view')) { %>
+                                                                    <label class="custom-switch mt-2">
+                                                                        <input name="module.<%= i; %>"
+                                                                            id="<%= `${i}_view`; %>" type="checkbox"
+                                                                            value="view" class="custom-switch-input"
+                                                                            <%= staffMember && staffMember.hasOwnProperty('vendorStaffDetail') && staffMember.vendorStaffDetail.hasOwnProperty('permissions') && staffMember.vendorStaffDetail.permissions.hasOwnProperty(i) && staffMember.vendorStaffDetail.permissions[i].includes('view') ? 'checked' : ''; %>
+                                                                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                                                                        <span class="custom-switch-indicator"></span>
+                                                                    </label>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <% if (Array.isArray(module.permissions) && module.permissions.includes('add')) { %>
+                                                                    <label class="custom-switch mt-2">
+                                                                        <input name="module.<%= i; %>"
+                                                                            id="<%= `${i}_add`; %>" type="checkbox"
+                                                                            value="add" class="custom-switch-input"
+                                                                            <%= staffMember && staffMember.hasOwnProperty('vendorStaffDetail') && staffMember.vendorStaffDetail.hasOwnProperty('permissions') && staffMember.vendorStaffDetail.permissions.hasOwnProperty(i) && staffMember.vendorStaffDetail.permissions[i].includes('add') ? 'checked' : ''; %>
+                                                                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                                                                        <span class="custom-switch-indicator"></span>
+                                                                    </label>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <% if (Array.isArray(module.permissions) && module.permissions.includes('edit')) { %>
+                                                                    <label class="custom-switch mt-2">
+                                                                        <input name="module.<%= i; %>"
+                                                                            id="<%= `${i}_edit`; %>" type="checkbox"
+                                                                            value="edit" class="custom-switch-input"
+                                                                            <%= staffMember && staffMember.hasOwnProperty('vendorStaffDetail') && staffMember.vendorStaffDetail.hasOwnProperty('permissions') && staffMember.vendorStaffDetail.permissions.hasOwnProperty(i) && staffMember.vendorStaffDetail.permissions[i].includes('edit') ? 'checked' : ''; %>
+                                                                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                                                                        <span class="custom-switch-indicator"></span>
+                                                                    </label>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <% if (Array.isArray(module.permissions) && module.permissions.includes('delete')) { %>
+                                                                    <label class="custom-switch mt-2">
+                                                                        <input name="module.<%= i; %>"
+                                                                            id="<%= `${i}_delete`; %>" type="checkbox"
+                                                                            value="delete" class="custom-switch-input"
+                                                                            <%= staffMember && staffMember.hasOwnProperty('vendorStaffDetail') && staffMember.vendorStaffDetail.hasOwnProperty('permissions') && staffMember.vendorStaffDetail.permissions.hasOwnProperty(i) && staffMember.vendorStaffDetail.permissions[i].includes('delete') ? 'checked' : ''; %>
+                                                                            <%= type && type == 'view' ? 'disabled' : ''; %>>
+                                                                        <span class="custom-switch-indicator"></span>
+                                                                    </label>
+                                                                    <% } %>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <%
+                                                       }
+                                                    }
+                                                %>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row mb-4">
+                                        <div class="col-sm-12 col-md-7 offset-4">
+                                            <!-- <button type="button" class="btn btn-secondary cancel_btn">Back</button> -->
+                                            <a href="/sellerAdmin/staffManagement" class="btn btn-secondary">Back</a>
+                                            <%
+                                                if (type == 'view') {
+                                            %>
+                                            <a href="/sellerAdmin/staffManagement/edit/<%= staffMember && staffMember.id %>"
+                                                class="btn btn-warning">Edit</a>
+                                            <%
+                }
+            %>
+                                            <!-- <button type="submit" class="btn btn-primary">Update</button> -->
+                                            <%
+                                                if (type != 'view') {
+                                            %>
+
+                                            <%
+                                                    if (type == 'edit') {
+                                                %>
+                                            <input type="hidden" class="form-control" name="id"
+                                                value="<%= staffMember ? staffMember.id : undefined; %>">
+                                            <input type="hidden" class="form-control" name="redirectUrl"
+                                                value="<%= `/sellerAdmin/staffManagement/view/${staffMember && staffMember.id}` %>">
+
+                                            <%
+                                                } else if (type == 'add') {
+                                            %>
+                                            <input type="hidden" class="form-control" name="redirectUrl"
+                                                value="<%= `/sellerAdmin/staffManagement/listing`; %>">
+                                            <%
+                                                }
+                                            %>
+                                            <input type="hidden" class="form-control" name="vendorId"
+                                                value="<%= vendorId; %>">
+                                            <button type="submit"
+                                                class="btn btn-primary"><%= type == 'add' ? 'Add' : 'Update'; %></button>
+                                            <%
+                                                }
+                                            %>
+                                        </div>
+                                    </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+    $(document).ready(function () {
+
+
+
+    });
+</script>

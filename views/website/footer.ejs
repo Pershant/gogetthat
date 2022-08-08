@@ -1,0 +1,484 @@
+<footer>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="footer_sec">
+          <h2>About Us </h2>
+          <!-- <p><a href="get_profile">My Account </a></p> -->
+          <p><a href="about">About Us </a></p>
+          <p><a href="contact_us">Contact Us </a></p>
+
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="footer_sec">
+          <h2>Customer Care </h2>
+          <p><a href="faq"> FAQ </a></p>
+          <p><a href="return"> Returns & Exchanges </a></p>
+          <p><a href="store_locator"> Store Locator </a></p>
+          <p><a href="shipping_info"> Shipping Information </a></p>
+          <p><a id="Order_Tracking.html"> Order Tracking </a></p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="footer_sec">
+          <h2>Contact Information </h2>
+          <p class="addrs"> <b>Address: </b>
+            <%=get_admin.adminDetail.support_address%>
+          </p>
+
+          <p class="addrs"> <b>Email: </b>
+            <%=get_admin.adminDetail.support_email%>
+          </p>
+          <p class="addrs"> <b>Phone Number: </b>
+            <%=get_admin.adminDetail.phone%>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="footer_sec">
+          <h2>Newsletter Signup </h2>
+          <div class="footer_email">
+            <input type="text" placeholder="Your Email...">
+            <button> Submit</button>
+          </div>
+          <img src="/website/images/pay.png">
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 text-center">
+      <div class="col-md-12">
+        <div class="footer_social_1">
+          <p> <a id=""><i class="icofont-facebook"></i></a></p>
+          <p> <a id=""><i class="icofont-twitter"></i></a></p>
+          <p> <a id=""><i class="icofont-google-plus"></i></a></p>
+        </div>
+        <div class="footer_social">
+          <p> <a href="term">Terms & Conditions</a></p>
+          <p> <a href="privacy">Privacy Policy</a></p>
+          <p> <a href="sitemap">Sitemap</a></p>
+        </div>
+        <div class="footer_social_p">
+          <p> <a href="copyright">© 2021 Go Get That. All Rights Reserved.</a> <a id="messages.html"><img
+                src="/website/images/chat1.png">
+            </a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script src="/website/js/jquery_min.js"></script>
+<script src="/website/js/popper.min.js"></script>
+<script src="/website/js/bootstrap.js"></script>
+<script src="/website/js/owl.carousel.js"></script>
+<script src="/website/js/jquery.mousewheel.js"></script>
+<script src="/website/js/aos.js"></script>
+<script src="/website/js/custom.js"></script>
+
+<!-- <link rel="stylesheet" id="https://highlightspaces.com/node_modules_url/izitoast/dist/css/iziToast.min.css"> -->
+<!-- <script src="https://highlightspaces.com/node_modules_url/izitoast/dist/js/iziToast.min.js"></script> -->
+<link rel="stylesheet" href="/node_modules_url/izitoast/dist/css/iziToast.min.css">
+<script src="/node_modules_url/izitoast/dist/js/iziToast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+  integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"
+  integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnQmDJAM-LO-nJ3cuKind1eSc3sZxjC88&callback=initMap&libraries=places"
+  async></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnQmDJAM-LO-nJ3cuKind1eSc3sZxjC88&callback=initMap&libraries=places&v=weekly" async></script> -->
+
+<script>
+  const htmlDecode = (input) => {
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
+
+  console.log('customJS==================================================>here');
+
+  let flashMessage = JSON.parse(htmlDecode("<%= JSON.stringify(flashMessage) %>"));
+  console.log(flashMessage, '==================================>flashMessage');
+
+  if (Array.isArray(flashMessage) && flashMessage.length > 0) {
+    flashMessage = flashMessage[0];
+
+    iziToast[flashMessage.color]({
+      title: flashMessage.message,
+      // message: '',
+      position: 'topRight'
+    });
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
+<script>
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    captionText.innerHTML = dots[slideIndex - 1].alt;
+  }
+</script>
+
+
+<script>
+  AOS.init();
+</script>
+
+<script>
+  $("#toTop").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  });
+</script>
+
+<script>
+  $(".add_new_address").click(function () {
+    $(".biiling_page").slideToggle("slow");
+  });
+</script>
+<script>
+  var owl = $('#main_owl');
+  owl.owlCarousel({
+    loop: true,
+    nav: true,
+    margin: 10,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      960: {
+        items: 3
+      },
+      1200: {
+        items: 3
+      }
+    }
+  });
+</script>
+<script>
+  var owl = $('#main_owl1');
+  owl.owlCarousel({
+    loop: true,
+    nav: true,
+    margin: 0,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      960: {
+        items: 3
+      },
+      1200: {
+        items: 3
+      }
+    }
+  });
+</script>
+<script>
+  var owl = $('#main_owl5');
+  owl.owlCarousel({
+    loop: false,
+    nav: true,
+    margin: 10,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      960: {
+        items: 3
+      },
+      1200: {
+        items: 3
+      }
+    }
+  });
+</script>
+<script>
+  var owl = $('#main_owl2');
+  owl.owlCarousel({
+    loop: true,
+    nav: true,
+    margin: 10,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      960: {
+        items: 3
+      },
+      1200: {
+        items: 3
+      }
+    }
+  });
+</script>
+
+<script>
+  var main_slider = $('#main_slider');
+  main_slider.owlCarousel({
+
+    loop: false,
+    nav: true,
+    autoWidth: true,
+    margin: 10,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 10
+      },
+      960: {
+        items: 8
+      },
+      1200: {
+        items: 10
+      }
+    }
+  });
+  main_slider.on('mousewheel', '.owl-stage', function (e) {
+    if (e.deltaY > 0) {
+      main_slider.trigger('next.owl');
+    } else {
+      main_slider.trigger('prev.owl');
+    }
+    e.preventDefault();
+  });
+</script>
+
+<script>
+  $("#toTop").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+  });
+</script>
+
+<script>
+  var rangeOne = document.querySelector('input[name="rangeOne"]'),
+    rangeTwo = document.querySelector('input[name="rangeTwo"]'),
+    outputOne = document.querySelector('.outputOne'),
+    outputTwo = document.querySelector('.outputTwo'),
+    inclRange = document.querySelector('.incl-range'),
+    updateView = function () {
+      if (this.getAttribute('name') === 'rangeOne') {
+        outputOne.innerHTML = this.value;
+        outputOne.style.left = this.value / this.getAttribute('max') * 100 + '%';
+      } else {
+        outputTwo.style.left = this.value / this.getAttribute('max') * 100 + '%';
+        outputTwo.innerHTML = this.value
+      }
+      if (parseInt(rangeOne.value) > parseInt(rangeTwo.value)) {
+        inclRange.style.width = (rangeOne.value - rangeTwo.value) / this.getAttribute('max') * 100 + '%';
+        inclRange.style.left = rangeTwo.value / this.getAttribute('max') * 100 + '%';
+      } else {
+        inclRange.style.width = (rangeTwo.value - rangeOne.value) / this.getAttribute('max') * 100 + '%';
+        inclRange.style.left = rangeOne.value / this.getAttribute('max') * 100 + '%';
+      }
+    };
+
+  document.addEventListener('DOMContentLoaded', function () {
+    updateView.call(rangeOne);
+    updateView.call(rangeTwo);
+    $('input[type="range"]').on('mouseup', function () {
+      this.blur();
+    }).on('mousedown input', function () {
+      updateView.call(this);
+    });
+  });
+</script>
+<script>
+  var markers = [];
+  function initMap() {
+    var beaches = "<%=location_arr%>"
+    beaches = beaches.replace(/&#34;/g, '"');
+    beaches = JSON.parse(beaches)
+   
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(28.7041, 77.1025),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+    for (i = 0; i < beaches.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(beaches[i][2], beaches[i][3]),
+        map: map
+      });
+      google.maps.event.addListener(marker, 'click', (function (marker, i) {
+        return function () {
+          infowindow.setContent(`<p> ${beaches[i][0]}</p><img width = "60" height ="60" src=${beaches[i][1]} />`);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script>
+  $(function () {
+
+    $("#rateYo").rateYo({
+      precision: 2,
+
+    });
+  });
+</script>
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+<script src="./firebase-messaging.js"></script>
+<script>
+  var GetSessionUserId = "<%=session.user%>" ? "<%=session.user && session.user.id%>" : 0;
+  var IsWebsiteLogin = '0';
+  console.log("GetSessionUserId===", GetSessionUserId)
+  var config = {
+    'messagingSenderId': '739568082814',
+    'apiKey': 'AIzaSyBOyyTxiRIIPFwMxVBGpZ4Kqv0XjTCROGk',
+    'projectId': 'bahamaseventapp',
+    'appId': '1:739568082814:android:4b506762f72358e66b9d2f',
+  };
+  firebase.initializeApp(config);
+  const messaging = firebase.messaging();
+
+  messaging.requestPermission().then(function () {
+    console.log("Notification permission granted.");
+    return messaging.getToken()
+  }).then(function (token) {
+    console.log('token', token)
+    var data = {
+      token,
+      GetSessionUserId,
+    };
+    $.ajax({
+      method: 'POST',
+      url: '/updateToken',
+      data: data,
+      cache: false,
+    }).done(function (html) {
+      console.log("token updated successfully")
+    });
+
+  }).catch(function (err) {
+    console.log("Unable to get permission to notify.", err);
+  });
+
+  let enableForegroundNotification = true;
+  messaging.onMessage(function (payload) {
+    const pushData = payload;
+    console.log("pushData", pushData)
+    // return
+    // alert(pushData,'=================')
+    if (enableForegroundNotification) {
+      var logoIcon = "{{asset('public/assets/images/fav.png')}}";
+      console.log("logoIcon", logoIcon)
+      console.log("pushData", pushData);
+      //const title = pushData.data.title;
+      // return
+      const title = "Go Get That";
+      const options = {
+        title: "Crawls Events",
+        body: pushData.data.sub_title,
+        icon: logoIcon,
+        tag: 'jnmnm'
+      };
+      navigator.serviceWorker.getRegistrations().then(registration => {
+        registration[0].showNotification(title, options);
+      });
+    }
+  });
+</script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+  }
+</script>
+<div id="fb-root"></div>
+<script type="text/javascript"
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v14.0"
+  nonce="SgbWNy7R"></script>
+
+<script>
+  $("#toTop").click(function () {
+    $("html, body").animate({ scrollTop: 0 }, 1000);
+  });
+</script>
+<script>
+  var owl = $('#main_owl3');
+  owl.owlCarousel({
+    loop: true,
+    nav: true,
+    margin: 10,
+    dots: false,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      960: {
+        items: 3
+      },
+      1200: {
+        items: 4
+      }
+    }
+  });
+</script>
+</body>
+
+</html>

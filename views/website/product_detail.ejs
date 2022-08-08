@@ -1,0 +1,312 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+                <section class="store_locater">
+                  <h3>Product Page</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="home">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page">New
+                                Arrivals</li>
+
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="count_pro">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="co_unt">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="product_slider">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-7">
+                        <div class="house-1">
+                          <ul id="lightSlider">
+                            <div class="container">
+                              <%product_detail.images.forEach((product_image)=>{%>
+                                <div class="mySlides">
+                                  <img src="<%=product_image.images%>" style="width:100%">
+                                </div>
+                                <%})%>
+                                  <div class="row slides_row">
+                                    <%product_detail.images.forEach((product_image,i)=>{%>
+                                      <div class="column">
+                                        <img class="demo cursor" src="<%=product_image.images%>" style="width:100%"
+                                          onclick="currentSlide('<%= i + 1 %>')" alt="The Woods">
+                                      </div>
+                                      <%})%>
+                                  </div>
+                                  <a class="prev" onclick="plusSlides(-1)"> <i class="fas fa-angle-left"></i> </a>
+                                  <a class="next" onclick="plusSlides(1)"> <i class="fas fa-angle-right"></i> </a>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="product_detail">
+                          <h3>
+                            <%=product_detail.name%>
+                          </h3>
+                          <p>
+                            <%for (let i=0;i<product_detail.avg_rating;i++){%>
+                              <i class="fa fa-star yellow" aria-hidden="true"></i>
+                              <%}%>
+                                (<%=product_detail.total_reviews%>reviews)
+                          </p>
+                          <h3>
+                            $<%=product_detail.retailPrice%>.00
+                          </h3>
+                          <div class="form-group">
+                            <span class="">
+                              <label> Qty:</label>
+                              <input type="number" style="width:100px" name="qty" value="1" min="1" id="qty">
+                            </span>
+                          </div>
+                          <div class="product_color">
+                            <span>Color: </span>
+                            <div class="product_colorS">
+                              <ul>
+                                <%product_detail.colors.forEach((color,i)=>{ %>
+                                  <li class="green1 <%- i == 0 && 'active' %>" id="<%=color.color%>"><a
+                                      style="background-color:<%=color.color%>"></a>
+                                  </li>
+                                  <%})%>
+                              </ul>
+                            </div>
+                          </div>
+                          <p id = "productSpecifications" style = "display: none;"><%-JSON.stringify(product_detail.specification)%></p>
+                          <%
+                            for(let[key,value] of Object.entries(product_detail.specification)){ %>
+                              <%if(value.length > 0){ %>
+                                <select class="specifications" name ="<%-key%>" id ="<%-key%>"required> 
+                                  <%for(let i in value){%>
+                                    <%if(i ==0 ){%>
+                                      <option value="0"> Select <%-key%></option>
+                                      <%}%>
+                                    <option value="<%-value[i].value%>"> <%- value[i].value%></option>
+                                    <%}%>
+                                </select>
+                              <%}%>
+                            <%}%>
+                          <div class="product_colora sze">
+                          
+                          </div>
+                          <div class="product_color">
+                            <button type="button" id="add_to_cart" style="cursor: pointer;" pid="<%=product_detail.id%>"
+                              class="cartBtn " <%- alreadyInCart && 'disabled' %>><%- alreadyInCart ? 'Added to cart': 'Add to cart' %> </button>
+                            <a id="messages.html" class="chatBtn">Chat <img src="website/images/chat.png"></a>
+                          </div>
+                          <div class="secure">
+                            <p> <img src="website/images/tickk.png"> Shop secure, Free
+                              Returns </p>
+                          </div>
+                          <div class="product_color">
+                            <a id="add_to_wishlist" pid="<%=product_detail.id%>" style="cursor: pointer;"
+                              class="add_whislist_btn">Add to Wishlist
+                            </a>
+                            <a id="add_to_compare" pid="<%=product_detail.id%>" style="cursor: pointer;"
+                              class="add_whislist_btn">Add to
+                              Compare</a>
+                          </div>
+                          <div class="product_share">
+                            <span>Share </span>
+                            <!-- <a id="fb-root"><img src="website/images/fb.png"></a> -->
+                            <div class="fb-share-button" data-href="<%=url%>" data-layout="button_count"
+                              data-size="small"><a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=<%=url%>"
+                                class="fb-xfbml-parse-ignore">img src="website/images/fb.png"</a></div>
+                            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?url=<%=url%>">
+                              Tweet
+                            </a>
+                          </div>
+                          <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">Return
+                            & Shipping</button>
+                          <div id="demo" class="collapse">
+                            <h6>Return Price</h6>$ <%=product_detail.return_price%>.00
+                              <h6>Shipping Price</h6>$ <%=product_detail.shipping_price%>.00
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="tabs_section">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="description_tabs">
+                          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home" aria-selected="true">Description</a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Shipping Information</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a href="/product_review?key=<%=Buffer.from(`${product_detail.id}`,'binary').toString('base64')%>"
+                                class="nav-link" id="pills-profile-tab">Reviews</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                              aria-labelledby="pills-home-tab">
+                              <div class="tab_content">
+                                <p>
+                                  <%=product_detail.description%>
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                              aria-labelledby="pills-contact-tab">
+                              <div class="tab_content">
+                                <p>
+                                  <%=product_detail.shippingInformation%>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="">
+                  <div class="container-fluid">
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="featured_title text-center">
+                          <h4 class="d-block">Related Products </h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <%get_product.forEach((product)=>{%>
+                        <%if(product.id!=product_detail.id){%>
+                        <div class="col-md-3">
+                          <div class="featured_pro">
+                            <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                              %>"> <img src="<%=product.productImage%>"></a>
+                            <div class="featured_pro2">
+                              <a href="/product_detail?key=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                %>">
+                                <h3>
+                                  <%=product.name%>
+                                </h3>
+                                <h3>
+                                  <%=product.retailPrice%>
+                                </h3>
+                                  <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                  %>"  class="cart_b">View Product</a>
+                                  <!-- <button type="button" id="add_to_cart" style="cursor: pointer;" pid="<%=product.id%>"
+                                    class="cartBtn" <%- product.alreadyInCart && 'disabled' %>><%- product.alreadyInCart==1 ? 'Added to cart': 'Add to cart' %> </button> -->
+                            </div>
+                          </div>
+                        </div>
+                        <%}%>
+                        <%})%>
+
+                    </div>
+                </section>
+
+                <section class="Delivery">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit
+                            feugiat tortor, a viverra orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor
+                            fermentum. Etiam malesuada at metus nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes,
+                            nascetur ridiculus mus. Sed sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl
+                            tempus faucibus sit amet at massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci,
+                            in sodales leo nisi vel felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat
+                            tortor, a viverra orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor
+                            fermentum. Etiam malesuada at metus nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes,
+                            nascetur ridiculus mus. Sed sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl
+                            tempus faucibus sit amet at massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci,
+                            in sodales leo nisi vel felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat
+                            tortor, a viverra orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor
+                            fermentum. Etiam malesuada at metus nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes,
+                            nascetur ridiculus mus. Sed sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl
+                            tempus faucibus sit amet at massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci,
+                            in sodales leo nisi vel felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <%- include('./footer.ejs'); -%>
+
+                  <script>
+                    $(document).ready(function () {
+
+                      $("#qty").keypress(function (evt) {
+                        evt.preventDefault();
+                      });
+
+                      $(".green1").on("click", function () {
+                        $(".green1").removeClass('active');
+                        $(this).addClass('active');
+                        // let c = $("#add_to_cart").attr("sc", $(this).attr("id"));
+                        let color = $(this).attr("id")
+                        let result = ntc.name($(this).attr("id"));
+                        let specific_name = result[1];
+                        document.getElementById('add_to_cart').setAttribute('sc', specific_name)
+
+
+                      });
+
+                      $(".size_options").on("click", function () {
+                        $(".size_options").removeClass('active');
+                        $(this).addClass('active');
+                        $("#add_to_cart").attr("ss", $(this).attr("id"));
+                      });
+                    });
+                  </script>
+                  <script src="http://www.color-blindness.com/color-name-hue-tool/js/ntc.js">
+                  </script>

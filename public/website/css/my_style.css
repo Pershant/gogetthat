@@ -1,0 +1,484 @@
+/*------ Slider---------*/
+.gallery {
+	width: 100%;
+	max-width: 620px;
+	margin: 40px auto;
+}
+.gallery-slider .swiper-slide {
+	width: auto;
+	height: 400px;
+}
+.gallery-slider .swiper-slide img {
+	display: block;
+	width: auto;
+	height: 100%;
+	margin: 0 auto;
+}
+.gallery-slider {
+	width: 100%;
+	height: auto;
+	margin: 0 0 10px 0;
+}
+.gallery-thumbs .swiper-slide {
+	width: 110px;
+	height: 110px;
+	text-align: center;
+	overflow: hidden;
+	opacity: 0.5;
+	margin-right: 25px !important;
+	border-radius: 14px;
+}
+.small_thumbs_container{
+	width: 86%!important;
+	padding-left: 24px!important;
+}
+.gallery-thumbs .swiper-slide img {
+	width: auto;
+	height: 100%;
+}
+.gallery-thumbs .swiper-slide-active {
+	opacity: 1;
+}
+.gallery-thumbs {
+	width: 100%;
+	padding: 0;
+	overflow: hidden;
+}
+.product_colorS {
+	cursor: pointer;
+}
+
+
+
+/* slider */
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  padding-bottom:15px;
+}
+.mySlides img {
+	height: 540px;
+}
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	bottom: 7%;
+	width: 40px;
+	padding: 9px 10px;
+	//margin-top: -50px;
+	background-color: #f7941d;
+	font-weight: bold;
+	font-size: 21px;
+	user-select: none;
+	-webkit-user-select: none;
+	border: none;
+	color: #fff !important;
+	text-align: center;
+}
+
+/* Position the "next button" to the right */
+.next {
+	right: 30px;
+}
+.prev {
+	left: 30px;
+}
+
+/* Six columns side by side */
+.column {
+	float: left;
+	width: 20%;
+	padding: 0 10px;
+	height: 120px;
+}
+.slides_row{
+	justify-content: center;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.9;
+  border-radius: 14px;
+  height:100%;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+.product_detail h3 {
+	font-size: 20px;
+	font-weight: 800;
+	margin-bottom: 10px;
+}
+.product_detail > p {
+	font-size: 12px;
+	margin-bottom: 10px;
+	color: #757882;
+}
+.product_detail > p i {
+	color: #ffc107;
+	font-size: 16px;
+}
+.slcts::after {
+    position: absolute;
+    content: "";
+    height: 37px;
+    width: 1px;
+    background: #939393;
+    right: 30px;
+}
+.slcts {
+    position: relative;
+}
+.product_detail select {
+    border: 1px solid #f7941d;
+    padding: 7px 9px;
+    border-radius: 25px;
+    margin-left: 0px;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background: #f7941d;
+    color: #fff;
+}
+.product_color {
+	display: flex;
+	align-items: start;
+}
+.product_color span {
+    padding-top: 18px;
+    margin-right: 12px;
+}
+.cartBtn {
+    padding: 15px 30px;
+    background: #f7941d;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 14px;
+    border-radius: 40px;
+    border: none;
+}
+.chatBtn {
+	padding: 3px 20px;
+	background: transparent;
+	text-transform: uppercase;
+	color: #1d337c!important;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-size: 14px;
+	border-radius: 40px;
+	border: 1px solid #1d337c;
+	margin-left: 15px;
+	vertical-align: text-top;
+	display: flex;
+	align-items: center;
+}
+.chatBtn img {
+	width: 35px;
+	margin-left: 15px;
+}
+.secure {
+	margin: 12px 0;
+}
+.secure img {
+	width: 24px;
+	vertical-align: text-top;
+	margin-right: 10px;
+}
+.add_whislist_btn {
+	padding: 11px 30px;
+	background:#1d337c;
+	text-transform: uppercase;
+	color: #fff!important;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-size: 14px;
+	border-radius: 40px;
+	margin-right: 15px;
+	vertical-align: text-top;
+	display: flex;
+	align-items: center;
+}
+.product_share {
+	margin: 12px 0;
+	display: flex;
+	align-items: center;
+	margin-top: 30px;
+}
+.product_share span {
+	margin-right: 15px;
+}
+.product_share a {
+	margin-right: 10px;
+}
+.description_tabs .nav-pills .nav-link {
+    border-radius: 10px 10px 0 0;
+    background: #fbc98e;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 6px;
+    padding: 14px 25px;
+    margin: 0px 10px;
+}
+.tabs_section {
+	padding: 50px 0;
+}
+.description_tabs #pills-tab {
+	justify-content: center;
+	margin: 0 !important;
+}
+.description_tabs .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+	color: #fff;
+	background-color: #f7941d !important;
+}
+.description_tabs #pills-tabContent {
+	background: #f7941d;
+	border-radius: 14px;
+	padding: 15px 10px;
+}
+.tab_content p {
+	color: #fff;
+	margin-bottom: 15px;
+	line-height: 1.2;
+}
+
+
+@media only screen and (max-width: 767px) {
+	.blog_list_top {
+		display: block;
+		padding: 15px 10px;
+	}
+	.blog_new {
+		padding: 20px 0px;
+	}
+	.container-fluid {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.blog_list_top1 .blog_img {
+		width: 100%;
+	}
+	.blog_list_top2 {
+		padding: 10px 0px;
+	}
+	.clock_right {
+		padding: 0px 3px;
+		font-size: 10px;
+		font-weight: bold;
+		text-align: center;
+		border: none;
+	}
+	.up_navbar1 {
+		justify-content: center;
+		margin-top: 20px;
+	}
+	.cart_tab {
+		text-align: center;
+		position: absolute;
+		top: -147px;
+		right: 0;
+	}
+	a.navbar-brand img {
+		width: 90px;
+	}
+	.cart_tab a img {
+		width: 110px;
+	}
+	.Spot_box {
+		padding: 0px;
+	}
+	.profile_Date2 h5 {
+		font-size: 14px;
+		margin-top: 15px;
+	}
+	.prfoiles_section {
+		margin-top: 0;
+	}
+	.log_in_btn {
+		padding: 15px 20px;
+		font-size: 11px;
+		text-align: center;
+	}
+	#main #faq .card {
+		margin-bottom: 10px;
+	}
+	.store_adrs2 h2 {
+		font-size: 16px;
+		margin-bottom: 17px;
+	}
+	#main #faq .card .card-header .btn-header-link {
+		font-size: 12px;
+	}
+	.mySlides img {
+		height: 300px !important;
+	}
+	.add_whislist_btn {
+		text-align: center;
+	}
+	.profile_login img {
+		margin-right: 4px;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+	}
+	.description_tabs .nav-pills .nav-link {
+		margin-right: 3px;
+		padding: 14px 5px;
+		font-size: 12px;
+	}
+	.drop_btn {
+		font-size: 10px;
+	}
+	.log_in_logo {
+		text-align: center;
+	}	
+	.log_in_logo img {
+		width: 120px;
+	}
+	.product_itmes {
+		margin-bottom: 20px;
+	}
+	select.goog-te-combo {
+    background: #fff;
+    border: 1px solid #fff;
+    height: 30px;
+    border-radius: 5px;
+}
+.blog_list_top2 p {
+    font-size: 14px;
+    line-height: 21px;
+}
+	button.compare_top {
+		font-size: 12px;
+	}
+	.page_path .breadcrumb {
+		
+		float: left;
+		font-size: 10px;
+	}
+	.cart_items p {
+		font-size: 13px;
+	}
+	.output {
+		font-size: 11px;
+	}
+	.blog_list_top2 h5 {
+		font-size: 19px;
+	}
+	.featured_pro img {
+		height: auto;
+		width: 100%;
+	}
+	.pop_post img {
+		width: 70px;
+		height: 70px;
+		min-width: 70px;
+	}
+	.pop_post1 h3 {
+		font-size: 14px;
+	}
+	.pop_post1 p {
+		font-size: 12px;
+		line-height: 20px;
+	}
+	.cat-type a {
+		padding: 14px 10px;
+	}
+	.number_Data select {
+		top: 64px;
+	}
+	.sub_header_2 {
+		padding: 10px 0px;
+	}
+	.footer_sec a {
+		font-size: 14px;
+	}
+	.footer_social_1 a {
+		font-size: 22px;
+	}
+	.footer_social a {
+		font-size: 11px;
+		padding: 0px 10px;
+	}
+	.addrs b {
+		font-size: 15px;
+	}
+	.footer_email {
+		position: relative;
+		margin-bottom: 10px;
+		margin-top: 10px;
+	}
+	.addrs {
+		margin-bottom: 1px;
+		font-size: 13px;
+		line-height: 23px;
+	}
+	.store_locater h3 {
+		font-size: 25px;
+	}
+	.column {
+		height: 70px;
+	}
+	.product_itmes2 h1 {
+		text-align: center;
+		width: 100%;
+	}
+	.co_unt h3 {
+		right: 20px;
+		top: -28px;
+		font-size: 12px;
+	}
+	.head_1 img.blog_img {
+		height: 70px;
+		min-width: 60px !important;
+		width: 70px;
+	}
+	.up_btns a {
+		margin-bottom: 20px;
+	}
+	.featured_title h4 {
+		font-size: 20px;
+	}
+	.banner_img {
+		height: 220px;
+		width: 100%;
+	}
+	.footer_sec h2 {
+		font-size: 16px;
+		font-weight: bold;
+		color: #e09432;
+		margin-bottom: 0px;
+		margin-top: 20px;
+	}
+	.footer_social_p a img {
+		width: 40px;
+	}
+	.compare_top span {
+		padding: 3px 8px;
+	}
+	.serac_tab h3 {
+		font-size: 16px;
+		margin-top: 10px;
+	}
+	.log_in_models .modal-dialog {
+		max-width: 100%;
+	}
+	.log_in_pop {
+		border-left: none;
+		padding-left: 0px;
+	}
+  }

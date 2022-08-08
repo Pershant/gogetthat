@@ -1,0 +1,112 @@
+<%- include('../partials/header'); %>
+
+<head>
+  <style>
+    .show_imgs {
+    display: flex;
+    justify-content: left;
+    margin: 10px 0px;
+    overflow: auto;
+}
+.file_uplod1 img {
+    width: 20%;
+    height: 100px;
+    float: left;
+    padding: 1px;
+}
+.file_uplod1 {
+    width: 100%;
+    overflow: auto;
+}
+  </style>
+</head>
+
+
+<!-- Main Content -->
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1 id="animated_box"><%= currentModule; %></h1>
+    </div>
+
+    <div class="section-body animate__animated  animate__backInUp">
+
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="card">
+            <div class="card-header">
+              <h4><%= currentSubModule %></h4>
+            </div>
+            <div class="card-body">
+              <form id="productAddEditForm" class="form_advanced_validation" action="/admin/product/editImages"
+                method="POST" autocomplete="off" enctype="multipart/form-data">
+
+
+
+                <div class="form-group">
+                  <label>Image</label>
+                  <div class="input-group">
+                    <!-- <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    </div> -->
+                    <!-- <div id="image-preview" >
+       
+                      <div class="file_uplod">
+                        <label for="image-upload" id="image-label">Choose File</label>
+                      
+                      <input type="file" name="images" id="image-upload">
+
+                      </div>
+                    
+                         <img src="<%=response.images%>" width="200" height='200'>
+                        
+                      
+                    
+                    </div> -->
+                    <input type='file' name="images" />
+<img id="myImg" src="<%=response.images%>" width="200" height='200' alt="your image" />
+
+
+                  </div>
+                </div>
+
+
+                <div class="form-group row mb-4">
+                  <div class="col-sm-12 col-md-7 offset-4">
+                    <input type="hidden" class="form-control" name="id" value="<%= response.id %>">
+                    <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<%- include('../partials/footer'); %>
+
+<script>
+  $(document).ready(function () {
+    $(function () {
+    $(":file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+
+function imageIsLoaded(e) {
+    $('#myImg').attr('src', e.target.result);
+};
+  });
+</script>

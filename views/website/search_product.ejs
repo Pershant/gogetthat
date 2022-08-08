@@ -1,0 +1,165 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+                <section class="store_locater">
+                  <h3>
+                    Search Product </h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="home">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page">New
+                                arrivals</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="count_pro">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="co_unt">
+                          <h3> Products:<%=get_product.length%></h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="Delivery">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="product_itmes">
+                          <div class="product_list">
+                            <h3> Product Categories</h3>
+                            <%get_nav_category.forEach((category)=>{%>
+                              <a
+                                href="/category_product?key=<%=Buffer.from(`${category.id}`,'binary').toString('base64')%>">
+                                <p>
+                                  <%=category.name%>
+                                </p>
+                              </a>
+                              <%})%>
+                          </div>
+                          <div class="product_list">
+                            <h3> Filter by price</h3>
+                            <div class="range_filters">
+                              <form action="" method="GET">
+                              <section class="range-slider">
+                                <span class="output outputOne"></span>
+                                <span class="output outputTwo"></span>
+                                <span class="full-range"></span>
+                                <span class="incl-range"></span>
+                                <input name="rangeOne" id="input_1"value="<%= rangeOne %>" min="0" max="1000" step="1" type="range">
+                                <input name="rangeTwo" id="input_2" value="<%= rangeTwo %>" min="0" max="1000" step="1" type="range">
+                                <input name="search" type="hidden" value="<%= search %>">
+                              </section>
+                              <button type="submit" class="range_btn"> Filter</button>
+                            </form>
+                            </div>
+                          </div>
+                          <div class="product_list border-0">
+                            <h3> Sort By</h3>
+                            <select class="Default_sorting">
+                              <option> Default sorting</option>
+                              <option> Default sorting1</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="product_itmes2">
+                          <div class="row">
+
+                            <% if(get_product.length> 0) {
+                              get_product.forEach((product) => { %>
+                              <div class="col-md-4">
+                                <div class="featured_pro">
+                                  <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                    %>"> <img src="<%=product.productImage%>"></a>
+                                  <div class="featured_pro2">
+                                    <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                      %>">
+                                      <h3>
+                                        <%=product.name%>
+                                      </h3>
+                                      <h3>
+                                        <%=product.retailPrice%>
+                                      </h3>
+                                    </a>
+                                    <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                    %>"  class="cart_b">View Product</a>
+                                  </div>
+                                </div>
+                              </div>
+                              <% }) } else { %>
+                                <h1 style="color:black ;">No product found</h1>
+                                <%} %>
+
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="Delivery">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>

@@ -1,0 +1,66 @@
+<!-- <br /> -->
+<!-- <button class="btn btn-outline-primary" style="float: right !important;">Add Delivery Address</button> -->
+<!-- <a href="/admin/vendor/addStaff/<%= user.id; %>" class="btn btn-outline-primary" style="float: left !important;">Add
+    Staff</a> -->
+<!-- <br /> -->
+<br />
+
+<div class="table-responsive">
+    <table class="table table-striped table-md datatable">
+        <thead>
+            <tr>
+                <%
+                    if (user.vendorStaff.headerColumns.length > 0) {
+                        user.vendorStaff.headerColumns.forEach((column, index) => {
+                  %>
+                <th><%- column; %></th>
+                <%
+                      });
+                  %>
+
+                <%
+                    }
+                  %>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+              if (user.vendorStaff.data.length > 0) {
+                user.vendorStaff.data.forEach((row, index) => {
+            %>
+            
+            <%
+                });
+              }
+            %>
+
+            <%
+                if (user.vendorStaff.data.length > 0) {
+                    user.vendorStaff.data.forEach(row => {
+            %>
+            <tr>
+                <%
+                if (row.length > 0) {
+                    row.forEach(column => {
+                %>
+                <td><%- column; %></td>
+                <%
+                    });
+                }
+                %>
+            </tr>
+            <%
+                });
+                }
+            %>
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group row mb-4">
+    <div class="col-sm-12 col-md-7 offset-4">
+
+        <button type="button" class="btn btn-secondary cancel_btn">Back</button>
+        %>
+    </div>
+</div>

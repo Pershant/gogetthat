@@ -1,0 +1,111 @@
+<div class="main-sidebar">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="/admin/">
+                <img id="brand_logo_dashboard" src="<%= appLogoUrl %>" alt="logo" width="150" class="">
+                <!-- <%= appName; %> -->
+            </a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="/admin/"><%= appShortName; %></a>
+        </div>
+        <ul class="sidebar-menu">
+            <!-- <li class="menu-header">Dashboard</li> -->
+
+            <%
+                let j = 0;
+
+                // console.log(adminData.staffLogin, '======>adminData.staffLogin');
+                // return;
+
+                modulesObj = JSON.parse(JSON.stringify(modules));
+
+                for (let i in modulesObj[moduleRoles[adminData.role]]) {
+                    if (colorClasses.length == j) j = 0;          
+                    const module = modulesObj[moduleRoles[adminData.role]][i];
+                    if (module.hasOwnProperty('sidebar') && module.sidebar) {
+                        if ( 
+                                (module.hasOwnProperty('link') && typeof(module.link) === 'string') 
+                                && 
+                                (
+                                    
+                                    (!adminData.staffLogin || adminData.staffLogin && adminData.staffLogin.hasOwnProperty('vendorStaffDetail') && adminData.staffLogin.vendorStaffDetail.hasOwnProperty('permissions') && adminData.staffLogin.vendorStaffDetail.permissions.hasOwnProperty(i) && adminData.staffLogin.vendorStaffDetail.permissions[i].length > 0  )
+                                ) 
+                            ) {
+                                
+
+
+                            
+            %>
+
+            <li class="<%= currentModule.split(' ').join('').toLowerCase() == i.toLowerCase() ? 'active' : ''; %>">
+                <a class="nav-link <%= module.hasOwnProperty('sidebarAnchorClass') ? module.sidebarAnchorClass : '' %>"
+                    href="<%= module.hasOwnProperty('link') ? module.link : '' %>">
+                    <i class="<%= module.hasOwnProperty('icon') ? module.icon : '' %> text-<%= colorClasses[j]; %>"></i>
+                    <span><%= module.hasOwnProperty('title') ? module.title : '' %></span>
+                </a>
+            </li>
+            <%
+                } else if (module.hasOwnProperty('link') && Array.isArray(module.link) && module.link.length > 0 && 
+                        (
+                            !adminData.staffLogin || adminData.staffLogin && adminData.staffLogin.hasOwnProperty('vendorStaffDetail') && adminData.staffLogin.vendorStaffDetail.hasOwnProperty('permissions') && adminData.staffLogin.vendorStaffDetail.permissions.hasOwnProperty(i) && Array.isArray(adminData.staffLogin.vendorStaffDetail.permissions[i]) && adminData.staffLogin.vendorStaffDetail.permissions[i].length > 0 
+                        )                
+                 ) {
+
+                    const liPermission = [i.split(' ').join('').toLowerCase()];
+
+                    let links = JSON.parse(JSON.stringify(module.link));
+                    
+                    links.forEach(link => {
+                        liPermission.push(link.subModule.split(' ').join('').toLowerCase());
+                    });
+                    
+                    
+                    if (adminData.staffLogin && adminData.staffLogin.hasOwnProperty('vendorStaffDetail') && adminData.staffLogin.vendorStaffDetail.hasOwnProperty('permissions') && adminData.staffLogin.vendorStaffDetail.permissions.hasOwnProperty(i) && adminData.staffLogin.vendorStaffDetail.permissions[i] && adminData.staffLogin.vendorStaffDetail.permissions[i].length > 0) {                        
+                        links = links.filter(linkObj => {
+                            if (!linkObj.hasOwnProperty('permissions')) return true;
+                            if (linkObj.hasOwnProperty('permissions') && linkObj.permissions.length > 0 && adminData.staffLogin.vendorStaffDetail.permissions[i].some((permission) => linkObj.permissions.includes(permission))) return true;
+                            return false;
+                        });
+                    }
+                    
+                    // console.log(links, '=========>links')
+                    if (links.length > 0) {
+                    
+            %>
+
+            <li
+                class="nav-item dropdown <%= liPermission.includes(currentModule.split(' ').join('').toLowerCase()) ? 'active' : ''; %>">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="<%= module.hasOwnProperty('icon') ? module.icon : '' %> text-<%= colorClasses[j]; %>"></i>
+                    <span><%= module.hasOwnProperty('title') ? module.title : '' %></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <%
+                        links.forEach(link => {
+                            // console.log(currentSubModuleSidebar.toLowerCase() == link.subModule.toLowerCase(), `${i}`)
+                            // console.log(currentSubModuleSidebar.toLowerCase(), `${i}`)
+                            // console.log(link.subModule.toLowerCase(), `${i}`)
+                    %>
+                    <li
+                        class="<%= currentSubModuleSidebar.toLowerCase() == link.subModule.toLowerCase() ? 'active' : ''; %>">
+                        <a class="nav-link" href="<%= link.link; %>"><%= link.title; %></a>
+                    </li>
+                    <%
+                        });
+                    %>
+                </ul>
+            </li>
+            <%
+
+                            }
+                        }
+                    }
+                    j++
+                }
+            %>
+
+
+        </ul>
+    </aside>
+</div>

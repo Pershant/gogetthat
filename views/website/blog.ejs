@@ -1,0 +1,153 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+
+                <section class="store_locater">
+                  <h3>Blog</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="home">Home</a></li>
+                              <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="blog_new ">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="blog_list">
+                          <form action="search_blog">
+                            <div class="form-group">
+                              <input type="text" class="form-control input-chng pl-3" id="exampleInputPassword1"
+                                name="search" value="<%=searh%>" placeholder="Search Posts">
+                              <button type="submit" style="display: contents;"> <img src="website/images/serch.png"
+                                  class="srch"></button>
+                            </div>
+                          </form>
+                          <div class="categories">
+                            <h5 class="mb-3"> Categories </h5>
+                            <ul class="cat-type">
+                              <%get_blog_category.forEach((category)=>{%>
+                                <li> <a
+                                    href="/category_blog?key=<%=Buffer.from(`${category.id}`,'binary').toString('base64')%>">
+                                    <%=category.name%>
+                                  </a></li>
+                                <%})%>
+                            </ul>
+                          </div>
+                          <div class="categories">
+                            <h5 class="mb-3 mt-3"> Popular posts </h5>
+                            <%for(var i=0;i<3;i++){%>
+                              <div class="pop_post">
+                                <img src="<%=get_popular_blog[i].image%>">
+                                <div class="pop_post1">
+                                  <h3>
+                                    <%=get_popular_blog[i].name%>
+                                  </h3>
+                                  <p>
+                                    <%=get_popular_blog[i].createdAt%>
+                                  </p>
+                                </div>
+                              </div>
+                              <%}%>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-8">
+                        <% if(get_product.length> 0) {
+                        blogs.forEach((blog)=>{%>
+                          <div class="blog_list_top">
+                            <div class="blog_list_top1">
+                              <a href="/blog_detail?key=<%=Buffer.from(`${blog.id}`,'binary').toString('base64')%>"><img
+                                  src="<%= blog.image %>" class="blog_img" style="max-width: none"></a>
+                              <h3> Share  
+                                <div class="fb-share-button" data-href="<%=url%>" data-layout="button_count"
+                                  data-size="small"><a target="_blank"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=<%=url%>"
+                                    class="fb-xfbml-parse-ignore"></a></div>
+                                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?url=<%=url%>">
+                                  Tweet
+                                </a>
+                              </h3>
+                            </div>
+                            <div class="blog_list_top2">
+                              <h4>
+                                <%= blog.createdAt %>
+                              </h4>
+                              <h5><a id="blog_details.html">
+                                </a>
+                                <%= blog.name %>
+                              </h5>
+                              <p>
+                                <%= blog.description %>
+                              </p>
+                            </div>
+                          </div>
+                          <% }) } else { %>
+                            <h1 style="color:black ;">No blog found</h1>
+                            <%}%>
+                      </div>
+                    </div>
+                </section>
+
+                <section class="Delivery gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading Title </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>

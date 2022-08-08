@@ -1,0 +1,169 @@
+<%- include('./header.ejs'); -%>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <section class="store_locater">
+                  <h3>Order History</h3>
+                </section>
+
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home </a></li>
+                              <li class="breadcrumb-item active" aria-current="page"> Order History</li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="order_his mb-5 mt-3">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="order_filter">
+                          <select>
+                            <option> Filter</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <%for(let order of get_order){%>
+                        <div class="col-md-6">
+                          <div class="order_deatils">
+                            <p>Your order is confirmed. Your order Id : <b> #<%=order.orderNo%></b>
+                              <%if(order.orderStatus==0){%>
+                                <span class="orange_color">
+                                  pending</span>
+                                <%}if(order.orderStatus==1){%>
+                                  <span class="purple_color">
+                                    Accepted</span>
+                                  <%}if(order.orderStatus==2){%>
+                                    <span class="yellow_color">
+                                      Packed</span>
+                                    <%}if(order.orderStatus==3){%>
+                                      <span class="blue_color">
+                                        Shipped</span>
+                                      <%}if(order.orderStatus==4){%>
+                                        <span class="green_color">
+                                          Delivered</span>
+                                        <%}if(order.orderStatus==5){%>
+                                          <span class="red_color">
+                                            Cancelled</span>
+                                          <%}if(order.orderStatus==6){%>
+                                            <span class="red_color">
+                                              Declined</span>
+                                            <%}%>
+                            </p>
+
+                            <table class="table m-0">
+                              <thead>
+                                <tr>
+                                  <th scope="col"></th>
+                                  <th scope="col">Product</th>
+                                  <th scope="col">Delivery Address</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><img src="<%=order.productImage%>"></td>
+                                  <td>
+                                    <div class="bil_history">
+                                      <h4>
+                                        <%=order.product.name%>
+                                      </h4>
+                                      <p>
+                                        <%=order.product.name%>
+                                      </p>
+                                      <h5>Qty: <%=order.qty%>
+                                      </h5>
+                                      <h5>Colour:<%=order.color%></h5>
+                                      <%for(let spec of order.specifications){ console.log(Object.keys(spec))%>
+                                        <p><b> <%=Object.keys(spec)%>: <%=Object.values(spec)%> </b></p>
+                                        <%} %>
+
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="bil_history">
+                                      <p>
+                                        <%=order.billing_address.name%>
+                                          <%=order.billing_address.last_name%><br>
+                                            <%=order.billing_address.address_line_1%>
+                                              <%=order.billing_address.address_line_2%> <br>
+                                                <%=order.billing_address.zip_code%><br>
+                                                  <%=order.billing_address.state%>
+                                      </p>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+
+                            </table>
+                            <div class="bil_history_btns text-right">
+                              <a id="re_order" pid="<%=order.id%>" style="background:#f7941d;">Re-Order</a>
+                              <a href="/order_detail?key=<%=Buffer.from(`${order.id}`,'binary').toString('base64')%>">View
+                                Details</a>
+                            </div>
+                          </div>
+                        </div>
+                        <%}%>
+                    </div>
+                  </div>
+                </section>
+
+
+                <section class="Delivery gray">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="Deli_very">
+                          <h2>Heading </h2>
+                          <p>Sed accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra
+                            orci. Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. Sed
+                            accumsan odio mattis sollicitudin dictum. Donec suscipit feugiat tortor, a viverra orci.
+                            Phasellus
+                            efficitur hendrerit mi, sit amet tincidunt arcu auctor fermentum. Etiam malesuada at metus
+                            nec aliquet.
+                            Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                            sed ante erat.
+                            Sed vitae odio ac purus dapibus ornare. Nam vitae sapien ut nisl tempus faucibus sit amet at
+                            massa. Proin
+                            viverra, ligula quis egestas bibendum, sem neque consequat orci, in sodales leo nisi vel
+                            felis. </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <%- include('./footer.ejs'); -%>
