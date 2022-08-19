@@ -1,23 +1,27 @@
 <%- include('../partials/header'); %>
 
 
-<!-- Main Content -->
-<div class="main-content">
-  <section class="section">
-    <div class="section-header">
-      <h1 id="animated_box"><%= currentModule; %></h1>
-    </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1 id="animated_box">
+          <%= currentModule; %>
+        </h1>
+      </div>
 
-    <div class="section-body animate__animated  animate__backInUp">
+      <div class="section-body animate__animated  animate__backInUp">
 
-      <div class="row">
-        <div class="col-8 offset-2">
-          <div class="card">
-            <div class="card-header">
-              <h4><%= currentSubModule %></h4>
-            </div>
-            <div class="card-body">
-              <!-- <form class="form_advanced_validation" method="POST" autocomplete="off" enctype="multipart/form-data"> -->
+        <div class="row">
+          <div class="col-8 offset-2">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  <%= currentSubModule %>
+                </h4>
+              </div>
+              <div class="card-body">
+                <!-- <form class="form_advanced_validation" method="POST" autocomplete="off" enctype="multipart/form-data"> -->
 
                 <div class="row">
                   <div class="col-6">
@@ -48,17 +52,17 @@
                           disabled> -->
                         <select class="form-control changeOrderRequestStatus" model="<%=model%>"
                           model_title="<%=modelTitle%>" model_id="<%=order.id%>" field="orderStatus"
-                          style="background-color: <%=orderStatus[order.orderStatus].backgroundCssColor;%>; color: #fff; font-weight: 600;" disabled>
-                          <%
-                            for (let status in orderStatus) {
-                          %>
-                          <option value="<%=status%>" <%= status==order.orderStatus ? 'selected' : ''; %> <%= status < order.orderStatus ? 'disabled' : ''; %> 
-                            style="background: <%= orderStatus[status].backgroundCssColor %>; color: #fff; font-weight: 600;">
-                            <%=orderStatus[status].value%></option>
-                          <%
-                            }
-                          %>
-                          </select>
+                          style="background-color: <%=orderStatus[order.orderStatus].backgroundCssColor;%>; color: #fff; font-weight: 600;"
+                          disabled>
+                          <% for (let status in orderStatus) { %>
+                            <option value="<%=status%>" <%=status==order.orderStatus ? 'selected' : '' ; %>
+                              <%= status < order.orderStatus ? 'disabled' : '' ; %>
+                                style="background: <%= orderStatus[status].backgroundCssColor %>; color: #fff;
+                                  font-weight: 600;">
+                                  <%=orderStatus[status].value%>
+                            </option>
+                            <% } %>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -80,7 +84,7 @@
                     </div>
                   </div>
 
-                  <div class="col-6">
+                  <!-- <div class="col-6">
                     <div class="form-group">
                       <label>Seller</label>
                       <div class="input-group">
@@ -93,7 +97,7 @@
                           value="<%= order.vendor.vendorDetail.name; %>" required disabled>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="row">
@@ -137,8 +141,8 @@
                             <i class="fas fa-dollar-sign"></i>
                           </div>
                         </div>
-                        <input type="text" class="form-control" name="order_tracking_id" value="<%= order.order_tracking_id; %>" required
-                          disabled>
+                        <input type="text" class="form-control" name="order_tracking_id"
+                          value="<%= order.order_tracking_id; %>" required disabled>
                       </div>
                     </div>
                   </div>
@@ -169,8 +173,8 @@
                             <i class="fas fa-dollar-sign"></i>
                           </div>
                         </div>
-                        <input type="text" class="form-control" name="order_tracking_url" value="<%= order.order_tracking_url; %>"
-                          required disabled>
+                        <input type="text" class="form-control" name="order_tracking_url"
+                          value="<%= order.order_tracking_url; %>" required disabled>
                       </div>
                     </div>
                   </div>
@@ -199,29 +203,29 @@
                     <!-- <button type="submit" class="btn btn-primary">Update</button> -->
                   </div>
                 </div>
-              <!-- </form> -->
+                <!-- </form> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </section>
-</div>
+    </section>
+  </div>
 
 
-<%- include('../partials/footer'); %>
+  <%- include('../partials/footer'); %>
 
-<script>
-  $(document).ready(function () {
+    <script>
+      $(document).ready(function () {
 
-    $(".viewProduct").click(function(){
+        $(".viewProduct").click(function () {
 
-      var productId = $(this).attr( "productId" );
-      //window.location=`/admin/product/view/${productId}`
-  //alert(productId,"The paragraph was clicked.");
-  window.open(`/admin/product/view/${productId}`);
-});
+          var productId = $(this).attr("productId");
+          //window.location=`/admin/product/view/${productId}`
+          //alert(productId,"The paragraph was clicked.");
+          window.open(`/admin/product/view/${productId}`);
+        });
 
-  });
-</script>
+      });
+    </script>

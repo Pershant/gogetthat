@@ -58,6 +58,18 @@ module.exports = function (sequelize, DataTypes) {
             field: 'employeeId',
             defaultValue: 0,
         },
+        specifications: {
+			type: DataTypes.TEXT,
+			allowNull: true,
+			field: 'specifications',
+			defaultValue: "",
+		},
+        color: {
+			type: DataTypes.STRING(255),
+			allowNull: true,
+			field: 'color',
+			defaultValue: "",
+		},
         netAmount: {
             type: DataTypes.DECIMAL(9, 2),
             allowNull: true,

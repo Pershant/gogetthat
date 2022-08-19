@@ -1,314 +1,318 @@
 <%- include('../partials/header'); %>
-<head>
-  <style>
-    .show_imgs {
-    display: flex;
-    justify-content: left;
-    margin: 10px 0px;
-    overflow: auto;
-}
-.file_uplod1 img {
-    width: 100%;
-    height: 100px;
-    float: left;
-    padding: 1px;
-}
-.file_uplod1 {
-    width: 100%;
-    overflow: auto;
-}
-.file_uplod1 a {
-    float: left;
-    width: 20%;
-    position: relative;
-    padding: 0px 5px;
-}
-.file_uplod1 span {
-    right: 0;
-    left: auto;
-    color: #fff;
-    background: red;
-    width: 20px;
-    position: absolute;
-    text-align: center;
-    border-radius: 50%;
-    height: 20px;
-}
-  </style>
-</head>
-<%
 
-  console.log(product, '=============>product'); 
-  console.log(productTags, '=============>productTags'); 
+  <head>
+    <style>
+      .show_imgs {
+        display: flex;
+        justify-content: left;
+        margin: 10px 0px;
+        overflow: auto;
+      }
 
+      .file_uplod1 img {
+        width: 100%;
+        height: 100px;
+        float: left;
+        padding: 1px;
+      }
 
-%>
+      .file_uplod1 {
+        width: 100%;
+        overflow: auto;
+      }
 
-<!-- Main Content -->
-<div class="main-content">
-  <section class="section">
-    <div class="section-header">
-      <h1 id="animated_box"><%= currentModule; %></h1>
-    </div>
+      .file_uplod1 a {
+        float: left;
+        width: 20%;
+        position: relative;
+        padding: 0px 5px;
+      }
 
-    <div class="section-body animate__animated  animate__backInUp">
+      .file_uplod1 span {
+        right: 0;
+        left: auto;
+        color: #fff;
+        background: red;
+        width: 20px;
+        position: absolute;
+        text-align: center;
+        border-radius: 50%;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <% console.log(product, '=============>product' ); console.log(productTags, '=============>productTags' ); %>
 
-      <div class="row">
-        <div class="col-8 offset-2">
-          <div class="card">
-            <div class="card-header">
-              <h4><%= currentSubModule %></h4>
-            </div>
-            <div class="card-body">
-              <form id="productAddEditForm" class="form_advanced_validation" action="/admin/product/addUpdateProduct"
-                method="POST" autocomplete="off" enctype="multipart/form-data">
+    <!-- Main Content -->
+    <div class="main-content">
+      <section class="section">
+        <div class="section-header">
+          <h1 id="animated_box">
+            <%= currentModule; %>
+          </h1>
+        </div>
 
-                <div class="form-group">
-                  <label> Category</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+        <div class="section-body animate__animated  animate__backInUp">
+
+          <div class="row">
+            <div class="col-8 offset-2">
+              <div class="card">
+                <div class="card-header">
+                  <h4>
+                    <%= currentSubModule %>
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <form id="productAddEditForm" class="form_advanced_validation"
+                    action="/admin/product/addUpdateProduct" method="POST" autocomplete="off"
+                    enctype="multipart/form-data">
+
+                    <div class="form-group">
+                      <label> Category</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-list"></i>
                       </div>
                     </div> -->
-                    <select id="productCategorySelect" name="categoryId" class="form-control select2" required>
-                      <option value="">Select Category</option>
-                      <% categories.forEach(category => { %>
-                      <option value="<%= category.id; %>"
-                        <%= product && product.categoryId == category.id ? 'selected' : ''; %>>
-                        <%= category.name; %>
-                      </option>
-                      <% }) %>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>Name</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-cube"></i>
+                        <select id="productCategorySelect" name="categoryId" class="form-control select2" required>
+                          <option value="">Select Category</option>
+                          <% categories.forEach(category=> { %>
+                            <option value="<%= category.id; %>" <%=product && product.categoryId==category.id
+                              ? 'selected' : '' ; %>>
+                              <%= category.name; %>
+                            </option>
+                            <% }) %>
+                        </select>
                       </div>
-                    </div> -->
-                    <input type="text" class="form-control" name="name" value="<%= product.name; %>" required>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label>Image (Select Image For Edit or Delete)</label>
-                  <div class="input-group">
-
-                      <div class="file_uplod1">
-                      <%for(var i in productImages){%>
-                          
-                      <a href="/admin/product/updatedImages?id=<%=productImages[i].id%>">
-                        <span id ="<%=productImages[i].id%>" class="glyphicon glyphicon-remove" onclick="return deleteImage(this.id)">X</span>
-                         <img src="<%=productImages[i].image%>" width="200" height='200'>
-                        </a>
-                         <%}%>
-                      </div>
-                    
                     </div>
-                  </div>
-                
 
-                  <div class="form-group">
-                    <label>Product Colors</label>
-                    <div class="input-group">
-                      <%for(var i in productColors){%>
-                        <span class="dot" style="background-color:<%=productColors[i].color%>"></span>
-                       <%}%>
+                    <div class="form-group">
+                      <label>Name</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <i class="fas fa-cube"></i>
+                      </div>
+                    </div> -->
+                        <input type="text" class="form-control" name="name" value="<%= product.name; %>" required>
+                      </div>
                     </div>
-                  </div>
 
-                <div class="form-group">
-                  <label>Description</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+
+                    <div class="form-group">
+                      <label>Image (Select Image For Edit or Delete)</label>
+                      <div class="input-group">
+
+                        <div class="file_uplod1">
+                          <%for(var i in productImages){%>
+
+                            <a href="/admin/product/updatedImages?id=<%=productImages[i].id%>">
+                              <span id="<%=productImages[i].id%>" class="glyphicon glyphicon-remove"
+                                onclick="return deleteImage(this.id)">X</span>
+                              <img src="<%=productImages[i].image%>" width="200" height='200'>
+                            </a>
+                            <%}%>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <!-- <div class="form-group">
+                      <label>Product Colors</label>
+                      <div class="input-group">
+                        <%for(var i in productColors){%>
+                          <span class="dot" style="background-color:<%=productColors[i].color%>"></span>
+                          <%}%>
+                      </div>
+                    </div> -->
+
+                    <div class="form-group">
+                      <label>Description</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-cube"></i>
                       </div>
                     </div> -->
-                    <textarea class="form-control" name="description" style="min-height: 100px;"
-                      required><%= product.description; %></textarea>
-                  </div>
-                </div>
-            
+                        <textarea class="form-control" name="description" style="min-height: 100px;"
+                          required><%= product.description; %></textarea>
+                      </div>
+                    </div>
 
-                <div class="form-group">
-                  <label>Brand Name</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+
+                    <div class="form-group">
+                      <label>Brand Name</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-cube"></i>
                       </div>
                     </div> -->
-                    <input type="text" class="form-control" name="brandName" value="<%= product.brandName; %>" required>
-                  </div>
-                </div>
+                        <input type="text" class="form-control" name="brandName" value="<%= product.brandName; %>"
+                          required>
+                      </div>
+                    </div>
 
 
 
 
-              
 
-                <div class="form-group">
-                  <label>MRP</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+
+                    <div class="form-group">
+                      <label>MRP</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-dollar-sign"></i>
                       </div>
                     </div> -->
-                    <input type="number" class="form-control" name="mrp" value="<%= product.mrp; %>" required>
-                  </div>
-                </div>
+                        <input type="number" class="form-control" name="mrp" value="<%= product.mrp; %>" required>
+                      </div>
+                    </div>
 
-                <div class="form-group">
-                  <label>Retail Price</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" name="retailPrice" value="<%= product.retailPrice; %>" required>
-                  </div>
-                </div>
-            
-                <div class="product_specification_container">
-                  <div class="row">
-                    <div class="col-5 col-md-5 col-lg-5">
-                      <div class="form-group">
-                        <label>Product Specification Name</label>
+                    <div class="form-group">
+                      <label>Retail Price</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" name="retailPrice" value="<%= product.retailPrice; %>"
+                          required>
+                      </div>
+                    </div>
 
-                        <div class="input-group">
-                          <!-- <div class="input-group-prepend">
+                    <div class="product_specification_container">
+                      <div class="row">
+                        <div class="col-5 col-md-5 col-lg-5">
+                          <div class="form-group">
+                            <label>Product Specification Name</label>
+
+                            <div class="input-group">
+                              <!-- <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="fas fa-signature"></i>
                             </div>
                           </div> -->
-                          <input type="text" disabled class="form-control" name="specificationName"
-                            value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].name : '' %>">
+                              <input type="text" disabled class="form-control" name="specificationName"
+                                value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].name : '' %>">
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-5 col-md-5 col-lg-5">
-                      <label>Product Specification Value</label>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <!-- <div class="input-group-prepend">
+                        <div class="col-5 col-md-5 col-lg-5">
+                          <label>Product Specification Value</label>
+                          <div class="form-group">
+                            <div class="input-group">
+                              <!-- <div class="input-group-prepend">
                             <div class="input-group-text">
                               <i class="fas fa-signature"></i>
                             </div>
                           </div> -->
-                          <input type="text" disabled class="form-control" name="speecificationValue"
-                            value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].value : '' %>">
+                              <input type="text" disabled class="form-control" name="speecificationValue"
+                                value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].value : '' %>">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2">
+                          <% if (productSpecifications && productSpecifications.length> 0) {
+                            %>
+                            <input type="hidden" class="form-control" name="speecificationId"
+                              value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].speecificationId : '' %>">
+                            <% } %>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2">
-                      <%
-                          if (productSpecifications && productSpecifications.length > 0) {
-                      %>
-                      <input type="hidden" class="form-control" name="speecificationId"
-                        value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].speecificationId : '' %>">
-                      <%
-                          }
-                      %>
-                    </div>
-                  </div>
 
-                  <%- productSpecificationsHTML %>
-                </div>
+                      <%- productSpecificationsHTML %>
+                    </div>
 
-                <div class="form-group">
-                  <label>Status</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-percent"></i>
                       </div>
                     </div> -->
-                    <select name="status" class="form-control select2">
-                      <!-- <option value="">Select Tax Type</option> -->
-                      <option value="0" <%= product && product.status == 0 ? 'selected' : ''; %>>
-                        Inactive</option>
-                      <option value="1" <%= product && product.status == 1 ? 'selected' : ''; %>>
-                        Active</option>
-                    </select>
-                  </div>
-                </div>
+                        <select name="status" class="form-control select2">
+                          <!-- <option value="">Select Tax Type</option> -->
+                          <option value="0" <%=product && product.status==0 ? 'selected' : '' ; %>>
+                            Inactive</option>
+                          <option value="1" <%=product && product.status==1 ? 'selected' : '' ; %>>
+                            Active</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <div class="form-group row mb-4">
-                  <div class="col-sm-12 col-md-7 offset-4">
-                    <input type="hidden" class="form-control" name="id" value="<%= product.id %>">
-                    <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                  </div>
+                    <div class="form-group row mb-4">
+                      <div class="col-sm-12 col-md-7 offset-4">
+                        <input type="hidden" class="form-control" name="id" value="<%= product.id %>">
+                        <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+      </section>
     </div>
 
-  </section>
-</div>
 
+    <%- include('../partials/footer'); %>
 
-<%- include('../partials/footer'); %>
+      <script>
+        $(document).ready(function () {
 
-<script>
-  $(document).ready(function () {
+        });
 
-  });
-
-  function deleteImage(id){
-    // alert(id)
-       //let 
-    swal({
+        function deleteImage(id) {
+          // alert(id)
+          //let 
+          swal({
             title: 'Are you sure?',
             text: `Do you really want to delete!`,
             icon: 'warning',
             buttons: true,
             dangerMode: true,
-        }).then((isConfirm) => {
+          }).then((isConfirm) => {
             console.log(isConfirm, 'isConfirm');
             if (isConfirm) {
               $.ajax({
-            type: 'delete',
-            url: '/admin/product/deleteImage',
-            // headers: {
-            //     'securitykey': securityKey,
-            // },
-            data: {
-                id,
-            },
-            success: (response) => {
-              swal({
+                type: 'delete',
+                url: '/admin/product/deleteImage',
+                // headers: {
+                //     'securitykey': securityKey,
+                // },
+                data: {
+                  id,
+                },
+                success: (response) => {
+                  swal({
                     title: "Success",
                     text: `Product Image has been deleted successfully`,
                     icon: "success",
                     timer: '2000',
                     buttons: false,
-                });
-                setTimeout( window.location.reload(), 2000);
-               
-            }
-           
-        });
-            } else {
-                swal({
-                    title: "Cancelled",
-                    text: `You have prevented delete !`,
-                    icon: "error",
-                    timer: '1000',
-                    buttons: false,
-                });
-            }
-        });
-     
-    return false;
+                  });
+                  setTimeout(window.location.reload(), 2000);
 
-  
-  }
-</script>
+                }
+
+              });
+            } else {
+              swal({
+                title: "Cancelled",
+                text: `You have prevented delete !`,
+                icon: "error",
+                timer: '1000',
+                buttons: false,
+              });
+            }
+          });
+
+          return false;
+
+
+        }
+      </script>

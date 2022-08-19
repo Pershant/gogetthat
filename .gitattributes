@@ -1,0 +1,3 @@
+config/config.json merge=ours
+# git update-index --assume-unchanged config/config.json
+# git update-index --no-assume-unchanged config/config.json

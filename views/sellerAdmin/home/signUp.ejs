@@ -107,6 +107,7 @@
   .section>*:first-child {
     margin-top: 0px !important;
   }
+
   label {
     float: left;
     display: contents;
@@ -157,30 +158,31 @@
 
                     <div class="form-group">
                       <label for="Name">Enter Your Name</label>
-                      <input id="name" type="text" class="form-control" name="name" tabindex="1" placeholder="Enter your name" autofocus>
+                      <input id="name" type="text" class="form-control" name="name" tabindex="1"
+                        placeholder="Enter your name" autofocus>
 
                     </div>
-                    <!-- <div class="form-group">
-                      <label >Address</label>
-                    <input type="text" placeholder="Enter address" class="form-control pac-target-input"
-                      id="userPincode" types="inputTag" autocomplete="off">
-                    </div> -->
-                   
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" placeholder="Enter address" class="form-control pac-target-input"
+                        id="userPincode" types="inputTag" autocomplete="off">
+                    </div>
+
 
 
                     <div class="form-group">
                       <label for="email">Email</label>
-                      <input id="email" type="email" class="form-control" placeholder="Enter your email" name="email" tabindex="1"
-                        pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" autofocus>
-
+                      <input id="email" type="email" class="form-control" placeholder="Enter your email" name="email"
+                        tabindex="1" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" autofocus>
                     </div>
-                    
+
                     <div class="form-group">
                       <div class="d-block">
                         <label for="password" class="control-label">Password</label>
 
                       </div>
-                      <input id="password" type="password" class="form-control" name="password" placeholder="Enter password"tabindex="1">
+                      <input id="password" type="password" class="form-control" name="password"
+                        placeholder="Enter password" tabindex="1">
 
                     </div>
 
@@ -189,20 +191,21 @@
                         <label for="cPassword" class="control-label">Confirm Password</label>
 
                       </div>
-                      <input id="confirmPassword" placeholder="Re-Enter your password" type="password" name="confirmPassword" class="form-control"
-                        tabindex="1">
+                      <input id="confirmPassword" placeholder="Re-Enter your password" type="password"
+                        name="confirmPassword" class="form-control" tabindex="1">
                     </div>
 
                     <div class="form-group">
                       <label for="company">Business/Company/Entity Name</label>
-                      <input id="company" type="text" class="form-control" placeholder="Enter Business-Company-Entity name" name="company" tabindex="1" autofocus>
+                      <input id="company" type="text" class="form-control"
+                        placeholder="Enter Business-Company-Entity name" name="company" tabindex="1" autofocus>
 
                     </div>
 
                     <div class="form-group">
                       <label for="buisnessNumber">Business Number</label>
-                      <input id="businessNumber" type="number" class="form-control" placeholder="Enter Business Number"name="businessNumber" tabindex="1"
-                        autofocus>
+                      <input id="businessNumber" type="number" class="form-control" placeholder="Enter Business Number"
+                        name="businessNumber" tabindex="1" autofocus>
 
                     </div>
 
@@ -211,21 +214,21 @@
                     <div class="form-group">
                       <label for="buisnessContactNumber">Business Contact Number</label>
                       <input id="buisnessContactNumber" type="number" class="form-control" name="businessCNumber"
-                        tabindex="1" placeholder="Enter Business contact number"autofocus>
+                        tabindex="1" placeholder="Enter Business contact number" autofocus>
 
                     </div>
 
                     <div class="form-group">
                       <label for="BuisnessAddress">Buisness Address</label>
-                      <input id="buisnessAddress" type="text" class="form-control" placeholder="Enter Business Address"name="buisnessAddress" tabindex="1"
-                        autofocus>
+                      <input id="buisnessAddress" type="text" class="form-control" placeholder="Enter Business Address"
+                        name="buisnessAddress" tabindex="1" autofocus>
 
                     </div>
 
                     <div class="form-group">
                       <label for="verificationId">Verification id(Australian license or passport)</label>
-                      <input id="verificationId" type="text" placeholder="Enter your verification Number"class="form-control" name="verificationId" tabindex="1"
-                        autofocus>
+                      <input id="verificationId" type="text" placeholder="Enter your verification Number"
+                        class="form-control" name="verificationId" tabindex="1" autofocus>
 
                     </div>
 
@@ -236,7 +239,7 @@
                         <label for="file" class="control-label">Image</label>
 
                       </div>
-                      <input id="file" type="file" class="form-control" name="image" tabindex="2">
+                      <input id="file" type="file" class="form-control" name="image" tabindex="2" required>
 
                     </div>
                     <input type="hidden" class="form-control" id="lat" name="lat" required>
@@ -279,7 +282,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="/assets/js/stisla.js"></script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnQmDJAM-LO-nJ3cuKind1eSc3sZxjC88&callback=initialize&libraries=places" async></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnQmDJAM-LO-nJ3cuKind1eSc3sZxjC88&callback=initialize&libraries=places"
+    async></script>
 
   <!-- JS Libraies -->
 
@@ -336,34 +341,34 @@
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 
-function initialize() {
+  function initialize() {
 
-  var input = document.getElementById('userPincode');
-  var options = {}
-  var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var input = document.getElementById('userPincode');
+    var options = {}
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
 
-  autocomplete.addListener('place_changed', function () {
-    var place = autocomplete.getPlace();
-    console.log(place.geometry['location'].lat())
-    console.log(place.geometry['location'].lng())
+    autocomplete.addListener('place_changed', function () {
+      var place = autocomplete.getPlace();
+      console.log(place.geometry['location'].lat())
+      console.log(place.geometry['location'].lng())
 
-    $('#lat').val(place.geometry['location'].lat());
-    $('#long').val(place.geometry['location'].lng());
+      $('#lat').val(place.geometry['location'].lat());
+      $('#long').val(place.geometry['location'].lng());
 
-    let postcode;
-    for (let i = 0; i < place.address_components.length; i++) {
-      let types = place.address_components[i].types;
-      for (let type of types) {
-        if (type === "postal_code") {
-          postcode = place.address_components[i].long_name;
+      let postcode;
+      for (let i = 0; i < place.address_components.length; i++) {
+        let types = place.address_components[i].types;
+        for (let type of types) {
+          if (type === "postal_code") {
+            postcode = place.address_components[i].long_name;
+          }
         }
       }
-   }
-   postcode = place.formatted_address;
-    // if (!postcode) {
-    //   postcode = place.formatted_address;
-    // }
-    $('#userPincode').val(postcode);
-  });
-}
+      postcode = place.formatted_address;
+      // if (!postcode) {
+      //   postcode = place.formatted_address;
+      // }
+      $('#userPincode').val(postcode);
+    });
+  }
 </script>

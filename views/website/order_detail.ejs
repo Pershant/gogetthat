@@ -34,7 +34,7 @@
                     <div class="row">
                       <div class="col-md-10 mx-auto">
                         <div class="order_history">
-                          <h3>Order details <a href="" class="in_voice">Invoice</a></h3>
+                          <h3>Order details <a class="in_voice">Invoice</a></h3>
                           <p>Your order is confirmed. Your order Id : <b> #<%=get_order.orderNo%></b>
                             <%if(get_order.orderStatus==0){%>
                               <span class="orange_color">
@@ -102,15 +102,18 @@
                               <p>
                                 <%=get_order.product.name%>
                               </p>
-                              <h5>Qty:<%=get_order.product.qty%>
+                              <h5>Qty:<%=get_order.qty%>
                               </h5>
-                              <h5>Colour: <%=get_order.color%></h5>
+                              <h5>Colour: <%=get_order.color%>
+                              </h5>
                               <%for(let spec of get_order.specifications){ console.log(Object.keys(spec))%>
-                                <p><b> <%=Object.keys(spec)%>: <%=Object.values(spec)%> </b></p>
+                                <p><b>
+                                    <%=Object.keys(spec)%>: <%=Object.values(spec)%>
+                                  </b></p>
                                 <%} %>
 
                             </div>
-                           
+
                           </div>
                         </div>
 

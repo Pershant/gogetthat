@@ -36,7 +36,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="co_unt">
-                          <h3> Products:45000</h3>
+                          <h3> Products:<%=getBrand.length%>
+                          </h3>
                         </div>
                       </div>
                     </div>
@@ -65,7 +66,7 @@
                         <div class="product_itmes2">
                           <div class="row">
                             <% if(getBrand.length> 0) {
-                                getBrand.forEach((brand) => { %>
+                              getBrand.forEach((brand) => { %>
                               <div class="col-md-4">
                                 <div class="featured_pro">
                                   <a href="/brand_product?key=<%=Buffer.from(`${brand.brandName}`, 'binary').toString('base64')
@@ -77,7 +78,7 @@
                                         <%=brand.brandName%>
                                       </h3>
                                     </a>
-                                   
+
                                   </div>
                                 </div>
                               </div>
@@ -85,7 +86,7 @@
                                 <h1 style="color:black ;">No product found</h1>
                                 <%} %>
 
-                       
+
 
                           </div>
                         </div>

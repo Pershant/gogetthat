@@ -97,19 +97,29 @@ $(document.body).on("click", '#signup_btn', function () {
     var country_code = $('#sign_up_form select[name="country_code"]').find(":selected").val();
     let password = $('#sign_up_form input[name="password"]').val()
     let confirm_password = $('#sign_up_form input[name="confirm_password"]').val()
+
+    let isLogin = $('#login_form input[name="isLogin"]').val()
+    let cartData = $('#login_form input[name="cartData"]').val()
     $.ajax({
       type: 'post',
       url: '/sign_up',
       data: {
         name,
         email,
+        isLogin,
+        cartData,
         phone,
         country_code,
         password,
         confirm_password
       },
       success: (response) => {
+        localStorage.removeItem('cart')
+        document.getElementById('cartCounter').value =0
         if (response.status == true) {
+          if(isLogin == 'false'){
+            window.location.href = "/checkout";
+          }else{
           setTimeout(function () {
             window.location.href = "/home";
           }, 1000);
@@ -117,7 +127,8 @@ $(document.body).on("click", '#signup_btn', function () {
             title: response.msg,
             position: 'topRight'
           });
-        } else {
+        }
+       } else {
           iziToast['error']({
             title: response.msg,
             position: 'topRight'
@@ -151,15 +162,29 @@ $(document.body).on("click", '#login_btn', function () {
   if (login_valid == true) {
     let email = $('#login_form input[name="email"]').val()
     let password = $('#login_form input[name="password"]').val()
+
+    let isLogin = $('#login_form input[name="isLogin"]').val()
+    let cartData = $('#login_form input[name="cartData"]').val()
+    
+
+
+
     $.ajax({
       type: 'post',
       url: '/log_in',
       data: {
         email,
         password,
+        isLogin,
+        cartData
       },
       success: (response) => {
+        localStorage.removeItem('cart')
+        document.getElementById('cartCounter').value =0
         if (response.status == true) {
+          if(isLogin == 'false'){
+            window.location.href = "/checkout";
+          }else{
           setTimeout(function () {
             window.location.href = "/home";
           }, 1000);
@@ -167,7 +192,8 @@ $(document.body).on("click", '#login_btn', function () {
             title: response.msg,
             position: 'topRight'
           });
-        } else {
+        }
+       } else {
           iziToast['error']({
             title: response.msg,
             position: 'topRight'
@@ -679,7 +705,6 @@ $(document.body).on("click", '#for_got_button', function () {
 
 $(document.body).on("click", '#add_to_cart', function () {
   let specification = document.getElementById('productSpecifications').innerHTML;
-
   const specs = document.getElementsByClassName('specifications');
 
   let isValid = true
@@ -692,7 +717,6 @@ $(document.body).on("click", '#add_to_cart', function () {
     }    
   }
 
-  console.log(isValid, 'result')
   if(!isValid){
     iziToast['error']({
       title: "Please select the specifications!",
@@ -700,13 +724,10 @@ $(document.body).on("click", '#add_to_cart', function () {
     });
     return
   }
-
-  // return
-
-
   let selectedValue = []
   if (specification) specification = JSON.parse(specification);
   let getKeys = Object.keys(specification)
+  
 
   for (let i in getKeys) {
     if (document.getElementById(getKeys[i])) {
@@ -718,8 +739,6 @@ $(document.body).on("click", '#add_to_cart', function () {
       }
     }
   }
-  // console.log(selectedValue)
-  // return
 
 
   let pid = $(this).attr('pid')
@@ -727,6 +746,15 @@ $(document.body).on("click", '#add_to_cart', function () {
   let sc = $(this).attr("sc");
   let product_specifications = JSON.stringify(selectedValue)
   const button = this
+
+  console.log(sc,"SC>>>>>>");
+  if(!sc){
+    iziToast['error']({
+      title: "Please select color",
+      position: 'topRight'
+    });
+    return
+  }
 
   $.ajax({
     type: 'post',
@@ -738,8 +766,8 @@ $(document.body).on("click", '#add_to_cart', function () {
       product_specifications
     },
     success: (response) => {
-
-    if(response.msg == 'WithoutLogin'){
+     if(response.status == true){
+    if(response.msg == 'product added to cart' && response.status == true){
         let getStorage = localStorage.getItem('cart');
         if(!getStorage){
           localStorage.setItem('cart',JSON.stringify(response.session.cart))
@@ -808,7 +836,8 @@ $(document.body).on("click", '#add_to_cart', function () {
         }
         iziToast['success']({
           title: response.msg,
-          position: 'topRight'
+          position: 'topRight',
+          color:response.status?"green":"red"
         });
       // } else {
       //   iziToast['error']({
@@ -817,14 +846,40 @@ $(document.body).on("click", '#add_to_cart', function () {
       //   });
       // }
     // }
+  }else{
+    iziToast['error']({
+          title: response.msg,
+          position: 'topRight'
+        });
   }
+}
   });
 });
 
 $(document.body).on("click", '#del_cart', function () {
   let piid = $(this).attr('piid')
-  // alert(pid)
+  let isLogin = $(this).attr('islogin')
+  // console.log(isLogin)
   // return
+  if(isLogin == 'false'){
+    let getItem  =localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')):{};
+    let newItem =  getItem.filter(val => val.pid != piid);
+    localStorage.setItem('cart',JSON.stringify(newItem))
+    let storage =localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')):{};
+    if(storage){
+    let getProductIds =storage.map((val) => {
+      let x = {[val.pid]:val.qty}
+      return x
+    })
+    stringId = JSON.stringify(getProductIds)
+    getCart =  window.btoa(stringId);
+    history.pushState(null, '', `/getCart?Ids=${getCart}`);
+    window.location.reload()
+  }else{
+    history.pushState(null, '', `/getCart?Ids`);
+  }
+
+  }else{
   $.ajax({
     type: 'post',
     url: '/del_cart_item',
@@ -851,12 +906,25 @@ $(document.body).on("click", '#del_cart', function () {
       }
     }
   });
+}
 });
 
 
 $(document.body).on("click", '.inc_dec_qtybutton', function () {
   let cart_id = $(this).attr('cart_id')
   let type = $(this).attr('type')
+  let getMaxQunatity = $(this).attr('quantity')
+  let getvalue = document.getElementById('totalVal').value;
+  // console.log('getMaxQunatity',getMaxQunatity)
+  // console.log('getvalue',getvalue)
+  if(getMaxQunatity <= getvalue && type == 1){
+    iziToast['error']({
+      title: 'Selected Quantity is more than stocks',
+      position: 'topRight'
+    });
+   
+    return
+  }
   $.ajax({
     type: 'post',
     url: '/update_cart',
@@ -867,10 +935,6 @@ $(document.body).on("click", '.inc_dec_qtybutton', function () {
 
     success: (response) => {
       if (response.status == true) {
-        // iziToast['success']({
-        //   title: response.msg,
-        //   position: 'topRight'
-        // });
         (type == 1) ? $(this).prev().val(response.qty) : $(this).next().val(response.qty)
         $(this).parent().parent().prev('.product-price-cart').find('span:first').text(`$${response.price}`)
         $('#cart_subtotal').text(`$${response.subtotal}`)
@@ -1336,7 +1400,19 @@ $(document.body).on("click", '.del_card', function () {
 });
 
 
-const redirectFunction = () => {
+const redirectFunction = (data) => {
+  let isLogin = data.getAttribute('islogin')
+  if(isLogin == 'false'){
+    $('#login_model').modal('show');
+    let data = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') ):{}
+    document.getElementById('isLogin').value = false
+    document.getElementById('cartData').value = JSON.stringify(localStorage.getItem('cart'))
+
+
+
+    return
+  }
+
   window.location.href = '/checkout'
 }
 
@@ -1366,14 +1442,38 @@ Array.from(deleteLinks).forEach(link => {
   let price = +link.getAttribute('price');
   let id = link.getAttribute('id');
   let getId  = link.getAttribute('amountId')
+  let getMaxQunatity  = link.getAttribute('quantity')
+
+
+  let getvalue = document.getElementById('totalVal').value;
+    if(getvalue == 1 && getType == 2){
+      iziToast['error']({
+        title: 'Cart quantity cannot be zero',
+        position: 'topRight'
+      });
+      return
+    }
+  if(getMaxQunatity <= getvalue && getType == 1){
+    iziToast['error']({
+      title: 'Selected Quantity is more than stocks',
+      position: 'topRight'
+    });
+    return
+  }
+
+
+
+
+
   let getProduct = getData.find(val => val.pid == productid)
   let otherProduct = getData.filter(val => val.pid != productid)
   let getAmount = document.getElementById(getId)
 
   if(getType == 1){
+
     getProduct['qty'] = +getProduct['qty']+1;
     let qq =getProduct['qty'];
-    console.log( qq)
+
     getProduct['total_price']  =price * qq;
     link.previousElementSibling.value = qq;
     getAmount.innerHTML  =price * qq
@@ -1389,27 +1489,35 @@ Array.from(deleteLinks).forEach(link => {
      localStorage.removeItem("cart");
      localStorage.setItem('cart',JSON.stringify(otherProduct))
 
-  
 
-    //  console.log('===========va;l',document.getElementById(id).nextElementSibling) 
-    //  document.getElementById(id).nextElementSibling.value = 1
+  let storage = localStorage.getItem('cart')
 
-
-
-  // let storage = localStorage.getItem('cart')
-  //   if(storage){
-  //     storage = JSON.parse(storage);
-  //     let getProductIds =storage.map((val) => {
-  //       let x = {[val.pid]:val.qty}
-  //       return x
-  //     })
-  //     stringId = JSON.stringify(getProductIds)
-  //     getCart =  window.btoa(stringId);
-  //     window.location = `getCart?Ids=${getCart}`
-  //   }
-
+      storage = JSON.parse(storage);
+        // console.log('asd',Array.isArray(storage))
+      let total = storage.reduce((acc,valss) => {
+        acc  =  acc+valss.total_price 
+        return acc
+      },0)
+      // console.log('===========asd')
+      // return
       
+      let getProductIds =storage.map((val) => {
+        let x = {[val.pid]:val.qty}
+        return x
+      })
+      stringId = JSON.stringify(getProductIds)
+      getCart =  window.btoa(stringId);
+      history.pushState(null, '', `/getCart?Ids=${getCart}`);
+
+      document.getElementById('cart_subtotal').innerHTML = total
+      // add shipping and tax 
+      let shippingCart= document.getElementById('cart_shipping_value').value
+      shippingCart = +shippingCart;
+      let getTax = document.getElementById('cartTax__').value;
+     let  p =(getTax/ 100) * total;
+ 
+
+
+      document.getElementById('cart_total').innerHTML = '$'+ (total+shippingCart+p);
     });
 });
-
-// document.getElementById('')

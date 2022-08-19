@@ -1,551 +1,582 @@
 <%- include('./header.ejs'); -%>
- <%if(session.authenticated_web==true){%>
-  <%- include('./login_header.ejs') -%>
-   <%}else{%>
-    <%- include('./sub_header.ejs'); -%>
-     <%}%>
-      <%- include('./sub_header2.ejs'); -%>
-       <%- include('./navbar.ejs'); -%>
-       <style>
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-        
-        /* Firefox */
-        input[type=number] {
-          -moz-appearance: textfield;
-        }
-        </style>
-        <section class="store_locater">
-         <h3>Checkout</h3>
-        </section>
+  <%if(session.authenticated_web==true){%>
+    <%- include('./login_header.ejs') -%>
+      <%}else{%>
+        <%- include('./sub_header.ejs'); -%>
+          <%}%>
+            <%- include('./sub_header2.ejs'); -%>
+              <%- include('./navbar.ejs'); -%>
+                <style>
+                  /* Chrome, Safari, Edge, Opera */
+                  input::-webkit-outer-spin-button,
+                  input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
 
-        <section class="page_path">
-         <div class="container-fluid">
-          <div class="row">
-           <div class="col-md-12">
-            <div class="bread_crumb">
-             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-               <li class="breadcrumb-item"><a href="index.html">Home</a>
-               </li>
-               <li class="breadcrumb-item active" aria-current="page"> Cart
-               </li>
-               <li class="breadcrumb-item active" aria-current="page">
-                Checkout </li>
-              </ol>
-             </nav>
-            </div>
-           </div>
-          </div>
-         </div>
-        </section>
+                  /* Firefox */
+                  input[type=number] {
+                    -moz-appearance: textfield;
+                  }
+                </style>
+                <section class="store_locater">
+                  <h3>Checkout</h3>
+                </section>
 
-        <section class="review_raitings ">
-         <div class="container-fluid">
-          <div class="row">
-           <div class="col-md-12">
-            <div class="re_views">
-             <h3>Your Shopping Cart</h3>
-             <!-- <p>You are checking out as a guest, Have<br> an account? <a href data-toggle="modal"
+                <section class="page_path">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="bread_crumb">
+                          <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="index.html">Home</a>
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page"> Cart
+                              </li>
+                              <li class="breadcrumb-item active" aria-current="page">
+                                Checkout </li>
+                            </ol>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="review_raitings ">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="re_views">
+                          <h3>Your Shopping Cart</h3>
+                          <!-- <p>You are checking out as a guest, Have<br> an account? <a href data-toggle="modal"
                               data-target="#login_model"> Sign In </a>
                           </p> -->
-            </div>
-           </div>
-           <div class="col-md-6">
-            <div class="re_views2">
-             <div id="check_out">
-              <div class="accordion" id="faq">
-               <div class="card">
-                <div class="card-header" id="faqhead1">
-                 <a href="#" class="btn btn-header-link mt-0" data-toggle="collapse" data-target="#faq1"
-                  aria-expanded="true" aria-controls="faq1">Billing Address</a>
-                </div>
-
-                <div id="faq1" class=" body_faq collapse show" aria-labelledby="faqhead1" data-parent="#faq">
-                 <div class="card-body">
-                  <div class="row p-0">
-                   <%for(let address of get_address){%>
-                    <%if(address.type==1){%>
-                     <div class="col-md-6">
-                      <div class="store_adrs3">
-                       <h2>
-                        <%=address.name%>
-                         <%=address.last_name%>
-                          <div class="custom-control custom-radio">
-                           <input type="radio" class="form-check-input custom-control custom-radio get_selected_billing"
-                            id="billingData" ids="<%=address.id%>" name="optradio" value="<%=address%>">
-
-                          </div>
-                       </h2>
-                       <h4>
-                        <%=session.user.phone%>
-                       </h4>
-                       <p>
-                        <%=address.address_line_1%>
-                         <%=address.address_line_2%>
-                          <%=address.city%>
-                           <%=address.state%>
-                            <%=address.country%>
-                       </p>
-                       <p>
-                        <%=address.zip_code%> <span>
-
-
-                          <a class="del_address" style="cursor: pointer;" address_id="<%=address.id%>"> <img
-                            src="website/images/edit.png">
-                          </a>
-                         </span>
-                       </p>
+                        </div>
                       </div>
-                     </div>
-                     <%}%>
-                      <%}%>
-                       <div class="col-md-12">
-                        <div class="add_new_address">
-                         <p> <a class="Add_New"> Add 
-                           Address </a> <a href="" class="log_in_btn float-right" data-toggle="collapse"
-                           data-target="#faq2" aria-expanded="true" aria-controls="faq2">
-                           Next</a></p>
-                        </div>
-                        <div class="biiling_page">
-                         <div class="log_in_pop border-0">
-                          <form id="add_billing_address_form">
-                           <div class="row">
-                            <div class="col-md-12">
-                             <h4 class="add_new">
-                              Add New Address
-                             </h4>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>First
-                               Name</label>
-                              <input type="text" name="first_name" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>Last
-                               Name</label>
-                              <input type="text" name="last_name" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>Address
-                               Line
-                               1</label>
-                              <input type="text" name="address_line_1" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>Address
-                               Line
-                               2</label>
-                              <input type="text" name="address_line_2" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>City</label>
-                              <input type="text" name="city" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>State
-                              </label>
-                              <input type="text" name="state" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>Country
-                              </label>
-                              <input type="text" name="country" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-6">
-                             <div class="form-group">
-                              <label>Zip Code
-                              </label>
-                              <input type="text" name="zip_code" class="form-control form-control-sm">
-                             </div>
-                            </div>
-                            <div class="col-md-12 text-right">
-                             <a href="javascript:void(0);" id="add_billing_address_btn" class="log_in_btn3 gray_btns">
-                              Save</a>
-                            </div>
-                           </div>
-                          </form>
-                         </div>
-                        </div>
-                       </div>
-                  </div>
+                      <div class="col-md-6">
+                        <div class="re_views2">
+                          <div id="check_out">
+                            <div class="accordion" id="faq">
+                              <div class="card">
+                                <div class="card-header" id="faqhead1">
+                                  <a href="#" class="btn btn-header-link mt-0" data-toggle="collapse"
+                                    data-target="#faq1" aria-expanded="true" aria-controls="faq1">Billing Address</a>
+                                </div>
 
-                 </div>
-                </div>
-               </div>
-               <div class="card">
-                <div class="card-header" id="faqhead2">
-                 <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
-                  aria-expanded="true" aria-controls="faq2">Shipping Address</a>
-                </div>
+                                <div id="faq1" class=" body_faq collapse show" aria-labelledby="faqhead1"
+                                  data-parent="#faq">
+                                  <div class="card-body">
+                                    <div class="row p-0">
+                                      <%for(let address of get_address){%>
+                                        <%if(address.type==1){%>
+                                          <div class="col-md-6">
+                                            <div class="store_adrs3">
+                                              <h2>
+                                                <%=address.name%>
+                                                  <%=address.last_name%>
+                                                    <div class="custom-control custom-radio">
+                                                      <input type="radio"
+                                                        class="form-check-input custom-control custom-radio get_selected_billing"
+                                                        id="billingData" ids="<%=address.id%>" name="optradio"
+                                                        value="<%=address%>">
 
-                <div id="faq2" class=" body_faq collapse" aria-labelledby="faqhead2" data-parent="#faq">
-                 <div class="card-body">
-                  <div class="row">
-                   <%for(let address of get_address){%>
-                    <%if(address.type==2){%>
-                     <div class="col-md-6">
-                      <div class="store_adrs3">
+                                                    </div>
+                                              </h2>
+                                              <h4>
+                                                <%=session.user.phone%>
+                                              </h4>
+                                              <p>
+                                                <%=address.address_line_1%>
+                                                  <%=address.address_line_2%>
+                                                    <%=address.city%>
+                                                      <%=address.state%>
+                                                        <%=address.country%>
+                                              </p>
+                                              <p>
+                                                <%=address.zip_code%> <span>
 
-                       <h2>
-                        <%=address.name%>
-                         <%=address.last_name%>
 
-                          <div class="custom-control custom-radio">
-                           <input type="radio"
-                            class="form-check-input custom-control custom-radio get_selected_shipping" id="shippingData"
-                            ids="<%=address.id%>" name="optradio1" value="<%=address%>">
-                          </div>
-                       </h2>
-                       <h4>
-                        <%=session.user.phone%>
-                       </h4>
-                       <p>
-                        <%=address.address_line_1%>
-                         <%=address.address_line_2%>
-                          <%=address.city%>
-                           <%=address.state%>
-                            <%=address.country%>
-                       </p>
-                       <p>
-                        <%=address.zip_code%><span>
+                                                    <a class="del_address" style="cursor: pointer;"
+                                                      address_id="<%=address.id%>"> <img src="website/images/edit.png">
+                                                    </a>
+                                                  </span>
+                                              </p>
+                                            </div>
+                                          </div>
+                                          <%}%>
+                                            <%}%>
+                                              <div class="col-md-12">
+                                                <div class="add_new_address">
+                                                  <p> <a class="Add_New"> Add
+                                                      Address </a> <a href="" class="log_in_btn float-right"
+                                                      data-toggle="collapse" data-target="#faq2" aria-expanded="true"
+                                                      aria-controls="faq2">
+                                                      Next</a></p>
+                                                </div>
+                                                <div class="biiling_page">
+                                                  <div class="log_in_pop border-0">
+                                                    <form id="add_billing_address_form">
+                                                      <div class="row">
+                                                        <div class="col-md-12">
+                                                          <h4 class="add_new">
+                                                            Add New Address
+                                                          </h4>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>First
+                                                              Name</label>
+                                                            <input type="text" name="first_name"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Last
+                                                              Name</label>
+                                                            <input type="text" name="last_name"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Address
+                                                              Line
+                                                              1</label>
+                                                            <input type="text" name="address_line_1"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Address
+                                                              Line
+                                                              2</label>
+                                                            <input type="text" name="address_line_2"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>City</label>
+                                                            <input type="text" name="city"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>State
+                                                            </label>
+                                                            <input type="text" name="state"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Country
+                                                            </label>
+                                                            <input type="text" name="country"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                          <div class="form-group">
+                                                            <label>Zip Code
+                                                            </label>
+                                                            <input type="text" name="zip_code"
+                                                              class="form-control form-control-sm">
+                                                          </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-right">
+                                                          <a href="javascript:void(0);" id="add_billing_address_btn"
+                                                            class="log_in_btn3 gray_btns">
+                                                            Save</a>
+                                                        </div>
+                                                      </div>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                    </div>
 
-                          <a class="del_address" style="cursor: pointer;" address_id="<%=address.id%>"> <img
-                            src="website/images/edit.png">
-                          </a>
-                         </span>
-                       </p>
-                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card">
+                                <div class="card-header" id="faqhead2">
+                                  <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse"
+                                    data-target="#faq2" aria-expanded="true" aria-controls="faq2">Shipping Address</a>
+                                </div>
 
-                     </div>
-                     <%}%>
-                      <%}%>
-                       <div class="col-md-6">
-                        <div class="store_adrs3">
-                         <h2>
-                          same as billing adddress
-                          <div class="custom-control custom-radio">
-                           <input type="radio"
-                            class="form-check-input custom-control custom-radio get_selected_shipping" id="shippingData"
-                            ids="loda" name="optradio1" value="loda">
-                          </div>
-                         </h2>
-                        </div>
-                       </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-               <div class="card">
-                <div class="card-header" id="faqhead3">
-                 <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq3"
-                  aria-expanded="true" aria-controls="faq3">Payment </a>
-                </div>
+                                <div id="faq2" class=" body_faq collapse" aria-labelledby="faqhead2" data-parent="#faq">
+                                  <div class="card-body">
+                                    <div class="row">
+                                      <%for(let address of get_address){%>
+                                        <%if(address.type==2){%>
+                                          <div class="col-md-6">
+                                            <div class="store_adrs3">
 
-                <div id="faq3" class=" body_faq collapse" aria-labelledby="faqhead3" data-parent="#faq">
-                 <div class="card-body">
-                  <div class="row p-0">
-                   <div class="col-md-12">
-                    <div class="promo_code">
-                     <input type="text" placeholder="Promo Code (optional)">
-                     <button> Apply</button>
-                    </div>
-                   </div>
-                   <%for(let card of get_card){%>
-                    <div class="col-md-6">
-                     <div class="store_adrs3">
-                      <h2>
-                       <%=card.name%>
+                                              <h2>
+                                                <%=address.name%>
+                                                  <%=address.last_name%>
 
-                        <div class="custom-control custom-radio card_detail">
-                         <input type="radio" class="form-check-input custom-control custom-radio get_selected_card"
-                          id="<%=card.id%>" ids="<%=card.id%>" name="optradio2" value="<%=card%>">
-                        </div>
-                      </h2>
-                      <h4>
-                       <%=card.cardNumber%>
-                      </h4>
-                      <p>
-                       <%=card.month%>
-                      </p>
-                      <p>
-                       <%=card.year%> <span>
-                         <a class="del_card" style="cursor: pointer;" card_id="<%=card.id%>"> <img
-                           src="website/images/edit.png">
-                         </a>
-                        </span>
-                      </p>
-                     </div>
-                    </div>
-                    <%}%>
-                     <div class="col-md-12">
-                      <div class="add_new_address">
-                       <p> <a class="Add_New"> Add Card</a>
-                         <!-- <a href="" class="log_in_btn float-right">
+                                                    <div class="custom-control custom-radio">
+                                                      <input type="radio"
+                                                        class="form-check-input custom-control custom-radio get_selected_shipping"
+                                                        id="shippingData" ids="<%=address.id%>" name="optradio1"
+                                                        value="<%=address%>">
+                                                    </div>
+                                              </h2>
+                                              <h4>
+                                                <%=session.user.phone%>
+                                              </h4>
+                                              <p>
+                                                <%=address.address_line_1%>
+                                                  <%=address.address_line_2%>
+                                                    <%=address.city%>
+                                                      <%=address.state%>
+                                                        <%=address.country%>
+                                              </p>
+                                              <p>
+                                                <%=address.zip_code%><span>
+
+                                                    <a class="del_address" style="cursor: pointer;"
+                                                      address_id="<%=address.id%>"> <img src="website/images/edit.png">
+                                                    </a>
+                                                  </span>
+                                              </p>
+                                            </div>
+
+                                          </div>
+                                          <%}%>
+                                            <%}%>
+                                              <div class="col-md-6">
+                                                <div class="store_adrs3">
+                                                  <h2>
+                                                    same as billing adddress
+                                                    <div class="custom-control custom-radio">
+                                                      <input type="radio"
+                                                        class="form-check-input custom-control custom-radio get_selected_shipping"
+                                                        id="shippingData" ids="loda" name="optradio1" value="loda">
+                                                    </div>
+                                                  </h2>
+                                                </div>
+                                              </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card">
+                                <div class="card-header" id="faqhead3">
+                                  <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse"
+                                    data-target="#faq3" aria-expanded="true" aria-controls="faq3">Payment </a>
+                                </div>
+
+                                <div id="faq3" class=" body_faq collapse" aria-labelledby="faqhead3" data-parent="#faq">
+                                  <div class="card-body">
+                                    <div class="row p-0">
+                                      <div class="col-md-12">
+                                        <div class="promo_code">
+                                          <input type="text" placeholder="Promo Code (optional)">
+                                          <button> Apply</button>
+                                        </div>
+                                      </div>
+                                      <%for(let card of get_card){%>
+                                        <div class="col-md-6">
+                                          <div class="store_adrs3">
+                                            <h2>
+                                              <%=card.name%>
+
+                                                <div class="custom-control custom-radio card_detail">
+                                                  <input type="radio"
+                                                    class="form-check-input custom-control custom-radio get_selected_card"
+                                                    id="<%=card.id%>" ids="<%=card.id%>" name="optradio2"
+                                                    value="<%=card%>">
+                                                </div>
+                                            </h2>
+                                            <h4>
+                                              <%=card.cardNumber%>
+                                            </h4>
+                                            <p>
+                                              <%=card.month%>
+                                            </p>
+                                            <p>
+                                              <%=card.year%> <span>
+                                                  <a class="del_card" style="cursor: pointer;" card_id="<%=card.id%>">
+                                                    <img src="website/images/edit.png">
+                                                  </a>
+                                                </span>
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <%}%>
+                                          <div class="col-md-12">
+                                            <div class="add_new_address">
+                                              <p> <a class="Add_New"> Add Card</a>
+                                                <!-- <a href="" class="log_in_btn float-right">
                          Next</a></p> -->
-                      </div>
-                      <div class="biiling_page">
-                       <div class="log_in_pop border-0">
-                        <form action="" id="add_card">
-                         <div class="row">
-                          <div class="col-md-12">
-                           <h4 class="add_new">
-                            Add Card
-                           </h4>
-                          </div>
-                          <div class="col-md-6">
-                           <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control form-control-sm">
-                           </div>
-                          </div>
-                          <div class="col-md-6">
-                           <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="number" name="card_number"  class="form-control form-control-sm">
-                           </div>
-                          </div>
-                          <div class="col-md-6">
-                           <div class="form-group">
-                            <label>Exp. Month</label>
-                            <input type="number" name="exp_month" placeholder="10" class="form-control form-control-sm">
-                           </div>
-                          </div>
-                          <div class="col-md-6">
-                           <div class="form-group">
-                            <label>Exp. Year</label>
-                            <input type="number" name="exp_year"  placeholder="2025" class="form-control form-control-sm">
-                           </div>
-                          </div>
-                          <div class="col-md-6">
-                           <div class="form-group">
-                            <label>CVV</label>
-                            <input type="number" name="cvv" class="form-control form-control-sm">
-                           </div>
-                          </div>
-                          <div class="col-md-12 text-right">
-                           <a href="javascript:void(0);" id="add_card_btn" class="log_in_btn3 gray_btns">
-                            Save</a>
-                          </div>
-                         </div>
-                        </form>
-                       </div>
-                      </div>
-                     </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-               <div class="card">
-                <div class="card-header" id="faqhead3">
-                 <a href="#" id="getAllids" class="btn btn-header-link collapsed right_Arrow">Review
-                  & Place Order
-                 </a>
-                </div>
-               </div>
-              </div>
+                                            </div>
+                                            <div class="biiling_page">
+                                              <div class="log_in_pop border-0">
+                                                <form action="" id="add_card">
+                                                  <div class="row">
+                                                    <div class="col-md-12">
+                                                      <h4 class="add_new">
+                                                        Add Card
+                                                      </h4>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                        <label>Name</label>
+                                                        <input type="text" name="name"
+                                                          class="form-control form-control-sm">
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                        <label>Card Number</label>
+                                                        <input type="number" name="card_number"
+                                                          class="form-control form-control-sm">
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                        <label>Exp. Month</label>
+                                                        <input type="number" name="exp_month" placeholder="10"
+                                                          class="form-control form-control-sm">
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                        <label>Exp. Year</label>
+                                                        <input type="number" name="exp_year" placeholder="2025"
+                                                          class="form-control form-control-sm">
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                        <label>CVV</label>
+                                                        <input type="number" name="cvv"
+                                                          class="form-control form-control-sm">
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-md-12 text-right">
+                                                      <a href="javascript:void(0);" id="add_card_btn"
+                                                        class="log_in_btn3 gray_btns">
+                                                        Save</a>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card">
+                                <div class="card-header" id="faqhead3">
+                                  <a href="#" id="getAllids" class="btn btn-header-link collapsed right_Arrow">Review
+                                    & Place Order
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
 
-             </div>
-            </div>
-            <div class="need_help">
-             <p>Need help Contact us directly </p>
-             <p>Call Customer Service at XXXX XXXX XXXX Monday - Friday </p>
-             <p>8.00am - 5pm </p>
-             <p>Email Customer Service at helpme@domain.com </p>
-            </div>
+                          </div>
+                        </div>
+                        <div class="need_help">
+                          <p>Need help Contact us directly </p>
+                          <p>Call Customer Service at XXXX XXXX XXXX Monday - Friday </p>
+                          <p>8.00am - 5pm </p>
+                          <p>Email Customer Service at helpme@domain.com </p>
+                        </div>
 
-           </div>
-           <div class="col-md-6">
-            <div class="order_sum_top">
-             <div class="order_sum">
-              <h3>Order Summary</h3>
-             </div>
-             <%for(let cart of getCart){%>
-              <div class="order_sum1">
-               <a href="/product_detail?key=<%=Buffer.from(`${cart.product.id}`, 'binary').toString('base64')
+                      </div>
+                      <div class="col-md-6">
+                        <div class="order_sum_top">
+                          <div class="order_sum">
+                            <h3>Order Summary</h3>
+                          </div>
+                          <%for(let cart of getCart){%>
+                            <div class="order_sum1">
+                              <a href="/product_detail?key=<%=Buffer.from(`${cart.product.id}`, 'binary').toString('base64')
                  %>"><img id="Checkout_img" src="<%=cart.product.productImage%>"></a>
-               <div class="order_sum2">
-                <h2>
-                 <%=cart.product.name%>
-                </h2>
-                <h4>
-                 <%=cart.product.description.substring(0,40)%>
-                  <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
-                   <p>
-                    <%=Object.keys(spec)%>: <%=Object.values(spec)%>
-                   </p>
-                   <%} %>
-                </h4>
-                <p>color:<%=cart.color%>
-                </p>
-               </div>
-               <div class="order_sum3">
-                <h2>
-                 qty:<%=cart.qty%>
-                </h2>
-                <h5>Price $<%=cart.product.retailPrice%>
-                </h5>
-                <span>
-                 <a id="del_cart" piid="<%=cart.id%>" style="cursor: pointer;"> <img src="website/images/edit.png"> </a>
-                </span>
-               </div>
-              </div>
-              <%}%>
-               <div class="order_sum4">
-                <p> Subtotal <span> $<%=getCart.sum%></span></p>
-                <p> Discount <span> $0.00</span></p>
-                <p> Shipping <span> $<%=getCart.shipping%></span></p>
-                <p> Tax <span> %<%=getCart.tax%></span></p>
-                <h3> Order Total <span> $<%=getCart.total%></span></h3>
-               </div>
-            </div>
-            <div class="order_sum5 text-center">
-             <h4>
-              <a id="saveToLater" pid="<%=session.user.id%>">Save to Later </a>
-             </h4>
-             <a href="safety_and_security" class="log_in_btn3 gray_btns"> Safety & Security
-              Budges</a>
-            </div>
-            <input type="hidden" id="cartData" value="<%=getdataCart%>">
-           </div>
-          </div>
-         </div>
-        </section>
-        <div class="modal fade place_order" id="place_order" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+                              <div class="order_sum2">
+                                <h2>
+                                  <%=cart.product.name%>
+                                </h2>
+                                <h4>
+                                  <%=cart.product.description.substring(0,40)%>
+                                    <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
+                                      <p>
+                                        <%=Object.keys(spec)%>: <%=Object.values(spec)%>
+                                      </p>
+                                      <%} %>
+                                </h4>
+                                <p>color:<%=cart.color%>
+                                </p>
+                              </div>
+                              <div class="order_sum3">
+                                <h2>
+                                  qty:<%=cart.qty%>
+                                </h2>
+                                <h5>Price $<%=cart.product.retailPrice%>
+                                </h5>
+                                <span>
+                                  <a id="del_cart" piid="<%=cart.id%>" style="cursor: pointer;"> <img
+                                      src="website/images/edit.png"> </a>
+                                </span>
+                              </div>
+                            </div>
+                            <%}%>
+                              <div class="order_sum4">
+                                <p> Subtotal <span> $<%=getCart.sum%></span></p>
+                                <p> Discount <span> $0.00</span></p>
+                                <p> Shipping <span> $<%=getCart.shipping%></span></p>
+                                <p> Tax <span> %<%=getCart.tax%></span></p>
+                                <h3> Order Total <span> $<%=getCart.total%></span></h3>
+                              </div>
+                        </div>
+                        <div class="order_sum5 text-center">
+                          <h4>
+                            <a id="saveToLater" pid="<%=session.user.id%>">Save to Later </a>
+                          </h4>
+                          <a class="log_in_btn3 gray_btns"><img height="30" src="website/images/visa.png"><img height="30" src="website/images/stripe.png"><img height="30" src="website/images/master card.png"><img height="30" src="website/images/lock.png"><img height="30" src="website/images/express.png"></a>
+                        </div>
+                        <input type="hidden" id="cartData" value="<%=getdataCart%>">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="modal fade place_order" id="place_order" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
 
-           <div class="modal-body">
-            <div class="row align-items-center">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-             </button>
-             <div class="col-md-12">
-              <div class="confirm2">
-               <h3>Order Confirmation</h3>
-               <p> Are your sure want to<br>place this order ?</p>
-               <p>
-                <a href class="log_in_btn2"> Yes</a>
-                <a href class="log_in_btn3"> No</a>
-               </p>
-              </div>
-             </div>
-            </div>
-           </div>
-          </div>
-         </div>
-        </div>
-        <div class="modal fade place_order" id="confirm_order" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="row align-items-center">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <div class="col-md-12">
+                            <div class="confirm2">
+                              <h3>Order Confirmation</h3>
+                              <p> Are your sure want to<br>place this order ?</p>
+                              <p>
+                                <a href class="log_in_btn2"> Yes</a>
+                                <a href class="log_in_btn3"> No</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade place_order" id="confirm_order" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
 
-           <div class="modal-body">
-            <div class="row align-items-center">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-             </button>
-             <div class="col-md-12">
-              <div class="confirm2">
-               <h3>Confirmation</h3>
-               <p> Your order has been <br>successfully placed.</p>
-               <p>
-                <a href class="log_in_btn2"> Home</a>
-               </p>
-              </div>
-             </div>
-            </div>
+                      <div class="modal-body">
+                        <div class="row align-items-center">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <div class="col-md-12">
+                            <div class="confirm2">
+                              <h3>Confirmation</h3>
+                              <p> Your order has been <br>successfully placed.</p>
+                              <p>
+                                <a href class="log_in_btn2"> Home</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
 
-           </div>
-          </div>
-         </div>
-        </div>
-        <%- include('./footer.ejs'); -%>
-        
-         <script>
-          let urlDataObj = {
-           billing_address: 0,
-           shiping_address: 0,
-           card_id: 0
-          }
-          var review_arr = []
-          $(document).ready(function () {
-           $('input:radio[name="optradio"]').change(
-            function () {
-             if ($(this).is(':checked')) {
-              let getVal = $(this).attr('ids')
-              urlDataObj.billing_address = getVal
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%- include('./footer.ejs'); -%>
 
-             }
-            });
-          })
-          $(document).ready(function () {
-           $('input:radio[name="optradio1"]').change(
-            function () {
-             if ($(this).is(':checked')) {
-              let getVal = $(this).attr('ids')
-              console.log(getVal, "<<<<<<<<<<<<<<<<<<<<<<")
-              if (getVal == 'loda') {
-               urlDataObj.shiping_address = urlDataObj.billing_address
-              } else {
+                  <script>
 
-               urlDataObj.shiping_address = getVal
-              }
+                    let urlDataObj = {
+                      billing_address: 0,
+                      shiping_address: 0,
+                      card_id: 0
+                    }
+                    var review_arr = []
+                    $(document).ready(function () {
+                      $('input:radio[name="optradio"]').change(
+                        function () {
+                          if ($(this).is(':checked')) {
+                            let getVal = $(this).attr('ids')
+                            urlDataObj.billing_address = getVal
 
-             }
-            });
-          })
-          $(document).ready(function () {
-           $('input:radio[name="optradio2"]').change(
-            function () {
-             if ($(this).is(':checked')) {
-              let getVal = $(this).attr('ids')
-              urlDataObj.card_id = getVal
-             }
-            });
-          })
-          $(document).ready(function () {
-           $('#getAllids').click(function () {
-            console.log(urlDataObj, '---urlDataObj----');
-            const data = Object.values(urlDataObj);
-            console.log(data, "a,,,,,,,,,,,,,,,,,,,,,,<<<<<<<<,,");
-            // return
+                          }
+                        });
+                    })
+                    $(document).ready(function () {
+                      $('input:radio[name="optradio1"]').change(
+                        function () {
+                          if ($(this).is(':checked')) {
+                            let getVal = $(this).attr('ids')
+                            console.log(getVal, "<<<<<<<<<<<<<<<<<<<<<<")
+                            if (getVal == 'loda') {
+                              urlDataObj.shiping_address = urlDataObj.billing_address
+                            } else {
 
-            if (data.includes(0)) {
-             alert('plese select Billing Address, Shipping Address and Card');
-             return
-            }
-            window.location.href = `/review_order?billing_address=${urlDataObj.billing_address}&shiping_address=${urlDataObj.shiping_address}&card_id=${urlDataObj.card_id}`;
-           });
-          })
-          $(document).ready(function () {
-           $('#saveToLater').click(function () {
-            console.log(urlDataObj, '---urlDataObj----');
-            if (urlDataObj && urlDataObj.billing_address == 0 && urlDataObj.shiping_address == 0 && urlDataObj.card_id == 0) {
-             alert('Please Select First');
-             return
-            }
-            window.location.href = `/save_to_later?billing_address=${urlDataObj.billing_address}&shiping_address=${urlDataObj.shiping_address}&card_id=${urlDataObj.card_id}`;
-           });
-          })
-          
-         </script>
+                              urlDataObj.shiping_address = getVal
+                            }
+
+                          }
+                        });
+                    })
+                    $(document).ready(function () {
+                      $('input:radio[name="optradio2"]').change(
+                        function () {
+                          if ($(this).is(':checked')) {
+                            let getVal = $(this).attr('ids')
+                            urlDataObj.card_id = getVal
+                          }
+                        });
+                    })
+                    $(document).ready(function () {
+
+                      if ('<%- message %>') {
+                        iziToast['success']({
+                          title: '<% message %>',
+                          message: 'Saved to later successfully',
+                          position: 'topRight'
+                        });
+                      }
+                      $('#getAllids').click(function () {
+                        console.log(urlDataObj, '---urlDataObj----');
+                        const data = Object.values(urlDataObj);
+                        console.log(data, "a,,,,,,,,,,,,,,,,,,,,,,<<<<<<<<,,");
+                        // return
+
+                        if (data.includes(0)) {
+                          alert('plese select Billing Address, Shipping Address and Card');
+                          return
+                        }
+                        window.location.href = `/review_order?billing_address=${urlDataObj.billing_address}&shiping_address=${urlDataObj.shiping_address}&card_id=${urlDataObj.card_id}`;
+                      });
+                    })
+                    $(document).ready(function () {
+                      $('#saveToLater').click(function () {
+                        console.log(urlDataObj, '---urlDataObj----');
+                        if (urlDataObj && urlDataObj.billing_address == 0 && urlDataObj.shiping_address == 0 && urlDataObj.card_id == 0) {
+                          alert('Please Select First');
+                          return
+                        }
+                        window.location.href = `/save_to_later?billing_address=${urlDataObj.billing_address}&shiping_address=${urlDataObj.shiping_address}&card_id=${urlDataObj.card_id}`;
+                      });
+                    })
+
+                  </script>

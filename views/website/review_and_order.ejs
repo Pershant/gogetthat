@@ -290,9 +290,15 @@
                           <h3>Payment</h3>
                           <div class="re_views_text">
                             <div class="store_adrs_list">
-                              <h2><%=getCard.name%> </h2>
-                              <h4><%=getCard.cardNumber%></h4>
-                              <p>Expiry: <%=getCard.month%> <%=getCard.year%>  </p>
+                              <h2>
+                                <%=getCard.name%>
+                              </h2>
+                              <h4>
+                                <%=getCard.cardNumber%>
+                              </h4>
+                              <p>Expiry: <%=getCard.month%>
+                                  <%=getCard.year%>
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -312,12 +318,15 @@
                                 <h4>
                                   <%=cart.product.description.substring(0,40)%>
                                 </h4>
-                                <p>color:<%=cart.color%></p>
+                                <p>color:<%=cart.color%>
+                                </p>
                                 <h4>
                                   <%=cart.product.description.substring(0,40)%>
-                                  <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
-                                    <p> <%=Object.keys(spec)%>: <%=Object.values(spec)%> </p>
-                                    <%} %>
+                                    <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
+                                      <p>
+                                        <%=Object.keys(spec)%>: <%=Object.values(spec)%>
+                                      </p>
+                                      <%} %>
                                 </h4>
                               </div>
                               <div class="order_sum3">
@@ -340,7 +349,9 @@
                                 <h3> Order Total <span> $<%=getCart.total%></span></h3>
                               </div>
                         </div>
-                        <a href data-toggle="modal" data-target="#place_order" class="log_in_btn"> Place order</a>
+                        <%if(getCart.length>0){%>
+                          <a href data-toggle="modal" data-target="#place_order" class="log_in_btn"> Place order</a>
+                          <%}%>
                       </div>
                     </div>
                   </div>
@@ -363,8 +374,8 @@
                               <p>
                                 <a href class="log_in_btn2" id="confirm_order" cart="<%=getCart%>"
                                   billing_address="<%=get_billing_address.id%>"
-                                  shiping_address="<%=get_shiping_address.id%>"
-                                  card_id="<%=getCard.id%>" data-toggle="modal" data-target="#confirm_order"> Yes</a>
+                                  shiping_address="<%=get_shiping_address.id%>" card_id="<%=getCard.id%>"
+                                  data-toggle="modal" data-target="#confirm_order"> Yes</a>
                                 <a href class="log_in_btn3"> No</a>
                               </p>
                             </div>

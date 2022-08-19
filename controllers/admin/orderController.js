@@ -2,6 +2,7 @@ const models = require('../../models');
 const helper = require('../../helpers/helper');
 const Paginator = require("paginator");
 const sequelize = require("sequelize");
+// const userdeliveryaddress = models.userdeliveryaddress
 const {
   request
 } = require('express');
@@ -348,7 +349,7 @@ module.exports = {
         raw: true,
         nest: true
       });
-      //     console.log(listing,"==================");return
+      console.log(listing, "==================");
       const headerColumns = Object.values({
         sno: '#',
         orderId: 'Order ID',
@@ -370,8 +371,6 @@ module.exports = {
       });
 
       const data = listing.rows.map((order, index) => {
-
-
         let orderStatusSelect = ``;
         orderStatusSelect += `<select class="changeOrderRequestStatus" model="${model}" model_title="${modelTitle}" model_id="${order.id}" field="orderStatus" style="background: ${orderStatus[order.orderStatus].backgroundCssColor}; color: #fff; font-weight: 600;" >`;
         for (let status in orderStatus) {
@@ -384,7 +383,7 @@ module.exports = {
           orderId: order.orderNo,
           customerName: `Name: ${order.customer.userDetail.name}<br/>
                                    Email: ${order.customer.email}`,
-          SellerName: `Name: ${order.vendor.vendorDetail.name}<br/>
+          SellerName: `Name: ${order.vendor.username}<br/>
                                    Email: ${order.vendor.email}`,
           address: `Address: ${order.address}<br/>
           addressLine2: ${order.addressLine2}<br/>
@@ -403,7 +402,7 @@ module.exports = {
           // <a href="/admin/orderDetail/view/${order.id}">
           //     <button type="button" class="btn btn-success">View Order Detail</button>
           // </a>`,
-          total: order.netAmount,
+          total: "$"+order.netAmount,
           orderStatus: orderStatusSelect,
           action: `
                     <a href="/admin/order/view/${order.id}">
@@ -416,7 +415,7 @@ module.exports = {
 
         });
       });
-
+      // return
       return res.render('admin/order/customerOrders', {
         headerColumns,
         data
@@ -1916,7 +1915,7 @@ module.exports = {
       })
       req.flash('flashMessage', {
         color: 'success',
-        message:"Order tracker url and id added to the order"
+        message: "Order tracker url and id added to the order"
       });
       res.redirect('/admin/order/customerOrders');
     } catch (error) {

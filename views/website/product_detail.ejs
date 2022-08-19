@@ -91,7 +91,7 @@
                             <div class="product_colorS">
                               <ul>
                                 <%product_detail.colors.forEach((color,i)=>{ %>
-                                  <li class="green1 <%- i == 0 && 'active' %>" id="<%=color.color%>"><a
+                                  <li class="green1" id="<%=color.color%>"><a
                                       style="background-color:<%=color.color%>"></a>
                                   </li>
                                   <%})%>
@@ -223,7 +223,7 @@
                                   <%=product.name%>
                                 </h3>
                                 <h3>
-                                  <%=product.retailPrice%>
+                                  $<%=product.retailPrice%>
                                 </h3>
                                   <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
                                   %>"  class="cart_b">View Product</a>

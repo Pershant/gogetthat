@@ -49,11 +49,12 @@
     </div>
     <div class="row mt-5 text-center">
       <div class="col-md-12">
-        <div class="footer_social_1">
-          <p> <a id=""><i class="icofont-facebook"></i></a></p>
-          <p> <a id=""><i class="icofont-twitter"></i></a></p>
-          <p> <a id=""><i class="icofont-google-plus"></i></a></p>
-        </div>
+        <div class="fb-share-button" data-href="<%=shareUrl%>" data-layout="button_count" data-size="small"><a
+            target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%=shareUrl%>"
+            class="fb-xfbml-parse-ignore">img src="website/images/fb.png"</a></div>
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?url=<%=shareUrl%>">
+          Tweet
+        </a>
         <div class="footer_social">
           <p> <a href="term">Terms & Conditions</a></p>
           <p> <a href="privacy">Privacy Policy</a></p>
@@ -345,7 +346,7 @@
     var beaches = "<%=location_arr%>"
     beaches = beaches.replace(/&#34;/g, '"');
     beaches = JSON.parse(beaches)
-   
+
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
       center: new google.maps.LatLng(28.7041, 77.1025),

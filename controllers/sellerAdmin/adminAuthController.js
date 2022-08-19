@@ -53,10 +53,10 @@ module.exports = {
                 raw: true,
                 nest: true
             });
-            
+
 
             let getStaff;
-          //   console.log(getUser,'========================>getUser'); return;
+            //   console.log(getUser,'========================>getUser'); return;
             if (!getUser) {
                 getStaff = await User.findOne({
                     where: {
@@ -85,9 +85,9 @@ module.exports = {
                     throw "Incorrect Email or Password.";
                 }
             }
-         //  console.log(getUser.vendorDetail.isApprove,"getUser.vendorDetail.isApprove");return
+            //  console.log(getUser.vendorDetail.isApprove,"getUser.vendorDetail.isApprove");return
             if (getUser.vendorDetail.approvalStatus != 2) {
-                throw "Email verification is pending";
+                throw "Admin approval is pending";
             }
 
             checkPassword = await helper.comparePass(requestData.password, getUser ? getUser.password : getStaff.password);
@@ -181,5 +181,5 @@ module.exports = {
         req.flash('flashMessage', { color: 'success', message: 'Logged out Successfully.' });
         res.redirect('/sellerAdmin');
     },
-    
+
 }

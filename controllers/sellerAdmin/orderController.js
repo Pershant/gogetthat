@@ -654,7 +654,7 @@ module.exports = {
             // country: 'Country',
             // zipCode: 'Zip Code',
             orderDate: 'Order Date',
-            orderDetail:'Order Detail',
+            // orderDetail:'Order Detail',
             total: 'Total',
             orderStatus: 'Order Status',
             action: 'Action',
@@ -690,14 +690,14 @@ module.exports = {
               // country: order.country,
               // zipCode: order.zipCode,
               orderDate: moment(order.createdAt).format('dddd, MMMM Do YYYY'),
-              orderDetail: `
-              <a href="/admin/orderDetail/view/${order.id}">
-                  <button type="button" class="btn btn-success">View Order Detail</button>
-              </a>`,
+            //   orderDetail: `
+            //   <a href="/sellerAdmin/orderDetail/view/${order.id}">
+            //       <button type="button" class="btn btn-success">View Order Detail</button>
+            //   </a>`,
               total: order.total,
               orderStatus: orderStatusSelect,
               action: `
-                        <a href="/admin/order/view/${order.id}">
+                        <a href="/sellerAdmin/order/view/${order.id}">
                             <button type="button" class="btn btn-warning">View</button>
                         </a>`,
             });

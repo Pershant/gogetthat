@@ -40,6 +40,7 @@ var atob = require('atob');
 module.exports = {
   index: async (req, res) => {
     try {
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
       // console.log(countryCodesList,'===============herer');return
       let get_blog = await blog.findAll({
@@ -111,6 +112,7 @@ module.exports = {
         get_admin,
         location_arr: get_store_location,
         search: "",
+        shareUrl
 
       }
       )
@@ -193,6 +195,7 @@ module.exports = {
   },
   sign_up: async (req, res) => {
     try {
+      // console.log(req.body,'========================herer');return
       let getCount = await user.count({
         where: {
           email: req.body.email
@@ -238,7 +241,36 @@ module.exports = {
             },
             raw: true
           })
+          if (req.body.isLogin == 'false') {
+            let cartData = JSON.parse(req.body.cartData);
+            cartData = JSON.parse(cartData)
 
+            let deletCart = await cart.destroy({
+              where: {
+                userId: 0
+              }
+            })
+
+            let finalObjs = await Promise.all(cartData.map(async (val) => {
+              let getP = await product.findOne({
+                where: {
+                  id: val.pid
+                },
+                raw: true,
+                nest: true
+              })
+              return {
+                userId: findUser.id,
+                productId: val.pid,
+                qty: val.qty,
+                vendorId: getP.vendorId,
+                specifications: val.product_specifications,
+                total_price: val.total_price,
+                save_to_later: 0
+              }
+            }))
+            let addCart = await cart.bulkCreate(finalObjs)
+          }
           let userData = {
             id: findUser.id,
             email: findUser.email,
@@ -281,6 +313,7 @@ module.exports = {
   },
   log_in: async (req, res) => {
     try {
+
       var findUser = await user.findOne({
         where: {
           email: req.body.email
@@ -305,7 +338,42 @@ module.exports = {
         )
         // return
       }
-      let comparePassword = await helper.comparePass(req.body.password, findUser.password)
+      let comparePassword = await helper.comparePass(req.body.password, findUser.password);
+      // cart work
+
+      if (req.body.isLogin == 'false') {
+        let cartData = JSON.parse(req.body.cartData);
+        cartData = JSON.parse(cartData)
+
+        let deletCart = await cart.destroy({
+          where: {
+            userId: 0
+          }
+
+
+        })
+
+        let finalObjs = await Promise.all(cartData.map(async (val) => {
+          let getP = await product.findOne({
+            where: {
+              id: val.pid
+            },
+            raw: true,
+            nest: true
+          })
+          return {
+            userId: findUser.id,
+            productId: val.pid,
+            qty: val.qty,
+            vendorId: getP.vendorId,
+            specifications: val.product_specifications,
+            total_price: val.total_price,
+            save_to_later: 0
+          }
+        }))
+        let addCart = await cart.bulkCreate(finalObjs)
+      }
+
       if (!comparePassword) {
         res.send(
           {
@@ -385,9 +453,10 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
       let url = `${req.protocol}://${req.get('host')}` + req.url;
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/blog", {
-        session: req.session, blogs: get_blog, get_category, get_nav_category, get_product, get_admin, countryCodesList, get_blog_category, get_popular_blog, location_arr: get_store_location, searh: "", url: url,
+        session: req.session, blogs: get_blog, get_category, get_nav_category, get_product, get_admin, countryCodesList, get_blog_category, get_popular_blog, location_arr: get_store_location, searh: "", url: url, shareUrl,
         search: ""
       })
     } catch (error) {
@@ -412,10 +481,11 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       let get_admin = await module.exports.get_admin(req, res);
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/about_us", {
         session: req.session, about_us: about_us, get_category, get_product, get_nav_category, countryCodesList, get_admin, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -434,10 +504,11 @@ module.exports = {
 
       let get_admin = await module.exports.get_admin(req, res);
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/contact_us", {
         session: req.session, get_category, get_product, get_nav_category, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -485,9 +556,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+
       res.render("website/terms", {
         session: req.session, get_nav_category, get_terms: get_terms, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -511,10 +584,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/privacy", {
         session: req.session, get_nav_category, get_privacy: get_privacy, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -542,10 +616,11 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
 
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/account", {
         session: req.session, get_nav_category, get_user: get_user, get_category, get_product, get_wishlist, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -572,7 +647,8 @@ module.exports = {
       })
       if (update_profile) {
         let findUser = await user.findOne({
-          attributes: [`id`, `role`, `name`, `verified`, `status`, `username`, `email`, `password`, helper.makeImageUrlSql('user', 'image', 'user'), `company`, `businessNumber`, `businessCNumber`, `verificationId`, `buisnessAddress`, `countryCode`, `walletAmount`, `phone`, `forgotPasswordHash`, `facebookId`, `googleId`, `otp`, `created`, `updated`, `createdAt`, `updatedAt`],
+          // attributes: [`id`, `role`, `name`, `verified`, `status`, `username`, `email`, `password`, helper.makeImageUrlSql('user', 'image', 'user'), `company`, `businessNumber`, `businessCNumber`, `verificationId`, `buisnessAddress`, `countryCode`, `walletAmount`, `phone`, `forgotPasswordHash`, `facebookId`, `googleId`, `otp`, `created`, `updated`, `createdAt`, `updatedAt`],
+          attributes: [`id`, `role`, `name`, `stripe_customer_id`, `verified`, `status`, `username`, `email`, `password`, helper.makeImageUrlSql('user', 'image', 'user'), `company`, `businessNumber`, `businessCNumber`, `verificationId`, `buisnessAddress`, `countryCode`, `walletAmount`, `phone`, `forgotPasswordHash`, `facebookId`, `loyality_points`, `googleId`, `otp`, `created`, `updated`, `createdAt`, `updatedAt`, [sequelize.literal('ifNull((SELECT count(id) FROM cart where user.id = cart.userId),0)'), 'cart_count'], [sequelize.literal('ifNull((SELECT count(id) FROM add_to_compare where user.id = add_to_compare.user_id),0)'), 'compare_count']],
           where: {
             id: req.session.user.id
           },
@@ -690,10 +766,11 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
 
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/address", {
         session: req.session, get_nav_category, find_address, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       res.redirect("/home");
@@ -702,6 +779,27 @@ module.exports = {
   },
   add_address: async (req, res) => {
     try {
+      let findAddr = await userDeliveryAddress.count({
+        where: {
+          address_line_1: req.body.address_line_1,
+          address_line_1: req.body.address_line_1,
+          address_line_2: req.body.address_line_2,
+          city: req.body.city,
+          state: req.body.state,
+          country: req.body.country,
+          zip_code: req.body.zip_code,
+          userId: req.session.user.id,
+          type: req.body.type
+        }
+      })
+      if (findAddr > 0) {
+        res.send({
+          msg: "adress already added",
+          status: false,
+          session: req.session
+        })
+        return
+      }
       let add_address = await userDeliveryAddress.create({
         name: req.body.first_name,
         last_name: req.body.last_name,
@@ -745,10 +843,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/faq", {
         session: req.session, get_nav_category, get_faq, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
 
     } catch (error) {
@@ -773,10 +872,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/return", {
         session: req.session, get_nav_category, get_return_info: get_return_info, get_category, get_product, countryCodesList, get_admin, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -800,10 +900,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/shipping_info", {
         session: req.session, get_shipping_info: get_shipping_info, get_nav_category, get_category, countryCodesList, get_product, get_admin, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -906,6 +1007,9 @@ module.exports = {
         req.session.user = user_detail;
         req.session.authenticated_web = true;
       }
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+
+      // return res.json(product_detail)
       res.render("website/product_detail", {
         session: req.session,
         get_category,
@@ -917,7 +1021,8 @@ module.exports = {
         location_arr: get_store_location,
         url: url,
         search: "",
-        alreadyInCart
+        alreadyInCart,
+        shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -958,12 +1063,13 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       // console.log(get_category.category_dateil,'====================herer');return
       res.render("website/category_product", {
         session: req.session, get_product, get_admin,
         category_dateil: get_nav_category.category_dateil, get_nav_category, location_arr: get_store_location, key: req.query.key, rangeOne: req.query.rangeOne ? req.query.rangeOne : 0, rangeTwo: req.query.rangeTwo ? req.query.rangeTwo : 500, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1077,10 +1183,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/shipping_return", {
         session: req.session, get_shipping_info: get_shipping_info, get_nav_category, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1104,17 +1211,18 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/loyality_program", {
         session: req.session, get_admin, get_loyality_info: get_loyality_info, get_nav_category, get_category, get_product, location_arr: get_store_location, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
     }
   },
   add_to_cart: async (req, res) => {
-    // console.log(req.body, '=======================herer');
+    console.log(req.body, '=======================herer');
     let get_product = await module.exports.get_product(req, res)
     get_product.forEach(product => {
       if (product.id == req.body.pid) {
@@ -1123,13 +1231,23 @@ module.exports = {
       return get_product
     });
     let product = get_product.product_detail
-    let qty = req.body.qty ? req.body.qty : 1
+    let qty = req.body.qty ? req.body.qty : 1;
+    if (product.quantity < qty) {
+      return res.send({
+        msg: "selected quantity is more than stock",
+        status: false,
+        session: req.session,
+      })
+    }
+
+
     if (req.session && req.session.user == undefined && !req.session.user) {
       let cart = []
       let cart_product = {}
       console.log(req.body, '===================herer')
       cart_product = {
         ...req.body,
+        status: true,
         vendorId: product.vendorId,
         total_price: product.retailPrice
       }
@@ -1138,12 +1256,21 @@ module.exports = {
         ...cart
       ]
     }
-    // console.log(req.session, '===================herer');return
-    let userId = req.session.user ? req.session.user.id : res.send({
-      msg: "WithoutLogin",
-      status: true,
-      session: req.session,
-    })
+
+
+
+    let userId
+
+    if (req.session.user) {
+      userId = req.session.user.id
+    } else {
+      return res.send({
+        msg: "product added to cart",
+        status: true,
+        session: req.session,
+      })
+    }
+    // let userId = req.session.user ? req.session.user.id : 
     let get_count = await cart.count({
       where: {
         userId: userId,
@@ -1151,25 +1278,32 @@ module.exports = {
       }
     })
     if (product.quantity < qty) {
-      res.send({
+      return res.send({
         msg: "selected quantity is more than stock",
         status: false,
         session: req.session,
       })
+
     }
-    get_count > 0 ? res.send({
-      msg: "item already added to cart",
-      status: false,
-      session: req.session,
-    }) : addCart = await cart.create({
-      userId: userId,
-      productId: req.body.pid,
-      qty: qty,
-      color: req.body.sc,
-      specifications: req.body.product_specifications,
-      vendorId: product.vendorId,
-      total_price: product.retailPrice
-    })
+
+    if (get_count > 0) {
+      return res.send({
+        msg: "item already added to cart",
+        status: false,
+        session: req.session,
+      })
+    } else {
+      addCart = await cart.create({
+        userId: userId,
+        productId: req.body.pid,
+        qty: qty,
+        color: req.body.sc,
+        specifications: req.body.product_specifications,
+        vendorId: product.vendorId,
+        total_price: product.retailPrice
+      })
+
+    }
     let baseUrl = `${req.protocol}://${req.get('host')}` + "/uploads/products/";
     let getCart = await cart.findOne({
       attributes: [`id`, `userId`, `productId`, `vendorId`, `qty`, `created`, `updated`, `createdAt`, `updatedAt`, [sequelize.literal('(SELECT sum(total_price) FROM cart)'), 'sub_total']],
@@ -1184,7 +1318,6 @@ module.exports = {
         }
       ]
     }).then(data => data.toJSON())
-    // console.log(getCart,'====================getCart')
     let get_full_Cart = await cart.findAll({
       where: {
         userId: userId
@@ -1213,18 +1346,17 @@ module.exports = {
 
     // console.log(get_full_Cart.shipping, '=============get_full_Cart======req.session'); return
     if (addCart) {
-      res.send({
+      return res.send({
         msg: "item added to cart successfully",
         status: true,
         session: req.session,
         getCart: getCart,
         get_full_Cart: get_full_Cart,
         getTax
-
       })
     }
     else {
-      res.send({
+      return res.send({
         msg: "something went wrong",
         status: false,
         session: req.session
@@ -1286,17 +1418,18 @@ module.exports = {
       let taxPer = (sum * (parseInt(getTax.value) / 100))
       let total_price = sum + taxPer + shipping
       getCart.total = total_price
-
-      // return;
       req.session.user = user_detail;
       req.session.authenticated_web = true;
-      // return
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
+      // console.log(getCart)
+      // return
       res.render("website/cart", {
         session: req.session, getCart, get_nav_category, get_category, get_product, get_admin, countryCodesList, location_arr: get_store_location,
         search: "",
-        isLogin:true
+        isLogin: true,
+        shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1304,57 +1437,67 @@ module.exports = {
   },
   getCart: async (req, res) => {
     try {
-      let { Ids } = req.query
+      let { Ids } = req.query;
+      let baseUrl = `${req.protocol}://${req.get('host')}` + "/uploads/products/";
 
       let ids = atob(Ids)
       ids = JSON.parse(ids)
-      // console.log(ids);return
-      let id_array=[]
+
+      let id_array = []
       let qty = {}
       let productIds = ids.forEach((val) => {
         let key = Object.keys(val)
         let vals = Object.values(val)
         id_array.push((key[0]))
-        
-        let quality ={
-          [key[0]]:{
-            'quantity':vals[0]
+
+        let quality = {
+          [key[0]]: {
+            'quantity': vals[0]
           }
         }
-        if(qty.hasOwnProperty(key[0])){
+        if (qty.hasOwnProperty(key[0])) {
           console.log('am here')
-        }else{
+        } else {
           qty[key[0]] = vals[0]
         }
 
       })
       let getCart = await product.findAll({
+        attributes: [`id`, `isApproved`, `status`, `isAvailable`, `taxCategoryId`, `vendorId`, `vendorEmployeeId`, `categoryId`, `subCategoryId`, `name`, `description`, `countryOfOrigin`, `gtinNumber`, `image`, `isBarcodeItem`, `barcode`, `barcodeImage`, `sku`, `skuImage`, `brandName`, `minimumSellingPrice`, `quantity`, `reviews`, `shippingInformation`, `mrp`, `retailPrice`, `percentageDiscount`, `length`, `addedBy`, `color`, `width`, `height`, `dimensionsUnit`, `weight`, `weightUnit`, `created`, `updated`, 'return_price', 'shipping_price', [sequelize.literal('(SELECT  concat("' + baseUrl + '",`images`) FROM images where prod_id = product.id order by id asc limit 1)'), 'productImage']],
         where: {
           id: id_array
         }
-      }).map(async (data,i) => {
+      }).map(async (data, i) => {
         data = data.toJSON();
-        let qq = qty[data.id]; 
+        // data.productImage = 
+        let qq = qty[data.id];
         let total_price_product = data.retailPrice * qq
         data.total_price = total_price_product
-        data.qty = qty[data.id]; 
-        // data.specifications = JSON.parse(data.specifications);
-        let final = {'product':data}
+        data.qty = qty[data.id];
+        let final = { 'product': data }
         return final
       });
-      console.log(getCart)
-      return
-      // let getCart = [{
-      //   'cart':getCart__
-      // }
-      // ]
-   
-      
+
+
+      var sum = getCart.reduce((sum, cart) => sum + cart.product.total_price, 0);
+      let getTax = await setting.findOne({ where: { id: 22 }, raw: true })
+      var shipping = getCart.reduce((sum, cart) => sum + cart.product.shipping_price, 0)
+      getCart.sum = sum
+      getCart.shipping = shipping
+
+      getCart.tax = getTax.value
+      let taxPer = (sum * (parseInt(getTax.value) / 100))
+      let total_price = sum + taxPer + shipping
+      getCart.total = total_price;
+
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+      const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
       let get_admin = await module.exports.get_admin(req, res);
       res.render("website/cart", {
-        session: req.session, getCart, get_nav_category:[], get_category:{}, get_product:[], get_admin, countryCodesList:[], location_arr:[],
+        session: req.session, getCart, get_nav_category: [], get_category: {}, get_product: [], get_admin, countryCodesList, location_arr: [],
         search: "",
-        isLogin:false
+        isLogin: false,
+        shareUrl
       })
 
 
@@ -1391,6 +1534,7 @@ module.exports = {
   },
   update_cart: async (req, res) => {
     try {
+      console.log(req.body, '===================================');
       var getCart = await cart.findOne({
         attributes: [`id`, `userId`, `productId`, `vendorId`, `qty`, `created`, `updated`, `createdAt`, `updatedAt`, [sequelize.literal('(SELECT retailPrice FROM product where productId = product.id order by id asc limit 1)'), 'productPrice']],
         where: {
@@ -1398,7 +1542,7 @@ module.exports = {
         },
         raw: true
       })
-      // console.log(getCart,'===========================herer');return
+      console.log(getCart, '===========================herer');
       var qty = getCart.qty
       if (req.body.type == 1) {
         var qty = qty + 1
@@ -1490,10 +1634,15 @@ module.exports = {
     const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
 
     // console.log(getCart,"cart=====================");return
-
+    const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+    var user_detail = await module.exports.get_user_detail(req.session.user.id)
+    req.session.user = user_detail;
+    req.session.authenticated_web = true;
     res.render("website/checkout", {
       getdataCart, getAddress, session: req.session, getCart, get_address, get_nav_category, get_category, get_product, get_admin, get_card, location_arr: get_store_location, countryCodesList,
-      search: ""
+      search: "",
+      shareUrl,
+      message: ''
     })
   },
   del_address: async (req, res) => {
@@ -1523,30 +1672,38 @@ module.exports = {
   },
   add_to_wishlist: async (req, res) => {
     try {
-
-      let get_count = await wishlist.count({
-        where: {
+      if (req.session.user && req.session.user.id) {
+        let get_count = await wishlist.count({
+          where: {
+            product_id: req.body.pid,
+            user_id: req.session.user.id
+          }
+        })
+        get_count > 0 ? res.send({
+          msg: "Product already added to wishlist",
+          status: false,
+          session: req.session
+        }) : add_toWishlist = await wishlist.create({
           product_id: req.body.pid,
           user_id: req.session.user.id
-        }
-      })
-      get_count > 0 ? res.send({
-        msg: "Product already added to wishlist",
-        status: false,
-        session: req.session
-      }) : add_toWishlist = await wishlist.create({
-        product_id: req.body.pid,
-        user_id: req.session.user.id
-      })
-      if (add_toWishlist) {
-        res.send({
-          msg: "Product added to wishlist successfully",
-          status: true,
-          session: req.session
         })
-      } else {
+        if (add_toWishlist) {
+          res.send({
+            msg: "Product added to wishlist successfully",
+            status: true,
+            session: req.session
+          })
+        } else {
+          res.send({
+            msg: "Something went wrong",
+            status: false,
+            session: req.session
+          })
+        }
+      }
+      else {
         res.send({
-          msg: "Something went wrong",
+          msg: "Please login first",
           status: false,
           session: req.session
         })
@@ -1586,10 +1743,11 @@ module.exports = {
       console.log(location_arr)
       // return
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/store_locator", {
         get_admin, session: req.session, get_nav_category, get_category, get_product, getVendor, countryCodesList, location_arr: JSON.stringify(location_arr),
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1633,11 +1791,12 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       // console.log('=================herer')
       res.render("website/sitemap", {
         get_admin, session: req.session, get_nav_category, get_category, get_product, location_arr: get_store_location, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1669,11 +1828,12 @@ module.exports = {
     }).then(data => data.toJSON())
     let get_blog_category = await module.exports.get_blog_category(req, res)
     const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+    const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
     // console.log(get_blog, '=================herer'); return
     res.render("website/blog_detail", {
       get_blog_category, get_blog, get_admin, session: req.session, get_nav_category, get_category, get_product, get_popular_blog, location_arr: get_store_location, countryCodesList,
-      search: ""
+      search: "", shareUrl
     })
   },
   category_blog: async (req, res) => {
@@ -1702,11 +1862,12 @@ module.exports = {
       let get_popular_blog = await module.exports.get_popular_blog(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
       let url = `${req.protocol}://${req.get('host')}` + req.url;
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       // console.log(get_blog_category,'===============hrer');return
       res.render("website/blog", {
         session: req.session, blogs: get_blog, get_category, get_nav_category, get_product, get_admin, get_blog_category, get_popular_blog, location_arr: get_store_location, countryCodesList,
-        search: "", searh: "", url: url
+        search: "", searh: "", url: url, shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1714,13 +1875,22 @@ module.exports = {
   },
   add_blog_comment: async (req, res) => {
     try {
-      let add_comment = await blog_comment.create({
-        name: req.body.name,
-        subject: req.body.subject,
-        email: req.body.email,
-        comment: req.body.comment,
-        blog_id: req.body.pid,
-      })
+      if (req.session.user) {
+        let add_comment = await blog_comment.create({
+          name: req.body.name,
+          subject: req.body.subject,
+          email: req.body.email,
+          comment: req.body.comment,
+          blog_id: req.body.pid,
+        })
+      }
+      else {
+        res.send({
+          msg: "Plesae login first",
+          status: false,
+          session: req.session
+        })
+      }
       let find_comment = await blog_comment.findOne({
         where: {
           id: add_comment.id
@@ -1801,10 +1971,14 @@ module.exports = {
       getCart.tax = getTax.value
       getCart.total = total_price
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+      var user_detail = await module.exports.get_user_detail(req.session.user.id)
+      req.session.user = user_detail;
+      req.session.authenticated_web = true;
 
       res.render("website/review_and_order", {
         session: req.session, getCart, get_category, get_nav_category, get_product, get_admin, get_blog_category, get_popular_blog, get_billing_address, get_shiping_address, getCard, location_arr: get_store_location, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1830,11 +2004,15 @@ module.exports = {
           },
           name: {
             [Op.like]: `${req.query.search}%`,
-          }
+          },
+          isApproved: 1,
+          status: 1
         } : {
           name: {
             [Op.like]: `${req.query.search}%`,
-          }
+          },
+          isApproved: 1,
+          status: 1
         }),
         include: [
           {
@@ -1851,10 +2029,11 @@ module.exports = {
       console.log('====================zdsdgsdfgsdfgb snasdf asdfas dfherer')
       let get_admin = await module.exports.get_admin(req, res);
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/search_product", {
         session: req.session, get_product, get_admin, get_nav_category, location_arr: get_store_location,
-        search: req.query.search, rangeOne: req.query.rangeOne ? req.query.rangeOne : 0, rangeTwo: req.query.rangeTwo ? req.query.rangeTwo : 900, countryCodesList, search: req.query.search
+        search: req.query.search, rangeOne: req.query.rangeOne ? req.query.rangeOne : 0, rangeTwo: req.query.rangeTwo ? req.query.rangeTwo : 900, countryCodesList, search: req.query.search, shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1897,11 +2076,12 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       let get_popular_blog = await module.exports.get_popular_blog(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/product_review", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, findReview: productDetail.findReview, productDetail, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
 
     } catch (error) {
@@ -1928,12 +2108,13 @@ module.exports = {
       let get_popular_blog = await module.exports.get_popular_blog(req, res)
       // console.log(get_product.product_detail,'=============herer');return
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/add_review", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, product_detail: get_product.product_detail, countryCodesList,
         key: req.query.key,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -1948,6 +2129,20 @@ module.exports = {
         session: req.session,
       })
       req.body.rating = parseInt(req.body.rating)
+      let count_rating = await reviews.count({
+        where: {
+          userId: userId,
+          product_id: req.body.pid,
+        }
+      })
+      if (count_rating > 0) {
+        res.send({
+          msg: "Your review is already Submitted",
+          status: false,
+          session: req.session
+        })
+        return
+      }
       let add_rating = await reviews.create({
         userId: userId,
         product_id: req.body.pid,
@@ -2014,11 +2209,12 @@ module.exports = {
         return data
       })
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/order_history", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, get_popular_blog, get_order, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2065,11 +2261,12 @@ module.exports = {
       })
       // console.log(get_order,'================================get_order');return
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/order_detail", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, get_popular_blog, get_order, key: req.query.key, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2092,10 +2289,11 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       console.log(getBrand, '---------------------------egrer');
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/brand", {
         session: req.session, getBrand, get_admin, get_nav_category, location_arr: get_store_location, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2133,10 +2331,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/brand_product", {
         session: req.session, get_product, get_admin, get_nav_category, location_arr: get_store_location, getBrand, get_category, key: req.query.key, rangeOne: req.query.rangeOne ? req.query.rangeOne : 0, rangeTwo: req.query.rangeTwo ? req.query.rangeTwo : 500, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2282,7 +2481,7 @@ module.exports = {
           req.session.user = user_detail;
           req.session.authenticated_web = true;
           res.send({
-            msg: "payment done successfully",
+            msg: "Order has been placed",
             status: true,
             session: req.session,
           })
@@ -2318,6 +2517,8 @@ module.exports = {
       delete getOrder.updatedAt
       delete getOrder.orderNo
       delete getOrder.orderStatus
+      delete getOrder.order_tracking_id
+      delete getOrder.order_tracking_url
       let getCard = await cards.findOne({
         where: {
           id: getOrder.card_id
@@ -2358,7 +2559,7 @@ module.exports = {
           req.session.user = user_detail;
           req.session.authenticated_web = true;
           res.send({
-            msg: "payment done successfully",
+            msg: "Order has been placed",
             status: true,
             session: req.session,
           })
@@ -2370,8 +2571,7 @@ module.exports = {
   },
   save_to_later: async (req, res) => {
     try {
-      console.log(req.query, '=================herer')
-
+      console.log(req.query, '=================herer');
       let getCart_item = await module.exports.get_all_cart(req, res,
         where = {
           userId: req.session.user.id
@@ -2385,6 +2585,7 @@ module.exports = {
 
       // console.log(getCart,'===================herer');return
       for (let prod of getCart_item) {
+        prod.specifications = JSON.stringify(prod.specifications)
         let orderNo = Math.floor(Math.random() * 90000) + 10000;
         let addOrder = await save_to_later.create({
           orderNo: orderNo,
@@ -2395,6 +2596,8 @@ module.exports = {
           netAmount: prod.total_price,
           product_id: prod.productId,
           taxCharged: taxPer,
+          color:prod.color,
+          specifications: prod.specifications,
           shippingCharges: prod.shipping_price,
           shiping_address_id: req.query.shiping_address,
           billing_address_id: req.query.billing_address,
@@ -2442,11 +2645,12 @@ module.exports = {
       req.session.user = user_detail;
       req.session.authenticated_web = true;
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
-
-      req.flash('flashMessage', { color: 'success', message: 'order saved to later Successfully.' });
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+      // req.flash('flashMessage', { color: 'success', message: 'order saved to later Successfully.' });
       res.render("website/checkout", {
         getdataCart, getAddress, session: req.session, getCart, get_address, get_nav_category, get_category, get_product, get_admin, get_card, location_arr: get_store_location, countryCodesList,
-        search: ""
+        search: "", shareUrl,
+        message: 'Saved to later'
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2466,7 +2670,7 @@ module.exports = {
       let get_store_location = await module.exports.get_store_location(req, res)
       let get_popular_blog = await module.exports.get_popular_blog(req, res)
       let get_order = await save_to_later.findAll({
-        attributes: [`id`, `orderNo`, `product_id`, `orderStatus`, `isSelfpickup`, `customerId`, `vendorId`, `employeeId`, `qty`, `netAmount`, `taxCharged`, `shippingCharges`, `billing_address_id`, `shiping_address_id`, `address`, `addressLine2`, `city`, `state`, `country`, `zipCode`, `adminCommission`, `subTotal`, `discount`, `shipping`, `tax`, `total`, `paymentMethod`, `deliveryDate`, `deliverySlot`, `is_withdrawn_by_vendor`, `orderJson`, `created`, `updated`, `createdAt`, `updatedAt`, [sequelize.literal('(SELECT  concat("' + baseUrl + '",`images`) FROM images where images.prod_id = save_to_later.product_id order by id asc limit 1)'), 'productImage'],],
+        attributes: [`id`, `orderNo`, `product_id`,'color','specifications', `orderStatus`, `isSelfpickup`, `customerId`, `vendorId`, `employeeId`, `qty`, `netAmount`, `taxCharged`, `shippingCharges`, `billing_address_id`, `shiping_address_id`, `address`, `addressLine2`, `city`, `state`, `country`, `zipCode`, `adminCommission`, `subTotal`, `discount`, `shipping`, `tax`, `total`, `paymentMethod`, `deliveryDate`, `deliverySlot`, `is_withdrawn_by_vendor`, `orderJson`, `created`, `updated`, `createdAt`, `updatedAt`, [sequelize.literal('(SELECT  concat("' + baseUrl + '",`images`) FROM images where images.prod_id = save_to_later.product_id order by id asc limit 1)'), 'productImage'],],
         where: {
           customerId: req.session.user.id
         },
@@ -2486,14 +2690,19 @@ module.exports = {
             required: true
           }
         ]
-      }).map(data => data.toJSON())
-      // console.log(get_order, '================herer');return
+      }).map(async data => {
+        data = data.toJSON()
+        data.specifications = JSON.parse(data.specifications);
+        return data
+      })
+      console.log(get_order, '================herer');
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/saved_order", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, get_popular_blog, get_order, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2605,10 +2814,12 @@ module.exports = {
       var user_detail = await module.exports.get_user_detail(req.session.user.id)
       req.session.user = user_detail;
       req.session.authenticated_web = true;
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
+
       res.render("website/comparison", {
         session: req.session
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, get_popular_blog, get_order, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2662,11 +2873,12 @@ module.exports = {
         raw: true
       })
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/copy_right", {
         session: req.session, get_copyright_info
         , get_product, get_admin, get_nav_category, location_arr: get_store_location, get_category, get_blog_category, get_popular_blog, countryCodesList,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)
@@ -2725,10 +2937,11 @@ module.exports = {
       let get_admin = await module.exports.get_admin(req, res);
       let get_store_location = await module.exports.get_store_location(req, res)
       const countryCodesList = countryCodes.customList('countryNameEn', '+{countryCallingCode}');
+      const shareUrl = `${req.protocol}://${req.get('host')}` + "/home";
 
       res.render("website/blog", {
         session: req.session, blogs: get_blog, get_category, get_nav_category, get_product, get_admin, countryCodesList, get_blog_category, get_popular_blog, location_arr: get_store_location, searh: req.query.search,
-        search: ""
+        search: "", shareUrl
       })
     } catch (error) {
       return helper.error(res, error)

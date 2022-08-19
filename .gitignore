@@ -1,0 +1,6 @@
+node_modules/
+# config/config.json
+codeAdmin/node_modules
+codeAdmin/build
+public/uploads/product/
+config/config.json

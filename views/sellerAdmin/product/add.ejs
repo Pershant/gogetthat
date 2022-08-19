@@ -1,293 +1,325 @@
 <%- include('../partials/header'); %>
 
-<style>
-  .hidden {
-    display: none !important;
-  }
+  <style>
+    .hidden {
+      display: none !important;
+    }
 
 
-  .select2 {
-    width: 100% !important;
-  }
+    .select2 {
+      width: 100% !important;
+    }
 
-  .show {
-    display: block !important;
-  }
+    .show {
+      display: block !important;
+    }
 
-  .categorySelectBox {
-    height: 200px !important;
-  }
+    .categorySelectBox {
+      height: 200px !important;
+    }
 
-  .centerProductCatItem {
-    float: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 227px;
-  }
+    .centerProductCatItem {
+      float: left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 227px;
+    }
 
-  .nextIcon {
-    height: 75px;
-    float: left;
-    margin-top: 78px;
-  }
-  button.btn.btn-primary.button.add-field {
-    margin-top: 11px;
-}
-button.btn.btn-primary.warning.remove-field {
-    margin-top: 12px;
-}
-</style>
+    .nextIcon {
+      height: 75px;
+      float: left;
+      margin-top: 78px;
+    }
+
+    button.btn.btn-primary.button.add-field {
+      margin-top: 11px;
+    }
+
+    button.btn.btn-primary.warning.remove-field {
+      margin-top: 12px;
+    }
+  </style>
 
 
-<!-- Main Content -->
-<div class="main-content">
-  <section class="section">
-    <div class="section-header">
-      <h1 id="animated_box"><%= currentModule; %></h1>
-    </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <section class="section">
+      <div class="section-header">
+        <h1 id="animated_box">
+          <%= currentModule; %>
+        </h1>
+      </div>
 
-    <div class="section-body animate__animated  animate__backInUp">
+      <div class="section-body animate__animated  animate__backInUp">
 
-      <div class="row">
-        <div class="col-8 offset-2">
-          <div class="card">
-            <div class="card-header">
-              <h4><%= currentSubModule %></h4>
-            </div>
-            <div class="card-body">
-              <form id="selectProductCategory" method="POST" autocomplete="off" enctype="multipart/form-data">
-                <div class="categorySelectBoxContainer">
-                  <div class="form-group col-3" style="float: left;">
-                    <label> Select Category</label>
-                    <div class="input-group">
-                    
-                      <select name="categoryId" class="form-control categorySelectBox" size="5" required>
-                        <!-- <option value="">Select Category</option> -->
-                        <% rootCategories.forEach(category => { %>
-                        <option value="<%= category.id; %>">
-                          <%= category.name; %>
-                        </option>
-                        <% }) %>
-                      </select>
+        <div class="row">
+          <div class="col-8 offset-2">
+            <div class="card">
+              <div class="card-header">
+                <h4>
+                  <%= currentSubModule %>
+                </h4>
+              </div>
+              <div class="card-body">
+                <form id="selectProductCategory" method="POST" autocomplete="off" enctype="multipart/form-data">
+                  <div class="categorySelectBoxContainer">
+                    <div class="form-group col-3" style="float: left;">
+                      <label> Select Category</label>
+                      <div class="input-group">
+
+                        <select name="categoryId" class="form-control categorySelectBox" size="5" required>
+                          <!-- <option value="">Select Category</option> -->
+                          <% rootCategories.forEach(category=> { %>
+                            <option value="<%= category.id; %>">
+                              <%= category.name; %>
+                            </option>
+                            <% }) %>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </form>
 
-              </form>
+                <form id="productAddEditForm" class="form_advanced_validation hidden"
+                  action="/sellerAdmin/product/addUpdateProduct" method="POST" autocomplete="off"
+                  enctype="multipart/form-data">
 
 
 
-              <form id="productAddEditForm" class="form_advanced_validation hidden"
-                action="/sellerAdmin/product/addUpdateProduct" method="POST" autocomplete="off"
-                enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <div class="input-group">
 
-             
-
-                <div class="form-group">
-                  <label>Name</label>
-                  <div class="input-group">
-              
-                    <input type="text" class="form-control" name="name" required>
+                      <input type="text" class="form-control" name="name" required>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <label>Image</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
+                  <div class="form-group">
+                    <label>Image</label>
+                    <div class="input-group">
+                      <!-- <div class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fas fa-image"></i>
                       </div>
                     </div> -->
-                    <!-- <div id="image-preview" class="image-preview"
+                      <!-- <div id="image-preview" class="image-preview"
                       style="background-image: url('/uploads/default/default_image.jpg'); background-size: cover; background-position: center center;"> -->
                       <!-- <label for="image-upload" id="image-label">Choose File</label> -->
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                      <input type="file"  onchange="readFile(this);" name="images" id="" multiple/>
+                      <input type="file" onchange="readFile(this);" name="images" id="" multiple required />
                       <div id="preview"></div>
-                    <!-- </div> -->
-                  </div>
-
-                  <div id="status"></div>
-                  <div id="photos" class="row"></div>
-                </div>
-
-                <div class="form-group">
-                  <label>Description</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-cube"></i>
-                      </div>
-                    </div> -->
-                    <textarea class="form-control" name="description" style="min-height: 100px;" required></textarea>
-                  </div>
-                </div>
-
-                <div class="form-group col-md-6">
-                  <!-- <label>Colour</label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-cube"></i>
-                      </div>
+                      <!-- </div> -->
                     </div>
-                    <input type="color" class="form-control" name="color" required>
-                  </div> -->
-                  <div class="multi-field-wrapper">
-                    <div class="multi-fields">
-                      <div class="multi-field">
-                        <input type="color" id="favcolor"  class="form-control" name="color" value="#ff0000">
-              
-                        <!-- <input type="text" name="value" placeholder="Value..."> -->
-                        <button type="button" class="btn btn-primary warning remove-field">Remove</button>
-                      </div>
-                    </div>
-                  <button type="button" class="btn btn-primary button add-field">Add More Color</button>
-                </div>
-                </div>
-           
-    
-              
-            
-                <br>
-                <br>
-                <br>
-               
-                <div class="form-group ">
-                  <label>Shipping Information</label>
-                  <div class="input-group">
-                    <!-- <div class="input-group-prepend">
-                      <div class="input-group-text">
-                        <i class="fas fa-cube"></i>
-                      </div>
-                    </div> -->
-                    <input type="text" class="form-control" name="shippingInformation" required>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label>Brand Name</label>
-                  <div class="input-group">
-                    <select name="brandName" class="custom-select" id="brandName">
-                      <% rootBrand.forEach(brand => { %>
-                        <option value="<%= brand.brandName; %>">
-                          <%= brand.brandName; %>
-                        </option>
-                        <% }) %>
-                    </select>
-                </div>
 
-              <div class="form-group">
-                  <label>MRP</label>
-                  <div class="input-group">
+                    <div id="status"></div>
+                    <div id="photos" class="row"></div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Description</label>
+                    <div class="input-group">
                       <!-- <div class="input-group-prepend">
-                          <div class="input-group-text">
-                              <i class="fas fa-cube"></i>
+                      <div class="input-group-text">
+                        <i class="fas fa-cube"></i>
+                      </div>
+                    </div> -->
+                      <textarea class="form-control" name="description" style="min-height: 100px;" required></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <div class="form-group col-md-6">
+                        <div class="multi-field-wrapper">
+                          <div class="multi-fields">
+                            <div class="multi-field">
+                              <input type="color" id="favcolor" class="form-control colors" name="color"
+                                value="#ff0000">
+
+                              <!-- <input type="text" name="value" placeholder="Value..."> -->
+                              <button type="button" class="btn btn-primary warning remove-field">Remove</button>
+                            </div>
                           </div>
-                      </div> -->
-                      <input type="number" class="form-control" id="mrp" name="mrp"  required onblur="checkMarp()">
-                  </div>
+                          <button type="button" class="btn btn-primary button add-field">Add More Color</button>
+                        </div>
+                      </div>
+
+
+
+
+                      <br>
+                      <br>
+                      <br>
+
+                      <div class="form-group ">
+                        <label>Shipping Information</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" name="shippingInformation" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Brand Name</label>
+                        <div class="input-group">
+                          <select name="brandName" class="custom-select" id="brandName">
+                            <% rootBrand.forEach(brand=> { %>
+                              <option value="<%= brand.brandName; %>">
+                                <%= brand.brandName; %>
+                              </option>
+                              <% }) %>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label>MRP</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" min="0" id="mrp" name="mrp" required
+                              onblur="checkMarp()">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Return Price</label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" min="0" id="return_price" name="return_price"
+                              required onblur="checkMarp()">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Shipping Price </label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" min="0" id="shipping_price" name="shipping_price"
+                              required onblur="checkMarp()">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Quantity </label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" min="0" id="quantity" name="quantity" required
+                              onblur="checkMarp()">
+                          </div>
+                        </div>
+
+
+                        <div class="product_specification_container">
+                          <div class="row">
+                            <div class="col-5 col-md-5 col-lg-5">
+                              <div class="form-group">
+                                <label>Product Specification Name</label>
+
+                                <div class="input-group">
+                                  <!-- <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                      <i class="fas fa-signature"></i>
+                                    </div>
+                                  </div> -->
+                                  <input type="text" class="form-control" name="specificationName" value="">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-5 col-md-5 col-lg-5">
+                              <label>Product Specification Value</label>
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <!-- <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                      <i class="fas fa-signature"></i>
+                                    </div>
+                                  </div> -->
+                                  <input type="text" class="form-control" name="speecificationValue" value="">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-2 col-md-2 col-lg-2">
+
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="row">
+                          <a href="javascript:void(0)" class="btn btn-icon btn-primary add_product_specification"
+                            style="width: calc(83.3% + -12px);"><i class="fas fa-plus"></i></a>
+                        </div>
+
+
+
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="form-group row mb-4">
+                          <div class="col-sm-12 col-md-7 offset-4">
+                            <input type="hidden" class="form-control" name="status" value="1">
+                            <input id="categoryId" type="hidden" class="form-control" name="categoryId" value="">
+
+                            <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                          </div>
+                        </div>
+                </form>
               </div>
-
-                
-
-               
-
-          
-
-
-              
-
-                
-
-                
-
-           
-
-                <br />
-                <br />
-                <br />
-              
-
-                
-
-
-
-                <div class="form-group row mb-4">
-                  <div class="col-sm-12 col-md-7 offset-4">
-                    <input type="hidden" class="form-control" name="status" value="1">
-                    <input id="categoryId" type="hidden" class="form-control" name="categoryId" value="">
-
-                    <button type="button" class="btn btn-secondary cancel_btn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                  </div>
-                </div>
-              </form>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </section>
-</div>
+    </section>
+  </div>
 
 
-<%- include('../partials/footer'); %>
+  <%- include('../partials/footer'); %>
 
-<script>
-  function checkMarp(){
-    var val = $("#mrp").val();
-    if(!$.isNumeric(val) || val < 1 ){
-      $("#mrp").val('');
-    }
-  }
-  $(document).ready(function () {
-    $(document.body).on('change', '.categorySelectBox', function () {
-      const id = $(this).val();
+    <script>
+      function checkMarp() {
+        var val = $("#mrp").val();
+        if (!$.isNumeric(val) || val < 1) {
+          $("#mrp").val('');
+        }
+      }
+      $(document).ready(function () {
+        $(document.body).on('change', '.categorySelectBox', function () {
+          const id = $(this).val();
 
-      $.ajax({
-        type: 'POST',
-        url: '/sellerAdmin/category/categoryBasedChildCategories',
-        headers: {
-          'securitykey': '__lyft_beauty',
-          // 'securitykey': securityKey,
-        },
-        data: {
-          id
-        },
-        beforeSend: () => {
-          $(this).attr('disabled', 'true');
-        },
-        success: (response) => {
-          console.log(response, '==============>response');
-          if (!response.success) return;
+          $.ajax({
+            type: 'POST',
+            url: '/sellerAdmin/category/categoryBasedChildCategories',
+            headers: {
+              'securitykey': '__lyft_beauty',
+              // 'securitykey': securityKey,
+            },
+            data: {
+              id
+            },
+            beforeSend: () => {
+              $(this).attr('disabled', 'true');
+            },
+            success: (response) => {
+              console.log(response, '==============>response');
+              if (!response.success) return;
 
-          const categories = response.body;
-          $(this).closest('.form-group').nextAll().remove();
+              const categories = response.body;
+              $(this).closest('.form-group').nextAll().remove();
 
-          let html = '';
-          if (categories.length > 0) {
+              let html = '';
+              if (categories.length > 0) {
 
-            html += '<img class="nextIcon" src="/uploads/default/next_icon.png" />';
+                html += '<img class="nextIcon" src="/uploads/default/next_icon.png" />';
 
-            html += `<div class="form-group col-3" style="float: left;">
+                html += `<div class="form-group col-3" style="float: left;">
                           <label>&nbsp;</label>
                             <div class="input-group">
              
                               <select name="categoryId" class="form-control categorySelectBox" size="5" required>`;
-            categories.forEach(category => {
-              html += `<option value="${category.id}">${category.name}</option>`;
-            });
-            html += `</select>
+                categories.forEach(category => {
+                  html += `<option value="${category.id}">${category.name}</option>`;
+                });
+                html += `</select>
                     </div>
                   </div>
             `;
 
-          } else {
-            // html += `<button type="submit" class="btn btn-primary">Submit</button>`;
-            html += `<div class="form-group col-3 centerProductCatItem">
+              } else {
+                // html += `<button type="submit" class="btn btn-primary">Submit</button>`;
+                html += `<div class="form-group col-3 centerProductCatItem">
                           <label>&nbsp;</label>
                             <div class="input-group">
                               <button type="submit" class="btn btn-primary">Submit</button>
@@ -295,128 +327,137 @@ button.btn.btn-primary.warning.remove-field {
                     </div>
                   </div>
             `;
+              }
+
+              $('.categorySelectBoxContainer').append(html);
+
+              setTimeout(() => {
+                $(this).removeAttr('disabled');
+
+              }, 100);
+            }
+          });
+        });
+
+        $(document.body).on('submit', '#selectProductCategory', function (e) {
+          e.preventDefault();
+          // let formData = new FormData($(this)[0]);
+          // console.log(formData, '==============>formData');
+
+          $(this).addClass('hidden');
+
+          const categoryId = $('.categorySelectBox').last().val();
+
+          // alert(categoryId);
+          $('#categoryId').val(categoryId);
+          // $(".select2").select2();
+          $(".select2_tag").select2({
+            tags: true
+          });
+          // $(".select2_tags").select2({
+          //   tags: true
+          // });
+
+          $('#productAddEditForm').removeClass('hidden');
+
+          // $.ajax({
+          //     url: '/sellerAdmin/user/changeEmailSetting',
+          //     data: formData,
+          //     processData: false,
+          //     contentType: false,
+          //     type: 'POST',
+          //     success: function (response) {
+          //         console.log(response, '========>response');
+          //         if (response.success) {
+          //             setTimeout(function () {
+          //                 window.location.reload();
+          //             }, 1000);
+          //         }
+
+          //         iziToast[response.success ? 'success' : 'error']({
+          //             title: response.message,
+          //             position: 'topRight'
+          //         });
+          //     }
+          // });
+        });
+
+      });
+    </script>
+
+    <script>
+      function previewImages() {
+
+        var $preview = $('#preview').empty();
+        if (this.files) $.each(this.files, readAndPreview);
+
+        function readAndPreview(i, file) {
+
+          if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+            return alert(file.name + " is not an image");
+          } // else...
+
+          var reader = new FileReader();
+
+          $(reader).on("load", function () {
+            $preview.append($("<img/>", { src: this.result, height: 100 }));
+          });
+
+          reader.readAsDataURL(file);
+
+        }
+
+      }
+
+      $('#file-input').on("change", previewImages);
+
+      $('.multi-field-wrapper').each(function () {
+        var $wrapper = $('.multi-fields', this);
+        $(".add-field", $(this)).click(function (e) {
+          $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+        });
+        $('.multi-field .remove-field', $wrapper).click(function (e) {
+          e.preventDefault()
+          if ($('.multi-field', $wrapper).length > 1) {
+
+
+            $(this).parent('.multi-field').remove();
+
+
+            const colors = $('.colors')
           }
 
-          $('.categorySelectBoxContainer').append(html);
 
-          setTimeout(() => {
-            $(this).removeAttr('disabled');
+        });
+      });
 
-          }, 100);
+
+      function readFile(input) {
+        $("#status").html('Processing...');
+        counter = input.files.length;
+        for (x = 0; x < counter; x++) {
+          if (input.files && input.files[x]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              $("#photos").append('<div class="col-md-3 col-sm-3 col-xs-3"><img src="' + e.target.result + '" class="img-thumbnail"></div>');
+            };
+
+            reader.readAsDataURL(input.files[x]);
+          }
         }
-      });
-    });
+        if (counter == x) { $("#status").html(''); }
+      }
 
-    $(document.body).on('submit', '#selectProductCategory', function (e) {
-      e.preventDefault();
-      // let formData = new FormData($(this)[0]);
-      // console.log(formData, '==============>formData');
+    </script>
 
-      $(this).addClass('hidden');
-
-      const categoryId = $('.categorySelectBox').last().val();
-
-      // alert(categoryId);
-      $('#categoryId').val(categoryId);
-      // $(".select2").select2();
-      $(".select2_tag").select2({
-        tags: true
-      });
-      // $(".select2_tags").select2({
-      //   tags: true
-      // });
-
-      $('#productAddEditForm').removeClass('hidden');
-
-      // $.ajax({
-      //     url: '/sellerAdmin/user/changeEmailSetting',
-      //     data: formData,
-      //     processData: false,
-      //     contentType: false,
-      //     type: 'POST',
-      //     success: function (response) {
-      //         console.log(response, '========>response');
-      //         if (response.success) {
-      //             setTimeout(function () {
-      //                 window.location.reload();
-      //             }, 1000);
-      //         }
-
-      //         iziToast[response.success ? 'success' : 'error']({
-      //             title: response.message,
-      //             position: 'topRight'
-      //         });
-      //     }
-      // });
-    });
-
-  });
-</script>
-
-<script>
-  function previewImages() {
-
-var $preview = $('#preview').empty();
-if (this.files) $.each(this.files, readAndPreview);
-
-function readAndPreview(i, file) {
-  
-  if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
-    return alert(file.name +" is not an image");
-  } // else...
-  
-  var reader = new FileReader();
-
-  $(reader).on("load", function() {
-    $preview.append($("<img/>", {src:this.result, height:100}));
-  });
-
-  reader.readAsDataURL(file);
-  
-}
-
-}
-
-$('#file-input').on("change", previewImages);
-
-$('.multi-field-wrapper').each(function() {
-    var $wrapper = $('.multi-fields', this);
-    $(".add-field", $(this)).click(function(e) {
-        $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
-    });
-    $('.multi-field .remove-field', $wrapper).click(function() {
-        if ($('.multi-field', $wrapper).length > 1)
-            $(this).parent('.multi-field').remove();
-    });
-});
-
-
-	function readFile(input) {
-  	$("#status").html('Processing...');
-    counter = input.files.length;
-		for(x = 0; x<counter; x++){
-			if (input.files && input.files[x]) {
-
-				var reader = new FileReader();
-
-				reader.onload = function (e) {
-        	$("#photos").append('<div class="col-md-3 col-sm-3 col-xs-3"><img src="'+e.target.result+'" class="img-thumbnail"></div>');
-				};
-
-				reader.readAsDataURL(input.files[x]);
-			}
-    }
-    if(counter == x){$("#status").html('');}
-  }
-
-</script>
-
-<script>
-  function myFunction(){
-  alert('abcd ')
-  };
-  function showDiv() {
-    div = document.getElementById('tow');
-    div.style.display = "block";
-}   
-  </script>
+    <script>
+      function myFunction() {
+        alert('abcd ')
+      };
+      function showDiv() {
+        div = document.getElementById('tow');
+        div.style.display = "block";
+      }   
+    </script>

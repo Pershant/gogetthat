@@ -182,6 +182,49 @@
                     <input type="number" class="form-control" name="retailPrice" value="<%= product.retailPrice; %>" required>
                   </div>
                 </div>
+
+                <div class="product_specification_container">
+                  <div class="row">
+                    <div class="col-5 col-md-5 col-lg-5">
+                      <div class="form-group">
+                        <label>Product Specification Name</label>
+
+                        <div class="input-group">
+                          <!-- <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-signature"></i>
+                        </div>
+                      </div> -->
+                          <input type="text" disabled class="form-control" name="specificationName"
+                            value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].name : '' %>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-5 col-md-5 col-lg-5">
+                      <label>Product Specification Value</label>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <!-- <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="fas fa-signature"></i>
+                        </div>
+                      </div> -->
+                          <input type="text" disabled class="form-control" name="speecificationValue"
+                            value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].value : '' %>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-2 col-md-2 col-lg-2">
+                      <% if (productSpecifications && productSpecifications.length> 0) {
+                        %>
+                        <input type="hidden" class="form-control" name="speecificationId"
+                          value="<%= productSpecifications && productSpecifications.length > 0 ? productSpecifications[0].speecificationId : '' %>">
+                        <% } %>
+                    </div>
+                  </div>
+
+                  <%- productSpecificationsHTML %>
+                </div>
             
 
                 <div class="form-group">

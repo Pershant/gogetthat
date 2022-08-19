@@ -412,7 +412,7 @@ module.exports = {
         },
         raw: true
       });
-      // console.log(productColors,"=====================>>>>>>>>>>>>>>>")
+      console.log(productColors, "=====================>>>>>>>>>>>>>>>")
       // return
       const productImages = await models['images'].findAll({
         attributes: {
@@ -620,10 +620,11 @@ module.exports = {
         vendorId: adminData.id,
         name: req.body.name,
         description: req.body.description,
-        brandName:req.body.brandName,
+        brandName: req.body.brandName,
         mrp: req.body.mrp,
         status: req.body.status,
         categoryId: req.body.categoryId,
+
       };
       const nonRequired = {
         id: req.body.id,
@@ -633,12 +634,13 @@ module.exports = {
         retailPrice: req.body.retailPrice,
         percentageDiscount: req.body.percentageDiscount,
         quantity: req.body.quantity,
-        images: req.files && req.files.images,
         shippingInformation: req.body.shippingInformation,
         return_price: req.body.return_price,
         shipping_price: req.body.shipping_price,
         specificationName: req.body.specificationName,
         speecificationValue: req.body.speecificationValue,
+        images: req.files && req.files.images,
+
 
       };
 

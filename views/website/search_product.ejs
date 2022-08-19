@@ -100,7 +100,7 @@
                                         <%=product.name%>
                                       </h3>
                                       <h3>
-                                        <%=product.retailPrice%>
+                                        $<%=product.retailPrice%>
                                       </h3>
                                     </a>
                                     <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')

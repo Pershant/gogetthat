@@ -46,11 +46,12 @@
                                   <th></th>
                                 </tr>
                               </thead>
-                              <tbody >
+                              <tbody>
                                 <%getCart.forEach((cart,i)=>{%>
                                   <tr>
                                     <td class="product-thumbnail">
-                                      <a href="#"><img src="<%=cart.product.productImage%>" alt=""></a>
+                                      <a href="#"><img src="<%=cart.product.productImage%>" alt="">
+                                      </a>
                                     </td>
                                     <td class="product-name">
                                       <div class="cart_items">
@@ -60,33 +61,61 @@
                                         <p>
                                           <%=cart.product.description.substring(0,40)%>
                                         </p>
-                                        <p><b> color:<%=cart.color%> </b></p>
+                                        <p>Color:
+                                          <%if(!isLogin){ %>
+                                          <b id = 'color__login_<%-i%>'> color:<%=cart.color%> </b>
+                                          <%}else{%>
+                                            <b> color:<%=cart.color%> </b>
+                                            <%}%>
+                                        </p>
 
-                                        <!-- <for(let spec of cart.specifications){ console.log(Object.keys(spec))>
-                                        <p><b> <Object.keys(spec)%>: <Object.values(spec)> </b></p>
-                                        <} > -->
+                                        <%if(!isLogin){ %>
+                                          <div id="specificationsSelected_<%-i%>">
+
+                                          </div>
+                                          <%}else{%>
+                                            <%for(let spec of cart.specifications){ console.log(Object.keys(spec))%>
+                                              <p><b>
+                                                  <%=Object.keys(spec)%>: <%=Object.values(spec)%>
+                                                </b></p>
+                                              <%} %>
+
+                                                <%}%>
+
+
 
                                       </div>
                                     </td>
                                     <td class="product-price-cart">
-                                      <span class="amount" id = "productAmount_<%-cart.product.id%>">
-                                        <%= cart.product.total_price%>
+                                      <span class="amount" id="productAmount_<%-cart.product.id%>">
+                                        $<%= !isLogin ? cart.product.total_price : cart.product.retailPrice%>
                                       </span>
-                             
+
                                     </td>
                                     <td class="product-quantity pro-details-quality">
                                       <div class="cart-plus-minus">
-                                        <div class="dec qtybutton <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>" cart_id="<%=cart.id%>" type="2" productId = "<%-cart.product.id%>" price = "<%-cart.product.retailPrice%>"  id ="cartPlus_<%-cart.product.id%>_<%-i%>" amountId = "productAmount_<%-cart.product.id%>" >-
+                                        <div
+                                          class="dec qtybutton <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>"
+                                          cart_id="<%=cart.id%>" type="2" productId="<%-cart.product.id%>"
+                                          price="<%-cart.product.retailPrice%>"
+                                          id="cartPlus_<%-cart.product.id%>_<%-i%>"
+                                          amountId="productAmount_<%-cart.product.id%>" quantity ="<%-cart.product.quantity%>">-
                                         </div>
-                                        <input class="cart-plus-minus-box" type="text" name="qtybutton"
-                                          value="<%=cart.product.qty%>">
 
-                                        <div class="inc qtybutton  <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>"  " cart_id="<%=cart.id%>" type="1" productId = "<%-cart.product.id%>" price = "<%-cart.product.retailPrice%>" id ="cartPluss_<%-cart.product.id%>_<%-i%>" amountId = "productAmount_<%-cart.product.id%>">+
+                                        <input id ="totalVal" class="cart-plus-minus-box" type="text" name="qtybutton"
+                                          value="<%= !isLogin ? cart.product.qty :cart.qty %>" />
+
+                                        <div
+                                          class="inc qtybutton  <%-isLogin ? 'inc_dec_qtybutton':'cartQuantityUpdate'%>" " 
+                                          cart_id="<%=cart.id%>" type="1" productId = "<%-cart.product.id%>" price = "
+                                            <%-cart.product.retailPrice%>" id ="cartPluss_<%-cart.product.id%>_<%-i%>"
+                                                  amountId = "productAmount_<%-cart.product.id%>" quantity ="<%-cart.product.quantity%>">+
                                         </div>
                                       </div>
                                     </td>
                                     <td class="product-remove ">
-                                      <a id="del_cart" piid="<%=cart.id%>">Remove</a>
+                                      <a id="del_cart" piid="<%= !isLogin ?cart.product.id :cart.id%>"
+                                        isLogin="<%-isLogin%>">Remove</a>
                                     </td>
                                   </tr>
                                   <%})%>
@@ -120,10 +149,12 @@
                                 <th>Tax</th>
                                 <td data-title="Shipping">
                                   <span class="woocommerce-Price-amount amount"><span
-                                      class="woocommerce-Price-currencySymbol" id = "binood">
-                                    <%=getCart.length == 0 ? '0' : getCart.tax%> %
-                                  </span>
+                                      class="woocommerce-Price-currencySymbol" id="binood">
+                                      <%=getCart.length==0 ? '0' : getCart.tax%> %
+                                    </span>
                                 </td>
+                                <input type="hidden" id="cartTax__" value="<%-getCart.tax%>">
+                                <input type="hidden" id="cart_shipping_value" value="<%-getCart.shipping%>">
                               </tr>
                               <tr class="order-total">
                                 <th>Total</th>
@@ -137,12 +168,13 @@
 
 
                           <div class="wc-proceed-to-checkout mt-3">
-                            <button onclick = "redirectFunction()" id="checkout" <%-getCart.length == 0 ? 'disabled' :'' %> class="log_in_btn w-100 text-center">
+                            <button onclick="redirectFunction(this)" isLogin="<%-isLogin%>" id="checkout"
+                              <%-getCart.length==0 ? 'disabled' :'' %> class="log_in_btn w-100 text-center">
                               Proceed to Checkout</button>
                           </div>
 
 
-<!--                           
+                          <!--                           
                           <%if(getCart.length>0){%>
                           <div class="wc-proceed-to-checkout mt-3">
                             <a href="/checkout" class="log_in_btn w-100 text-center">
@@ -179,12 +211,12 @@
                                 <%=product.name%>
                               </h3>
                               <h3>
-                                <%=product.retailPrice%>
+                                $<%=product.retailPrice%>
                               </h3>
                               <!-- <a id="add_to_cart" pid="<%=product.id%>" style="cursor:pointer" class="cart_b"> Add To
                                 Cart</a> -->
-                                <a  href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
-                                %>"  class="cart_b">View Product</a>
+                              <a href="/product_detail?key=<%=Buffer.from(`${product.id}`, 'binary').toString('base64')
+                                %>" class="cart_b">View Product</a>
                             </div>
                           </div>
                         </div>
@@ -194,3 +226,31 @@
                   </div>
                 </section>
                 <%- include('./footer.ejs'); -%>
+                  <script>
+                    
+                      
+                      let getCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {};
+                      console.log(getCart.length)
+                      let string = ``;
+                      for (let i in getCart) {
+                        console.log('=======================',i)
+                        let id = document.getElementById(`specificationsSelected_${i}`);
+                        let color = document.getElementById(`color__login_${i}`);
+
+                        color.innerHTML =getCart[i].sc
+                        if(id){
+                          
+                        let sp = JSON.parse(getCart[i].product_specifications)
+                        for (let k in sp) {
+
+                          let obs = Object.keys(sp[k])
+                          let val = Object.values(sp[k])
+                          string += `${obs[0]} : ${val[0]} <br/>`
+                        }
+                        id.innerHTML = string
+                      }
+                      }
+                      
+
+                    
+                  </script>

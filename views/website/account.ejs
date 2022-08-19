@@ -192,8 +192,8 @@
                                                     <%=item.product.name%>
                                                   </h3>
                                                   <h3>$<%=item.product.retailPrice%>.00</h3>
-                                                  <a id="add_to_cart" pid="<%=item.product.id%>" class="cart_b"> Add To
-                                                    Cart</a>
+                                                  <a  href="/product_detail?key=<%=Buffer.from(`${item.product.id}`, 'binary').toString('base64')
+                                                  %>"  class="cart_b">View Product</a>
                                                 </div>
                                               </div>
                                             </div>
